@@ -1,0 +1,90 @@
+/* --- Carousel Styles --- */
+.carousel {
+    position: relative;
+    width: 100%;
+    padding: 2rem 0; // Padding for shadows
+
+    &__viewport {
+        width: 100%;
+        cursor: grab;
+        touch-action: pan-y; // Prevent page scroll on horizontal swipe
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+
+    &__track {
+        display: flex;
+        gap: 1.5rem;
+        width: max-content;
+        /* Transition is handled via JS for better control during infinite jump */
+    }
+
+    &__item {
+        flex: 0 0 300px; // Fixed width for cards in carousel
+        width: 300px;
+        max-width: 85vw; // Responsive fallback
+    }
+
+    &__controls {
+        position: absolute;
+        top: 0.5rem;
+        right: 1.5rem;
+        /* Match section padding */
+        display: flex;
+        justify-content: center;
+        gap: 0.42rem;
+        margin-top: 0;
+        z-index: 10;
+        /* Ensure it's above items if they overlap, though here it's fine */
+    }
+
+    &__dot {
+        width: 0.42rem;
+        height: 0.42rem;
+        border-radius: 50%;
+        background: var(--text-lighter);
+        cursor: pointer;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+
+        &--active {
+            background: var(--orange);
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+
+    // Review Card Override inside Carousel
+    .review-card {
+        height: 100%; // Ensure equal height
+    }
+}
+
+// Media Query for switching back to Grid on desktop for specific carousels
+@media (min-width: 768px) {
+    .carousel.carousel--disabled {
+        padding: 0;
+
+        .carousel__viewport {
+            width: auto;
+            overflow: visible;
+        }
+
+        .carousel__track {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            width: auto !important;
+            transform: none !important;
+        }
+
+        .carousel__item {
+            width: auto;
+            max-width: none;
+            flex: none;
+        }
+    }
+}

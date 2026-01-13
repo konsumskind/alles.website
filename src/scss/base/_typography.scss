@@ -1,0 +1,73 @@
+@use '../variables' as *;
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-serif {
+    font-family: 'Merriweather', serif;
+    letter-spacing: -0.025em;
+}
+
+h1 {
+    font-size: var(--font-size-xxl); // text-3xl
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+h4 {
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+p {
+    color: var(--text-main);
+}
+
+.text-orange {
+    color: var(--orange);
+}
+
+.text-light {
+    color: var(--text-light);
+}
+
+.text-lighter {
+    color: var(--text-lighter);
+}
+
+.ui-label {
+    font-size: var(--font-size-xs);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+}
+
+// Text Alignment Utilities
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}

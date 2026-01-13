@@ -1,0 +1,91 @@
+.accordion {
+    width: 100%;
+    // max-width: 800px; // Match standard text width
+    margin: 0 auto;
+    // padding: 0 1.5rem;
+}
+
+.accordion__item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    // Smooth transition for the "Focus Mode" disappearance
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 20rem; // Arbitrary "Closed" height (header only needs ~3rem, but this allows buffer)
+    opacity: 1;
+    overflow: hidden; // Needed for max-height animation
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &.active {
+        max-height: 500vh; // Allow it to grow large when active
+        border-bottom: none; // Cleaner look when focused (optional)
+
+        .accordion__icon {
+            transform: rotate(180deg);
+        }
+
+        /*         .accordion__title {
+            color: var(--orange);
+        } */
+    }
+}
+
+// "Focus Mode": Hide all non-active items
+.accordion.has-focus {
+    .accordion__item:not(.active) {
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        border: none;
+        padding: 0;
+    }
+}
+
+.accordion__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    user-select: none;
+
+    &:hover {
+        .accordion__title {
+            color: var(--orange);
+        }
+    }
+}
+
+.accordion__title {
+    font-weight: 700;
+    font-size: var(--font-size-small);
+    color: var(--text-main);
+    transition: color 0.3s ease;
+}
+
+.accordion__icon {
+    color: var(--orange);
+    transition: transform 0.3s ease;
+    font-size: var(--font-size-small);
+}
+
+.accordion__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.accordion__body {
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: var(--font-size-small);
+    hyphens: auto;
+    text-align: justify;
+
+    p {
+        margin: 0;
+    }
+}

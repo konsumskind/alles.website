@@ -1,0 +1,24 @@
+@use '../variables' as *;
+
+.input-field {
+    width: 100%;
+    background: var(--bg-color);
+    box-shadow: var(--pressed-medium);
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 16px 20px;
+    outline: none;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+
+    &:focus {
+        box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+        color: var(--orange);
+    }
+
+    &::placeholder {
+        color: var(--text-lighter);
+    }
+}

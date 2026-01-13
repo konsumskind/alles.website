@@ -1,0 +1,42 @@
+@use 'base/reset';
+
+@use 'variables' as *;
+
+@use 'base/typography';
+
+@use 'components/buttons';
+@use 'components/cards';
+@use 'components/forms';
+@use 'components/configurator';
+@use 'components/theme-switcher';
+@use 'components/profile';
+
+@use 'layout/hero';
+@use 'layout/sections';
+
+// Modules (Functionality specific)
+@use 'modules/animations';
+@use 'modules/breathing';
+@use 'modules/swipe';
+@use 'modules/nav';
+@use 'modules/toast';
+@use 'modules/carousel';
+@use 'modules/accordion';
+
+
+
+// Imports
+
+
+// --- Global Styles that don't fit components yet ---
+body {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+}

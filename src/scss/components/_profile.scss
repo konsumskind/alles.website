@@ -1,0 +1,61 @@
+@use '../variables' as *;
+
+.profile-container {
+    // Grow with height available (40vh), but constrained by width (100vw - 3rem margins)
+    // and a maximum pixel size to avoid getting too huge.
+    $size: min(35vh, calc(100vw - 3rem), 450px);
+
+    width: $size;
+    height: $size;
+
+    flex-shrink: 0; // Prevent squashing
+    border-radius: 50%; // Frame shape
+    padding: 10px;
+    background: var(--bg-color);
+    box-shadow: var(--hero-profile-shadow-outer);
+    margin: 2.5rem auto 2.5rem auto; // mb-8
+
+    position: relative; // Needed for absolute positioning of pseudo-elements
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* Width/Height relative to container + offset */
+        width: calc(100% + 1.5rem);
+        height: calc(100% + 1.5rem);
+        border-radius: 50%;
+        box-shadow: var(--engraved);
+        // z-index: -1; // Place behind the profile
+        pointer-events: none;
+    }
+
+    &__inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%; // Inner shape (matches frame)
+        overflow: hidden;
+        box-shadow: var(--hero-profile-shadow-inner);
+        background-color: gray;
+
+        img,
+        video {
+            mix-blend-mode: overlay;
+            position: relative;
+        }
+
+        img {
+            top: 15px;
+            left: -41.8px;
+            scale: 1.4;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}

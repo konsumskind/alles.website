@@ -1,0 +1,52 @@
+@use '../variables' as *;
+
+.btn {
+    box-shadow: var(--raised);
+    color: var(--orange);
+    border-radius: var(--border-radius);
+    border: none;
+    transition: all 0.15s ease;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 12px 24px;
+    font-family: inherit;
+
+    &:active,
+    &.active {
+        box-shadow: var(--pressed-small);
+        transform: scale(0.98);
+    }
+
+    &--large {
+        padding: 1rem 1.5rem;
+        font-size: var(--font-size-medium);
+    }
+
+    &--full {
+        width: 100%;
+    }
+}
+
+.icon-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: var(--font-size-large);
+    text-shadow: var(--text-pressed);
+    box-shadow: var(--engraved);
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:active {
+        box-shadow: var(--pressed-small);
+        color: var(--orange);
+        transform: scale(0.95);
+    }
+}

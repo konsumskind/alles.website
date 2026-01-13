@@ -1,0 +1,204 @@
+@use '../base/typography';
+
+/* --- Swipe Button Styles --- */
+/* --- Swipe Button Styles --- */
+.swipe-wrapper {
+    /* Default wrapper behavior (for generic usage like in offers) */
+    position: relative;
+    z-index: 20;
+
+    /* Hero-Specific Styling (Concave Tray) */
+    .hero & {
+        // width: calc(100% + 3rem);
+        margin: 3rem 0 -0.5rem;
+        /* Pull to edges and bottom of hero */
+        // padding: 2rem 0;
+
+        /* Bottom rounded, Top flat (visually handled by pseudos) */
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        /* Inverted (Concave) Top Corners */
+        /*         &::after {
+            content: "";
+            width: 100vw;
+            height: 100%;
+            position: absolute;
+            top: -265px;
+            pointer-events: none;
+            box-shadow: var(--engraved);
+            border-radius: var(--border-radius);
+            z-index: 0;
+            -webkit-mask-image: linear-gradient(to top, black 40%, transparent 50%);
+            mask-image: linear-gradient(to top, black 40%, transparent 50%);
+        } */
+    }
+}
+
+.swipe-cta-label {
+    @extend .ui-label;
+    position: absolute;
+    top: -4.5rem;
+    /* Position as a tab (Nase) on top */
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: var(--bg-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    /* Tab shape */
+
+    /* Raised look for the tab to contrast with engraved wrapper */
+    box-shadow:
+        4px -4px 8px var(--shadow-dark),
+        -4px -4px 8px var(--shadow-light);
+
+    margin-bottom: 0;
+    z-index: 21;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.swipe-container {
+    position: relative;
+    width: 100%;
+    /* Default to full width of parent (e.g. 200px in offers) */
+    height: 70px;
+    border-radius: 999px;
+    background: var(--bg-color);
+    box-shadow: var(--pressed-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+}
+
+/* Force fixed width for the main hero swipe button */
+.hero .swipe-container {
+    width: 320px;
+    max-width: 90%;
+}
+
+.swipe-icon-left,
+.swipe-icon-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 1.5rem;
+    /* Fixed height for auto margin centering */
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-large);
+    color: var(--text-lighter);
+    text-shadow: var(--text-pressed);
+    pointer-events: none;
+    z-index: 1;
+    transition: none;
+    /* No transition needed */
+}
+
+.swipe-icon-left {
+    left: 25px;
+}
+
+.swipe-icon-right {
+    right: 25px;
+}
+
+.swipe-knob {
+    position: absolute;
+    left: 50%;
+    width: 62px;
+    height: 62px;
+    border-radius: 999px;
+    background: var(--bg-color);
+    box-shadow: var(--raised);
+    z-index: 10;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: box-shadow 0.1s;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+/* --- Small Variant --- */
+.swipe-container--small {
+    height: 54px;
+    /* Reduced from 70px */
+}
+
+.swipe-container--small .swipe-knob {
+    width: 46px;
+    /* Reduced from 62px */
+    height: 46px;
+    gap: 8px;
+    /* Reduced gap between arrows */
+}
+
+.swipe-container--small .swipe-icon-left,
+.swipe-container--small .swipe-icon-right {
+    font-size: var(--font-size-medium);
+    /* Smaller icons */
+}
+
+.swipe-container--small .swipe-icon-left {
+    left: 16px;
+}
+
+.swipe-container--small .swipe-icon-right {
+    right: 16px;
+}
+
+.swipe-container--small .swipe-arrow {
+    font-size: var(--font-size-small);
+}
+
+.swipe-arrow {
+    font-size: var(--font-size-medium);
+    color: var(--text-lighter);
+    text-shadow: var(--text-pressed);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    animation: pulse-orange 2s infinite;
+}
+
+@keyframes pulse-orange {
+
+    0%,
+    100% {
+        color: var(--text-lighter);
+        text-shadow: var(--text-pressed);
+    }
+
+    50% {
+        color: var(--orange); // Use highlight (orange) variable
+        text-shadow: 0 0 5px rgba(255, 149, 0, 0.4);
+    }
+}
+
+
+/* Pulse Animation for arrows to suggest interaction */
+@keyframes pulse-arrows {
+    0% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}

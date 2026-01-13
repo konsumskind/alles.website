@@ -1,0 +1,60 @@
+@use '../variables' as *;
+
+.theme-toggle-round {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--theme-switch-bg);
+    /* border: none; */
+    box-shadow: inset -1px -1px 2px var(--theme-switch-shadow-dark), inset 1px 1px 2px var(--theme-switch-shadow-light), -1px -1px 2px var(--theme-switch-shadow-dark), 1px 1px 2px var(--theme-switch-shadow-light);
+    color: var(--text-light);
+    font-size: var(--font-size-large);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 50;
+    transition: all 0.2s ease;
+    overflow: hidden;
+
+    &:active {
+        box-shadow: inset 2px 2px 4px var(--theme-switch-shadow-dark), inset -2px -2px 4px var(--theme-switch-shadow-light), -1px -1px 2px var(--theme-switch-shadow-dark), 1px 1px 2px var(--theme-switch-shadow-light);
+        transform: scale(0.95);
+        color: var(--text-main);
+    }
+
+    .icon-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        text-shadow: 1px 1px 2px var(--theme-switch-shadow-text-light), -1px -1px 2px var(--theme-switch-shadow-text-dark);
+
+        &.spin {
+            animation: icon-spin 0.5s ease-in-out;
+        }
+    }
+
+    i {
+        transition: transform 0.3s ease;
+    }
+
+    /* Fixed rotation for Moon icon */
+    i.fa-moon {
+        transform: rotate(220deg);
+    }
+}
+
+@keyframes icon-spin {
+    0% {
+        transform: rotate(-180deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}

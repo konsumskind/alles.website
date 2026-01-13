@@ -1,0 +1,100 @@
+@use '../variables' as *;
+@use '../base/typography';
+
+.hero {
+    min-height: 85vh;
+    max-width: 1080px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0; // py-10 px-something
+    text-align: center;
+    position: relative;
+
+    // border-radius removed per new design
+    // box-shadow removed per new design
+    &__wrapper {
+        padding: 0 1.5rem; // section-spacer
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        min-height: 72vh;
+        // margin: 0 -1.5rem 0 -1.5rem;
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+        background: linear-gradient(38deg, var(--bg-color) 30%, var(--shadow-light) 60%, var(--bg-color) 100%);
+        box-shadow: var(--engraved);
+    }
+
+    &__brand {
+        margin-top: 33vh;
+        z-index: 10;
+        text-align: center;
+        margin-bottom: 1rem;
+
+        .name {
+            font-size: var(--font-size-large); // smaller
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+            font-family: 'Merriweather', serif;
+        }
+
+        .tagline {
+            @extend .ui-label;
+            width: auto;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+    }
+
+    &__video-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50vh; // Cover top part of screen
+        overflow: hidden;
+        z-index: 0;
+        // Use mask-image for a perfect fade into the background, regardless of what the background is (gradient, image, etc.)
+        -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 98%);
+        mask-image: linear-gradient(to bottom, black 60%, transparent 98%);
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 48.5% 50%;
+        }
+    }
+
+    &__content {
+        display: flex;
+        margin: 1rem 0 2rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__title {
+        max-width: 32rem;
+    }
+
+    &__text {
+        font-size: var(--font-size-medium);
+        color: var(--text-light);
+        margin-top: 0.5rem;
+    }
+
+
+    // Ensure content sits on top of absolute video
+
+    &__scroll-down {
+        margin: 1.5rem 0 1.5rem;
+        color: var(--text-lighter);
+        font-size: var(--font-size-large);
+        opacity: 0.6;
+        cursor: pointer;
+    }
+}
