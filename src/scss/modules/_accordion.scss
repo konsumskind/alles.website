@@ -23,7 +23,7 @@
         border-bottom: none; // Cleaner look when focused (optional)
 
         .accordion__icon {
-            transform: rotate(180deg);
+            transform: rotate(-180deg);
         }
 
         /*         .accordion__title {
