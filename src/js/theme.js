@@ -104,7 +104,7 @@ export class ThemeManager {
         if (!video) return;
 
         const currentSrc = video.getAttribute('src');
-        const targetSrc = isDark ? '/src/assets/bg-start-dark_v05.mp4' : '/src/assets/bg-start_v04.mp4';
+        const targetSrc = isDark ? 'src/assets/bg-start-dark_v05.mp4' : 'src/assets/bg-start_v04.mp4';
 
         // Only update if source is different to prevent flickering/reloading
         if (currentSrc !== targetSrc) {

@@ -3,7 +3,7 @@
 .profile-container {
     // Grow with height available (40vh), but constrained by width (100vw - 3rem margins)
     // and a maximum pixel size to avoid getting too huge.
-    $size: min(35vh, calc(100vw - 3rem), 450px);
+    $size: min(35vh, calc(100vw - 6rem), 450px);
 
     width: $size;
     height: $size;
@@ -47,9 +47,9 @@
         }
 
         img {
-            top: 15px;
+            /*             top: 15px;
             left: -41.8px;
-            scale: 1.4;
+            scale: 1.4; */
         }
 
         video {

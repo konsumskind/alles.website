@@ -57,7 +57,7 @@
         width: 100%;
         height: 50vh; // Cover top part of screen
         overflow: hidden;
-        z-index: 0;
+        z-index: 1;
         // Use mask-image for a perfect fade into the background, regardless of what the background is (gradient, image, etc.)
         -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 98%);
         mask-image: linear-gradient(to bottom, black 60%, transparent 98%);
