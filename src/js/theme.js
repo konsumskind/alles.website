@@ -1,3 +1,6 @@
+import videoLight from '/src/assets/bg-start_v04.mp4';
+import videoDark from '/src/assets/bg-start-dark_v05.mp4';
+
 export class ThemeManager {
     constructor() {
         this.STORAGE_KEY = 'theme-pref-v1'; // 'light' | 'dark' | 'auto'
@@ -103,11 +106,14 @@ export class ThemeManager {
         const video = document.querySelector('.hero__video-background video');
         if (!video) return;
 
-        const currentSrc = video.getAttribute('src');
-        const targetSrc = isDark ? 'src/assets/bg-start-dark_v05.mp4' : 'src/assets/bg-start_v04.mp4';
+        // const currentSrc = video.getAttribute('src'); // Helper: getAttribute returns the attribute value, .src returns full URL
+        const currentSrc = video.currentSrc; // Using currentSrc to compare with resolved URL if possible, or just src attribute
+        // Actually, better to just rely on our managed state or comparison.
+        // Let's use the explicit imported paths which are now URL strings
+        const targetSrc = isDark ? videoDark : videoLight;
 
-        // Only update if source is different to prevent flickering/reloading
-        if (currentSrc !== targetSrc) {
+        // Accessing .src property gives absolute URL, matching the imported value from Vite
+        if (video.getAttribute('src') !== targetSrc && video.src !== targetSrc) {
             video.setAttribute('src', targetSrc);
             video.load();
             video.play().catch(e => console.log("Video autoplay blocked or failed", e));
