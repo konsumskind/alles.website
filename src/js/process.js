@@ -24,7 +24,7 @@ export class ProcessAnimation {
             });
         });
 
-        // Add click listeners to label items (optional but good for UX)
+        // Add click listeners to label items
         this.labelItems.forEach((label, index) => {
             label.style.cursor = 'pointer';
             label.addEventListener('click', () => {
@@ -37,6 +37,11 @@ export class ProcessAnimation {
 
         // Ensure labels are centered after initial render
         setTimeout(() => this.updateLabelsTrack(0), 100);
+
+        // Handle Resize by recalculating layout
+        window.addEventListener('resize', () => {
+            this.updateLayout(this.currentIndex, this.currentIndex);
+        });
     }
 
     updateStep(index) {
@@ -74,11 +79,21 @@ export class ProcessAnimation {
     }
 
     updateLayout(index, oldIndex) {
-        // 1. Update Icons Track (Horizontal snap)
-        // Step 0 -> shift +160px, Step 1 -> shift +53px, Step 2 -> shift -53px, Step 3 -> shift -160px
-        const stepShifts = [160, 53, -53, -160];
-        const targetShift = stepShifts[index] || 0;
-        this.track.style.transform = `translateX(${targetShift}px)`;
+        // 1. Update Icons Track (Horizontal snap to center active step)
+        const activeStep = this.steps[index];
+        if (activeStep) {
+            const containerCenter = this.container.offsetWidth / 2;
+
+            // Calculate step center relative to the track START
+            const stepLeft = activeStep.offsetLeft;
+            const stepWidth = activeStep.offsetWidth;
+            const stepCenter = stepLeft + (stepWidth / 2);
+
+            // Desired shift: Move track so stepCenter aligns with containerCenter
+            const shift = containerCenter - stepCenter;
+
+            this.track.style.transform = `translateX(${shift}px)`;
+        }
 
         // 2. Update Labels Track (Horizontal scroll to center)
         this.updateLabelsTrack(index);
@@ -86,6 +101,7 @@ export class ProcessAnimation {
         // 3. Update progress line width
         if (this.progressLine) {
             const isBackward = index < oldIndex;
+            // Delay line when moving backward so circles can vanish first
             this.progressLine.style.transitionDelay = isBackward ? '0.3s' : '0s';
 
             const progress = (index / (this.stepCount - 1)) * 100;
@@ -98,12 +114,10 @@ export class ProcessAnimation {
         if (!activeLabel) return;
 
         const containerWidth = this.labelsTrack.parentElement.offsetWidth;
-        const trackLeft = this.labelsTrack.getBoundingClientRect().left;
+        const trackRect = this.labelsTrack.getBoundingClientRect();
         const itemRect = activeLabel.getBoundingClientRect();
 
-        // We need the offset of the item relative to the START of the track
-        // itemRect.left - trackRect.left
-        const trackRect = this.labelsTrack.getBoundingClientRect();
+        // Calculate item center relative to track
         const itemOffsetInTrack = itemRect.left - trackRect.left + (itemRect.width / 2);
 
         // Center of container
@@ -112,8 +126,6 @@ export class ProcessAnimation {
         // Final translateX
         const shift = centerOffset - itemOffsetInTrack;
 
-        // Note: We avoid transform if the track center is already handled by CSS justify-content
-        // But since we want precision and sliding, we overwrite it.
         this.labelsTrack.style.transform = `translateX(${shift}px)`;
     }
 
