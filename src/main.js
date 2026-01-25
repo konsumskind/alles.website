@@ -7,7 +7,7 @@ import { Accordion } from './js/accordion.js';
 import { initCarousel } from './js/carousel.js';
 import { ScrollManager } from './js/scroll.js';
 import { initContactForm, sendMail } from './js/contact.js';
-import { showToast } from './js/utils.js';
+import { ProcessAnimation } from './js/process.js';
 
 // Initialize Breathing Exercise
 const initBreathing = () => {
@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCarousel();
     initSwipeButtons();
     new OfferConfigurator();
+    new ProcessAnimation();
 
     // Feature Modules
     initBreathing();

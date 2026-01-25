@@ -5,7 +5,6 @@
 .swipe-wrapper {
     /* Default wrapper behavior (for generic usage like in offers) */
     position: relative;
-    z-index: 20;
 
     /* Hero-Specific Styling (Concave Tray) */
     .hero & {
@@ -57,7 +56,6 @@
         -4px -4px 8px var(--shadow-light);
 
     margin-bottom: 0;
-    z-index: 21;
     white-space: nowrap;
     text-align: center;
 }
@@ -75,7 +73,7 @@
     justify-content: center;
     overflow: hidden;
     touch-action: none;
-    // user-select: none;
+    user-select: none;
 }
 
 /* Force fixed width for the main hero swipe button */
@@ -98,7 +96,6 @@
     color: var(--text-lighter);
     text-shadow: var(--text-pressed);
     pointer-events: none;
-    z-index: 1;
     transition: none;
     /* No transition needed */
 }
@@ -119,7 +116,6 @@
     border-radius: 999px;
     background: var(--bg-color);
     box-shadow: var(--raised);
-    z-index: 10;
     cursor: grab;
     display: flex;
     align-items: center;

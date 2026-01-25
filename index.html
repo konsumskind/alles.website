@@ -19,6 +19,10 @@
     <main>
         <!-- Start / Hero Section -->
         <section id="start" class="hero">
+            <div class="hero__video-background">
+                <video src="src/assets/bg-start_v04.mp4" autoplay loop muted playsinline
+                    aria-label="Strand Video"></video>
+            </div>
             <!-- Theme Switcher -->
             <!-- Theme Switcher (Single Round Button) -->
             <button id="themeToggle" class="theme-toggle-round" aria-label="Theme umschalten">
@@ -35,10 +39,6 @@
 
                     <p class="hero__text">Beziehungen gestalten, eigenmächtig Ziele erreichen und Konflikte strukturiert
                         lösen.</p>
-                </div>
-                <div class="hero__video-background">
-                    <video src="src/assets/bg-start_v04.mp4" autoplay loop muted playsinline
-                        aria-label="Strand Video"></video>
                 </div>
 
             </div>
@@ -236,184 +236,272 @@
 
         <!-- Über Mich Section -->
         <section id="ueber-mich" class="section">
-            <div class="section__header">
-                <div class="ui-label">
-                    <span class="text-orange">Janosch Kartschall</span>
-                </div>
+            <div class="section-card">
+                <div class="section__header">
+                    <div class="ui-label">
+                        <span class="text-orange">Janosch Kartschall</span>
+                    </div>
 
-                <h3>Herz auf der Zunge, Karten auf den Tisch</h3>
+                    <h3>Herz auf der Zunge, Karten auf den Tisch</h3>
 
-                <!-- Custom Image Layout - Inline Styles Preserved for Complexity/Uniqueness -->
-                <div class="profile-container">
-                    <div class="profile-container__inner">
-                        <img src="/src/img/profile_picture_v01.jpg" alt="Janosch Kartschall"
-                            onerror="this.src='https://placehold.co/200x200?text=JK';">
+                    <!-- Custom Image Layout - Inline Styles Preserved for Complexity/Uniqueness -->
+                    <div class="profile-container">
+                        <div class="profile-container__inner">
+                            <img src="/src/img/profile_picture_v01.jpg" alt="Janosch Kartschall"
+                                onerror="this.src='https://placehold.co/200x200?text=JK';">
+                        </div>
+                    </div>
+
+
+                    <div class="section__intro">
+                        <p>Ich begegne allen Perspektiven allparteilich. Das ist mehr als Neutralität: Ich stelle mich
+                            gleichermaßen an die Seite aller Beteiligten. Eine Position spielt dabei keine Rolle, und
+                            das
+                            ist meine eigene. Ich frage nach, höre neugierig hin und halte den Raum – für stille Pausen
+                            genauso wie für hoch kochende Emotionen.</p><br>
+                        <p>Ich nehme dich ernst, hinterfrage aber deine Wahrnehmung. Unsere Sprache formt, was wir sehen
+                            können – wie in Kulturen, die Blau nicht sehen, weil ihnen das Wort fehlt. Oft liegt die
+                            Lösung
+                            darin, die gewohnte Perspektive zu verlassen, um neue Möglichkeiten überhaupt erst sichtbar
+                            zu
+                            machen.</p><br>
+                        <p>Kompromisse haben einen besseren Ruf, als ihnen zusteht. Mein Anspruch ist das
+                            Sowohl-als-auch:
+                            Lösungen, die die Bedürfnisse aller Beteiligten oder deiner inneren Anteile berücksichtigen.
+                            Nur
+                            so entsteht echte Integration und eine Win-Win-Situation, die auch unter Druck trägt.</p>
+                        <br>
+                        <p>Du bist der Experte für deine Welt, ich der Experte für den Prozess. Lösungen von der Stange
+                            halten selten lange, weil sie nicht in deinem System gewachsen sind. Wenn du jedoch bereit
+                            bist,
+                            Verantwortung für deine Gefühle und Bedürfnisse zu übernehmen, finden wir gemeinsam Wege,
+                            die
+                            wirklich tragen.</p><br>
+                        <p>Versteckte Notizen gibt es bei mir nicht. Ich arbeite methodisch offen und mache den Prozess
+                            für
+                            dich transparent. Gleichzeitig ist unser Raum absolut geschützt: Alles Besprochene
+                            unterliegt
+                            strengster Vertraulichkeit.</p>
                     </div>
                 </div>
 
+                <div style="margin-top: 2.5rem;">
+                    <div class="reference-wrapper">
+                        <div class="qualification-badge">
+                            <i class="fas fa-certificate text-orange"></i>
+                            <span class="qualification-badge__text">Zertifizierter<br>Systemischer Coach</span>
+                        </div>
+                        <div class="qualification-badge">
+                            <i class="fas fa-stamp text-orange"></i>
+                            <span class="qualification-badge__text">Staatlich geprüfter<br>Mediator</span>
+                        </div>
+                        <div class="certification-badge">
+                            <div class="certification-badge__logo">
+                                <img src="/src/img/halle11-logo.jpg" alt="Halle 11 Logo">
+                            </div>
+                            <div class="certification-badge__text">
+                                Akademie für<br>Kommunikation
+                            </div>
+                            <img src="/src/img/ZFU-Siegel-Zugelassen-QMB-2023.png" alt="ZFU Siegel"
+                                class="certification-badge__seal">
+                        </div>
+                        <div class="rating-badge">
+                            <i class="fab fa-google g-icon"></i>
+                            <div class="rating-badge__content">
+                                <div class="rating-badge__score">
+                                    <span>4.9</span>
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                            class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <span class="rating-badge__count">18 Bewertungen</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="section__intro">
-                    <p>Ich begegne allen Perspektiven allparteilich. Das ist mehr als Neutralität: Ich stelle mich
-                        gleichermaßen an die Seite aller Beteiligten. Eine Position spielt dabei keine Rolle, und das
-                        ist meine eigene. Ich frage nach, höre neugierig hin und halte den Raum – für stille Pausen
-                        genauso wie für hoch kochende Emotionen.</p><br>
-                    <p>Ich nehme dich ernst, hinterfrage aber deine Wahrnehmung. Unsere Sprache formt, was wir sehen
-                        können – wie in Kulturen, die Blau nicht sehen, weil ihnen das Wort fehlt. Oft liegt die Lösung
-                        darin, die gewohnte Perspektive zu verlassen, um neue Möglichkeiten überhaupt erst sichtbar zu
-                        machen.</p><br>
-                    <p>Kompromisse haben einen besseren Ruf, als ihnen zusteht. Mein Anspruch ist das Sowohl-als-auch:
-                        Lösungen, die die Bedürfnisse aller Beteiligten oder deiner inneren Anteile berücksichtigen. Nur
-                        so entsteht echte Integration und eine Win-Win-Situation, die auch unter Druck trägt.</p><br>
-                    <p>Du bist der Experte für deine Welt, ich der Experte für den Prozess. Lösungen von der Stange
-                        halten selten lange, weil sie nicht in deinem System gewachsen sind. Wenn du jedoch bereit bist,
-                        Verantwortung für deine Gefühle und Bedürfnisse zu übernehmen, finden wir gemeinsam Wege, die
-                        wirklich tragen.</p><br>
-                    <p>Versteckte Notizen gibt es bei mir nicht. Ich arbeite methodisch offen und mache den Prozess für
-                        dich transparent. Gleichzeitig ist unser Raum absolut geschützt: Alles Besprochene unterliegt
-                        strengster Vertraulichkeit.</p>
+                    <!-- Carousel -->
+                    <div class="carousel" id="reviewCarousel">
+                        <div class="carousel__viewport">
+                            <div class="carousel__track">
+                                <!-- Review 1 -->
+                                <article class="carousel__item">
+                                    <div class="review-card">
+                                        <div class="review-card__header">
+                                            <div class="review-card__user">
+                                                <div class="avatar orange">J</div>
+                                                <div class="name">Jeff E.</div>
+                                            </div>
+                                            <div class="review-card__rating"><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                        </div>
+                                        <p class="review-card__text">"Sehr guter Geburtsvorbereitungskurs... Sowohl
+                                            meine
+                                            Frau als auch ich können Interessierten eine Teilnahme am Kurs wärmstens
+                                            empfehlen."</p>
+                                    </div>
+                                </article>
+                                <!-- Review 2 -->
+                                <article class="carousel__item">
+                                    <div class="review-card">
+                                        <div class="review-card__header">
+                                            <div class="review-card__user">
+                                                <div class="avatar blue">F</div>
+                                                <div class="name">Florian Knaeble</div>
+                                            </div>
+                                            <div class="review-card__rating"><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                        </div>
+                                        <p class="review-card__text">"Sehr schöne Erfahrung in angenehmster Atmosphäre.
+                                            Super, ein männliches Gegenüber zu haben."</p>
+                                    </div>
+                                </article>
+                                <!-- Review 3 -->
+                                <article class="carousel__item">
+                                    <div class="review-card">
+                                        <div class="review-card__header">
+                                            <div class="review-card__user">
+                                                <div class="avatar purple">N</div>
+                                                <div class="name">Nicole Mühlberger</div>
+                                            </div>
+                                            <div class="review-card__rating"><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                        </div>
+                                        <p class="review-card__text">"Trotz anfänglicher - vor allem auf männlicher
+                                            Seite
+                                            vorhandener -"Skepsis"... Eine ganz klare Empfehlung für alle werdenden
+                                            Eltern!"
+                                        </p>
+                                    </div>
+                                </article>
+                                <!-- Review 4 -->
+                                <article class="carousel__item">
+                                    <div class="review-card">
+                                        <div class="review-card__header">
+                                            <div class="review-card__user">
+                                                <div class="avatar orange">N</div>
+                                                <div class="name">Nikolaus Malottke</div>
+                                            </div>
+                                            <div class="review-card__rating"><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                        </div>
+                                        <p class="review-card__text">"Wir haben viele gute Denkanstöße (insbesondere
+                                            auch
+                                            für die werdenden Väter) aus dem Kurs mitgenommen..."</p>
+                                    </div>
+                                </article>
+                                <!-- Review 5 -->
+                                <article class="carousel__item">
+                                    <div class="review-card">
+                                        <div class="review-card__header">
+                                            <div class="review-card__user">
+                                                <div class="avatar blue">B</div>
+                                                <div class="name">Birgit Adams</div>
+                                            </div>
+                                            <div class="review-card__rating"><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                        </div>
+                                        <p class="review-card__text">"...Janosch hat eine angenehme Atmosphäre erzeugt,
+                                            in
+                                            der man sich ohne Scheu öffnen konnte."</p>
+                                    </div>
+                                </article>
+                                <!-- Review 6 -->
+                                <article class="carousel__item">
+                                    <div class="review-card">
+                                        <div class="review-card__header">
+                                            <div class="review-card__user">
+                                                <div class="avatar purple">D</div>
+                                                <div class="name">Daniel Trautmann</div>
+                                            </div>
+                                            <div class="review-card__rating"><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                    class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                        </div>
+                                        <p class="review-card__text">"Tolle Atmosphäre und entspanntes Miteinander...
+                                            Insbesondere für uns Männer ein unbedingtes „Must“"</p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Process Icons -->
+            <div class="profile-process" id="profileProcess">
+                <div class="profile-process__labels-container">
+                    <div class="profile-process__labels-track" id="processLabels">
+                        <div class="profile-process__label-item active">Kennenlernen</div>
+                        <div class="profile-process__label-item">Auftragsklärung</div>
+                        <div class="profile-process__label-item">Sitzung</div>
+                        <div class="profile-process__label-item">Transfer</div>
+                    </div>
+                </div>
+                <div class="profile-process__track" id="processTrack">
+                    <div class="profile-process__line" id="processLine">
+                        <div class="profile-process__line--progress" id="processProgress"></div>
+                    </div>
+
+                    <!-- 1. Kennenlernen -->
+                    <div class="profile-process__step" data-step="1" data-label="Kennenlernen"
+                        data-text="Chemie ist alles. In einem unverbindlichen 20-minütigen Telefonat klären wir dein Anliegen und prüfen, ob wir zueinander passen.">
+                        <div class="profile-process__badge">Kostenlos</div>
+                        <div class="profile-process__icon" aria-label="Kennenlernen">
+                            <svg viewBox="0 0 62 62">
+                                <circle cx="31" cy="31" r="30"></circle>
+                            </svg>
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                    </div>
+
+                    <!-- 2. Auftragsklärung -->
+                    <div class="profile-process__step" data-step="2" data-label="Auftragsklärung"
+                        data-text="Bevor wir starten, definieren wir das Ziel. Was genau soll am Ende anders sein? Ein präziser Auftrag ist der halbe Erfolg.">
+                        <div class="profile-process__icon" aria-label="Auftragsklärung">
+                            <svg viewBox="0 0 62 62">
+                                <circle cx="31" cy="31" r="30"></circle>
+                            </svg>
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                    </div>
+
+                    <!-- 3. Sitzung -->
+                    <div class="profile-process__step" data-step="3" data-label="Sitzung"
+                        data-text="Wir arbeiten in Einzelsitzungen. Dabei nutzen wir systemische Fragetechniken, Aufstellungsarbeit und Perspektivwechsel. Oft reichen schon wenige Sitzungen, um Knoten zu lösen.">
+                        <div class="profile-process__icon" aria-label="Sitzung">
+                            <svg viewBox="0 0 62 62">
+                                <circle cx="31" cy="31" r="30"></circle>
+                            </svg>
+                            <i class="fas fa-comments"></i>
+                        </div>
+                    </div>
+
+                    <!-- 4. Transfer -->
+                    <div class="profile-process__step" data-step="4" data-label="Transfer"
+                        data-text="Erkenntnis ohne Handlung ist wirkungslos. Wir sichern ab, wie du das Neue konkret in deinen Alltag integrierst und nachhaltig verankerst.">
+                        <div class="profile-process__icon" aria-label="Transfer">
+                            <svg viewBox="0 0 62 62">
+                                <circle cx="31" cy="31" r="30"></circle>
+                            </svg>
+                            <i class="fas fa-check-double"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-process__description">
+                    <p id="processText">Chemie ist alles...</p>
+                    <a href="tel:+4915772998248" class="profile-process__cta" aria-label="Anrufen">
+                        <i class="fas fa-phone-alt"></i>
+                    </a>
                 </div>
             </div>
 
-            <div style="margin-top: 2.5rem;">
-                <div class="reference-wrapper">
-                    <div class="qualification-badge">
-                        <i class="fas fa-certificate text-orange"></i>
-                        <span class="qualification-badge__text">Zertifizierter<br>Systemischer Coach</span>
-                    </div>
-                    <div class="qualification-badge">
-                        <i class="fas fa-stamp text-orange"></i>
-                        <span class="qualification-badge__text">Staatlich geprüfter<br>Mediator</span>
-                    </div>
-                    <div class="certification-badge">
-                        <div class="certification-badge__logo">
-                            <img src="/src/img/halle11-logo.jpg" alt="Halle 11 Logo">
-                        </div>
-                        <div class="certification-badge__text">
-                            Akademie für<br>Kommunikation
-                        </div>
-                        <img src="/src/img/ZFU-Siegel-Zugelassen-QMB-2023.png" alt="ZFU Siegel"
-                            class="certification-badge__seal">
-                    </div>
-                    <div class="rating-badge">
-                        <i class="fab fa-google g-icon"></i>
-                        <div class="rating-badge__content">
-                            <div class="rating-badge__score">
-                                <span>4.9</span>
-                                <div class="stars">
-                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                        class="fas fa-star"></i><i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                            <span class="rating-badge__count">18 Bewertungen</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Carousel -->
-                <div class="carousel" id="reviewCarousel">
-                    <div class="carousel__viewport">
-                        <div class="carousel__track">
-                            <!-- Review 1 -->
-                            <article class="carousel__item">
-                                <div class="review-card">
-                                    <div class="review-card__header">
-                                        <div class="review-card__user">
-                                            <div class="avatar orange">J</div>
-                                            <div class="name">Jeff E.</div>
-                                        </div>
-                                        <div class="review-card__rating"><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                    </div>
-                                    <p class="review-card__text">"Sehr guter Geburtsvorbereitungskurs... Sowohl meine
-                                        Frau als auch ich können Interessierten eine Teilnahme am Kurs wärmstens
-                                        empfehlen."</p>
-                                </div>
-                            </article>
-                            <!-- Review 2 -->
-                            <article class="carousel__item">
-                                <div class="review-card">
-                                    <div class="review-card__header">
-                                        <div class="review-card__user">
-                                            <div class="avatar blue">F</div>
-                                            <div class="name">Florian Knaeble</div>
-                                        </div>
-                                        <div class="review-card__rating"><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                    </div>
-                                    <p class="review-card__text">"Sehr schöne Erfahrung in angenehmster Atmosphäre.
-                                        Super, ein männliches Gegenüber zu haben."</p>
-                                </div>
-                            </article>
-                            <!-- Review 3 -->
-                            <article class="carousel__item">
-                                <div class="review-card">
-                                    <div class="review-card__header">
-                                        <div class="review-card__user">
-                                            <div class="avatar purple">N</div>
-                                            <div class="name">Nicole Mühlberger</div>
-                                        </div>
-                                        <div class="review-card__rating"><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                    </div>
-                                    <p class="review-card__text">"Trotz anfänglicher - vor allem auf männlicher Seite
-                                        vorhandener -"Skepsis"... Eine ganz klare Empfehlung für alle werdenden Eltern!"
-                                    </p>
-                                </div>
-                            </article>
-                            <!-- Review 4 -->
-                            <article class="carousel__item">
-                                <div class="review-card">
-                                    <div class="review-card__header">
-                                        <div class="review-card__user">
-                                            <div class="avatar orange">N</div>
-                                            <div class="name">Nikolaus Malottke</div>
-                                        </div>
-                                        <div class="review-card__rating"><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                    </div>
-                                    <p class="review-card__text">"Wir haben viele gute Denkanstöße (insbesondere auch
-                                        für die werdenden Väter) aus dem Kurs mitgenommen..."</p>
-                                </div>
-                            </article>
-                            <!-- Review 5 -->
-                            <article class="carousel__item">
-                                <div class="review-card">
-                                    <div class="review-card__header">
-                                        <div class="review-card__user">
-                                            <div class="avatar blue">B</div>
-                                            <div class="name">Birgit Adams</div>
-                                        </div>
-                                        <div class="review-card__rating"><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                    </div>
-                                    <p class="review-card__text">"...Janosch hat eine angenehme Atmosphäre erzeugt, in
-                                        der man sich ohne Scheu öffnen konnte."</p>
-                                </div>
-                            </article>
-                            <!-- Review 6 -->
-                            <article class="carousel__item">
-                                <div class="review-card">
-                                    <div class="review-card__header">
-                                        <div class="review-card__user">
-                                            <div class="avatar purple">D</div>
-                                            <div class="name">Daniel Trautmann</div>
-                                        </div>
-                                        <div class="review-card__rating"><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                    </div>
-                                    <p class="review-card__text">"Tolle Atmosphäre und entspanntes Miteinander...
-                                        Insbesondere für uns Männer ein unbedingtes „Must“"</p>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </div>
             </div>
             </div>
             </div>
@@ -637,7 +725,7 @@
         <!-- Kontakt Section -->
         <section id="kontakt" class="section">
             <div class="contact-card">
-                <div style="position: relative; z-index: 10;">
+                <div style="position: relative;">
                     <h3>Lass uns sprechen!</h3>
                     <p class="contact-intro-text">Vorgespräch kostenlos (15 Min).</p>
 

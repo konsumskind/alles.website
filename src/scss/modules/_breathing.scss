@@ -12,7 +12,6 @@
     margin-bottom: -3rem;
     /* Overlap the text area */
     position: relative;
-    z-index: 50;
     transition: opacity 0.5s ease, transform 0.5s ease;
 
     &.hidden {
@@ -67,7 +66,6 @@
     color: var(--orange);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    z-index: 10;
     transition: transform 4s ease-in-out, box-shadow 4s ease-in-out, color 4s ease;
 
     &.idle-breathing {
