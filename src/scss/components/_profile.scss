@@ -155,8 +155,8 @@
         width: 62px;
         height: 62px;
         border-radius: 50%;
-        background-color: var(--bg-color);
-        box-shadow: var(--engraved);
+        background: var(--bg-gradient);
+        box-shadow: var(--engraved), var(--raised);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -196,6 +196,7 @@
         color: var(--orange);
         box-shadow: var(--engraved);
 
+
         circle {
             stroke-dashoffset: 0;
         }
@@ -223,21 +224,16 @@
         transition-delay: 0.3s;
     }
 
-    &__step.active &__icon i,
-    &__step.completed &__icon i {
-        text-shadow: none;
-    }
-
     &__labels-container {
         position: absolute;
-        top: -1.75rem;
+        top: -2rem;
         left: 50%;
         transform: translateX(-50%);
         width: 100%;
         max-width: 320px;
         height: 3.5rem;
         display: flex;
-        // justify-content: center;
+        justify-content: center;
         align-items: flex-end;
         // overflow: hidden;
         // mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
@@ -247,7 +243,7 @@
     &__labels-track {
         display: flex;
         align-items: flex-end;
-        transition: transform 0.6s cubic-bezier(0.34, 1.36, 0.64, 1);
+        // transition: transform 0.6s cubic-bezier(0.34, 1.36, 0.64, 1);
         width: fit-content;
         position: relative;
         white-space: nowrap;
@@ -271,13 +267,14 @@
             4px -4px 8px var(--shadow-dark),
             -4px -4px 8px var(--shadow-light);
         background: var(--bg-color);
+        z-index: 1;
 
         &.active {
             color: var(--orange);
             opacity: 1;
             transform: translateY(0) scale(1.1);
             // margin: 0 0.25rem;
-            z-index: 10;
+            z-index: 3 !important;
         }
     }
 
@@ -295,13 +292,32 @@
             max-width: min(25rem, 90vw);
             margin: 0;
             line-height: 1.5;
-            transition: opacity 0.15s ease;
+
+            // Transition settings
+            transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
 
             // Stable height to prevent jumping
-            min-height: 6.5rem;
+            min-height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
+
+            // Animation States
+            &.hide {
+                opacity: 0;
+                transform: scale(0.5);
+                filter: blur(4px);
+            }
+
+            &.prepare-enter {
+                transition: none !important;
+                opacity: 0;
+                transform: scale(1.5);
+                filter: blur(4px);
+            }
         }
     }
 
@@ -315,9 +331,9 @@
         border-radius: 50%;
         color: var(--orange);
         text-decoration: none;
-        box-shadow: var(--engraved);
+        box-shadow: var(--engraved), var(--raised);
         transition: all 0.2s ease;
-        background: var(--bg-color);
+        background: var(--bg-gradient);
 
         &:active {
             box-shadow: var(--pressed-small-orange);

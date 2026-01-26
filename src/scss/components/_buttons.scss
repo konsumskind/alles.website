@@ -1,7 +1,7 @@
 @use '../variables' as *;
 
 .btn {
-    box-shadow: var(--raised);
+    box-shadow: var(--engraved), var(--raised);
     color: var(--orange);
     border-radius: var(--border-radius);
     border: none;
@@ -40,7 +40,8 @@
     color: var(--text-light);
     font-size: var(--font-size-large);
     text-shadow: var(--text-pressed);
-    box-shadow: var(--engraved);
+    box-shadow: var(--engraved), var(--raised);
+    background: var(--bg-gradient);
     transition: all 0.3s ease;
     cursor: pointer;
 

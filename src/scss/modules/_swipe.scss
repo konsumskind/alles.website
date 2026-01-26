@@ -64,7 +64,7 @@
     position: relative;
     width: 100%;
     /* Default to full width of parent (e.g. 200px in offers) */
-    height: 70px;
+    height: 62px;
     border-radius: 999px;
     background: var(--bg-color);
     box-shadow: var(--pressed-medium);
@@ -114,8 +114,8 @@
     width: 62px;
     height: 62px;
     border-radius: 999px;
-    background: var(--bg-color);
-    box-shadow: var(--raised);
+    background: var(--bg-gradient);
+    box-shadow: var(--raised), var(--engraved);
     cursor: grab;
     display: flex;
     align-items: center;

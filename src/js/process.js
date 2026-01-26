@@ -12,6 +12,7 @@ export class ProcessAnimation {
 
         this.stepCount = this.steps.length;
         this.currentIndex = 0;
+        this.animationTimeout = null;
         this.init();
     }
 
@@ -35,13 +36,45 @@ export class ProcessAnimation {
         // Initialize first step
         this.updateStep(0);
 
-        // Ensure labels are centered after initial render
-        setTimeout(() => this.updateLabelsTrack(0), 100);
-
         // Handle Resize by recalculating layout
         window.addEventListener('resize', () => {
             this.updateLayout(this.currentIndex, this.currentIndex);
         });
+
+        // Touch / Swipe Support
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+
+        this.container.addEventListener('touchstart', (e) => {
+            this.touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        this.container.addEventListener('touchend', (e) => {
+            this.touchEndX = e.changedTouches[0].screenX;
+            this.handleSwipe();
+        }, { passive: true });
+    }
+
+    handleSwipe() {
+        // Minimum swipe distance threshold
+        const threshold = 50;
+        const swipeDistance = this.touchStartX - this.touchEndX;
+
+        // Check if swipe length exceeds threshold
+        if (Math.abs(swipeDistance) > threshold) {
+            // Swipe Left -> Next Step
+            if (swipeDistance > 0) {
+                if (this.currentIndex < this.stepCount - 1) {
+                    this.updateStep(this.currentIndex + 1);
+                }
+            }
+            // Swipe Right -> Previous Step
+            else {
+                if (this.currentIndex > 0) {
+                    this.updateStep(this.currentIndex - 1);
+                }
+            }
+        }
     }
 
     updateStep(index) {
@@ -96,7 +129,7 @@ export class ProcessAnimation {
         }
 
         // 2. Update Labels Track (Horizontal scroll to center)
-        this.updateLabelsTrack(index);
+        // this.updateLabelsTrack(index); -> Disabled per requirement
 
         // 3. Update progress line width
         if (this.progressLine) {
@@ -109,36 +142,38 @@ export class ProcessAnimation {
         }
     }
 
-    updateLabelsTrack(index) {
-        const activeLabel = this.labelItems[index];
-        if (!activeLabel) return;
 
-        const containerWidth = this.labelsTrack.parentElement.offsetWidth;
-        const trackRect = this.labelsTrack.getBoundingClientRect();
-        const itemRect = activeLabel.getBoundingClientRect();
-
-        // Calculate item center relative to track
-        const itemOffsetInTrack = itemRect.left - trackRect.left + (itemRect.width / 2);
-
-        // Center of container
-        const centerOffset = containerWidth / 2;
-
-        // Final translateX
-        const shift = centerOffset - itemOffsetInTrack;
-
-        this.labelsTrack.style.transform = `translateX(${shift}px)`;
-    }
 
     updateContent(step) {
         const descText = step.getAttribute('data-text');
 
         // Animate Description Text
         if (this.textElement.innerText !== descText) {
-            this.textElement.style.opacity = 0;
-            setTimeout(() => {
+
+            // Clear existing timeout to prevent overlap
+            if (this.animationTimeout) {
+                clearTimeout(this.animationTimeout);
+            }
+
+            // 1. Hide (Scale down & Blur)
+            this.textElement.classList.add('hide');
+
+            this.animationTimeout = setTimeout(() => {
+                // 2. Change Content
                 this.textElement.innerText = descText;
-                this.textElement.style.opacity = 1;
-            }, 150);
+
+                // 3. Prepare for Enter (Scale up & Blur, No Transition)
+                this.textElement.classList.add('prepare-enter');
+                this.textElement.classList.remove('hide');
+
+                // Force Reflow
+                void this.textElement.offsetWidth;
+
+                // 4. Animate In (Transition to Normal)
+                this.textElement.classList.remove('prepare-enter');
+
+                this.animationTimeout = null;
+            }, 300); // Wait for hide transition (matches CSS)
         }
     }
 }
