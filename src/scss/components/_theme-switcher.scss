@@ -9,7 +9,7 @@
     border-radius: 50%;
     background: var(--theme-switch-bg);
     /* border: none; */
-    box-shadow: inset -1px -1px 2px var(--theme-switch-shadow-dark), inset 1px 1px 2px var(--theme-switch-shadow-light), -1px -1px 2px var(--theme-switch-shadow-dark), 1px 1px 2px var(--theme-switch-shadow-light);
+    box-shadow: (inset -1px -1px 2px var(--theme-switch-shadow-dark), inset 1px 1px 2px var(--theme-switch-shadow-light), -1px -1px 2px var(--theme-switch-shadow-dark), 1px 1px 2px var(--theme-switch-shadow-light));
     color: var(--text-light);
     font-size: var(--font-size-large);
     display: flex;
