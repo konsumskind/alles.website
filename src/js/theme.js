@@ -1,7 +1,7 @@
 import videoLightIntro from '/src/assets/bg-start_intro_v09.mp4';
 import videoLightLoop from '/src/assets/bg-start_loop_v10.mp4';
-import videoDarkIntro from '/src/assets/bg-start-dark_loop_v07.mp4';
-import videoDarkLoop from '/src/assets/bg-start-dark_loop_v07.mp4';
+import videoDarkIntro from '/src/assets/bg-start-dark_loop_v08.mp4';
+import videoDarkLoop from '/src/assets/bg-start-dark_loop_v08.mp4';
 
 export class ThemeManager {
     constructor() {
@@ -85,24 +85,26 @@ export class ThemeManager {
     applyTheme(val, isInitial = false) {
         const isDark = val === 'dark' || (val === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-        // Update Body Class
-        if (isDark) {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
+        // Define UI Update Callback
+        const updateUI = () => {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            this.currentIsDark = isDark;
+            this.updateMetaThemeColor();
+        };
 
-        this.currentIsDark = isDark;
-
-        // Update Hero Video
-        this.updateHeroVideo(isDark, isInitial);
-
-        // Update Meta Theme Color
-        this.updateMetaThemeColor();
+        // Update Hero Video and pass UI callback
+        this.updateHeroVideo(isDark, isInitial, updateUI);
     }
 
-    updateHeroVideo(isDark, isInitial = false) {
-        if (!this.video1 || !this.video2) return;
+    updateHeroVideo(isDark, isInitial = false, uiCallback) {
+        if (!this.video1 || !this.video2) {
+            if (uiCallback) uiCallback();
+            return;
+        }
 
         // LOGIC:
         // 1. Initial Load:
@@ -111,6 +113,8 @@ export class ThemeManager {
         //    - Immediate crossfade to Loop of new theme.
 
         if (isInitial && !this.introPlayed) {
+            if (uiCallback) uiCallback();
+
             // Setup Intro
             const introSrc = isDark ? videoDarkIntro : videoLightIntro;
             const loopSrc = isDark ? videoDarkLoop : videoLightLoop;
@@ -144,16 +148,20 @@ export class ThemeManager {
             if (active.src === loopSrc || active.src.indexOf(loopSrc) > -1) {
                 // Ensure loop is true
                 if (!active.loop) active.loop = true;
+                if (uiCallback) uiCallback();
                 return;
             }
 
             // Otherwise, Crossfade to new Loop
             this.introPlayed = true; // Ensure flag is set
-            this.transitionToVideo(loopSrc, true);
+            this.transitionToVideo(loopSrc, true, uiCallback);
+
+            // Background preload immediate
+            // We need to load the next video. transitionToVideo does that.
         }
     }
 
-    transitionToVideo(src, looping) {
+    transitionToVideo(src, looping, uiCallback) {
         const active = this.getActiveVideo();
         const next = this.video1 === active ? this.video2 : this.video1;
 
@@ -169,6 +177,10 @@ export class ThemeManager {
             playPromise.then(() => {
                 // Determine when to crossfade. 
                 // Immediate looks best if preloaded.
+
+                // SYNC UI CHANGE
+                if (uiCallback) uiCallback();
+
                 next.classList.add('active');
                 active.classList.remove('active');
 
@@ -179,7 +191,11 @@ export class ThemeManager {
                 active.onended = null;
             }).catch(e => {
                 console.log("Video Play Error", e);
+                // Fallback UI update if video fails
+                if (uiCallback) uiCallback();
             });
+        } else {
+            if (uiCallback) uiCallback();
         }
     }
 

@@ -122,7 +122,7 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    transition: box-shadow 0.1s;
+    // transition: box-shadow 0.1s;
 
     &:active {
         cursor: grabbing;
@@ -165,7 +165,7 @@
     font-size: var(--font-size-medium);
     color: var(--text-lighter);
     text-shadow: var(--text-pressed);
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease;
     pointer-events: none;
     animation: pulse-orange 2s infinite;
 }
@@ -238,7 +238,7 @@
         opacity: 0;
         transform: translate(-50%, 10px);
         /* Slide up a bit */
-        transition: all 0.4s ease;
+        transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     .swipe-cta-label.reveal-label {
