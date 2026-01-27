@@ -38,7 +38,7 @@ export class HeroAnimation {
         }, 500);
 
         // 2. Start Text / Content Animation after delay
-        setTimeout(() => this.play(), 1000);
+        setTimeout(() => this.play(), 2000);
     }
 
     animateSwipeButton() {
