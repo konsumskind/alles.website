@@ -1,5 +1,7 @@
-import videoLight from '/src/assets/bg-start_v04.mp4';
-import videoDark from '/src/assets/bg-start-dark_v05.mp4';
+import videoLightIntro from '/src/assets/bg-start_intro_v06.mp4';
+import videoLightLoop from '/src/assets/bg-start_loop_v06.mp4';
+import videoDarkIntro from '/src/assets/bg-start-dark_intro_v05.mp4';
+import videoDarkLoop from '/src/assets/bg-start-dark_loop_v05.mp4';
 
 export class ThemeManager {
     constructor() {
@@ -7,9 +9,15 @@ export class ThemeManager {
         this.toggleBtn = document.getElementById('themeToggle');
         this.wrapper = this.toggleBtn ? this.toggleBtn.querySelector('.icon-wrap') : null;
         this.icon = this.toggleBtn ? this.toggleBtn.querySelector('i') : null;
+
         this.state = localStorage.getItem(this.STORAGE_KEY) || 'auto';
         this.isAtTop = window.scrollY <= 50;
         this.currentIsDark = false;
+
+        // Video State
+        this.video1 = document.getElementById('heroVideo1');
+        this.video2 = document.getElementById('heroVideo2');
+        this.introPlayed = false;
 
         this.init();
     }
@@ -17,7 +25,8 @@ export class ThemeManager {
     init() {
         if (!this.toggleBtn) return;
 
-        this.applyTheme(this.state);
+        // Determine initial theme
+        this.applyTheme(this.state, true); // true = initial load
         this.updateUI(this.state);
 
         // System Listener
@@ -29,6 +38,8 @@ export class ThemeManager {
 
         // Click Listener -> Cycle Modes
         this.toggleBtn.addEventListener('click', () => {
+            // User interaction: If we switch theme, we treat intro as done/skipped
+            this.introPlayed = true;
             this.cycleTheme();
             this.animateIcon();
         });
@@ -45,19 +56,12 @@ export class ThemeManager {
 
     animateIcon() {
         if (!this.wrapper) return;
-
-        // Remove class to reset animation
         this.wrapper.classList.remove('spin');
-
-        // Force Reflow
-        void this.wrapper.offsetWidth;
-
-        // Add class
+        void this.wrapper.offsetWidth; // Force Reflow
         this.wrapper.classList.add('spin');
     }
 
     cycleTheme() {
-        // Order: Auto -> Light -> Dark -> Auto...
         let next = 'auto';
         if (this.state === 'auto') next = 'light';
         else if (this.state === 'light') next = 'dark';
@@ -65,13 +69,8 @@ export class ThemeManager {
 
         this.setTheme(next);
 
-        // Optional: Toast feedback since icon might be ambiguous
         if (window.showToast) {
-            const labels = {
-                'auto': 'Automatisch',
-                'light': 'Hell',
-                'dark': 'Dunkel'
-            };
+            const labels = { 'auto': 'Automatisch', 'light': 'Hell', 'dark': 'Dunkel' };
             window.showToast(labels[next]);
         }
     }
@@ -83,7 +82,7 @@ export class ThemeManager {
         this.updateUI(val);
     }
 
-    applyTheme(val) {
+    applyTheme(val, isInitial = false) {
         const isDark = val === 'dark' || (val === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
         // Update Body Class
@@ -96,66 +95,122 @@ export class ThemeManager {
         this.currentIsDark = isDark;
 
         // Update Hero Video
-        this.updateHeroVideo(isDark);
+        this.updateHeroVideo(isDark, isInitial);
 
         // Update Meta Theme Color
         this.updateMetaThemeColor();
     }
 
-    updateHeroVideo(isDark) {
-        const video = document.querySelector('.hero__video-background video');
-        if (!video) return;
+    updateHeroVideo(isDark, isInitial = false) {
+        if (!this.video1 || !this.video2) return;
 
-        // const currentSrc = video.getAttribute('src'); // Helper: getAttribute returns the attribute value, .src returns full URL
-        const currentSrc = video.currentSrc; // Using currentSrc to compare with resolved URL if possible, or just src attribute
-        // Actually, better to just rely on our managed state or comparison.
-        // Let's use the explicit imported paths which are now URL strings
-        const targetSrc = isDark ? videoDark : videoLight;
+        // LOGIC:
+        // 1. Initial Load:
+        //    - If Intro needed: Ensure correct Intro source is playing. Preload Loop in background.
+        // 2. Runtime Switch (isInitial=false):
+        //    - Immediate crossfade to Loop of new theme.
 
-        // Accessing .src property gives absolute URL, matching the imported value from Vite
-        if (video.getAttribute('src') !== targetSrc && video.src !== targetSrc) {
-            video.setAttribute('src', targetSrc);
-            video.load();
-            video.play().catch(e => console.log("Video autoplay blocked or failed", e));
+        if (isInitial && !this.introPlayed) {
+            // Setup Intro
+            const introSrc = isDark ? videoDarkIntro : videoLightIntro;
+            const loopSrc = isDark ? videoDarkLoop : videoLightLoop;
+
+            // Check if HTML source matches our target intro (HTML has Light Intro by default)
+            // Using simple string check
+            if (this.video1.getAttribute('src') !== introSrc) {
+                this.video1.src = introSrc;
+                this.video1.load();
+                this.video1.play().catch(e => console.log("Intro autoplay failed", e));
+            }
+
+            // Setup Transition to Loop when Intro ends
+            this.video1.loop = false;
+            this.video1.onended = () => {
+                this.introPlayed = true;
+                this.transitionToVideo(loopSrc, true);
+            };
+
+            // Preload the Loop in Video 2
+            this.video2.src = loopSrc;
+            this.video2.load();
+        } else {
+            // Runtime Switch or Intro Finished State
+            // Always target the Loop
+            const loopSrc = isDark ? videoDarkLoop : videoLightLoop;
+
+            // If we are already playing this loop, do nothing
+            const active = this.getActiveVideo();
+            // Note: .src returns absolute, loopSrc from import is absolute (vite)
+            if (active.src === loopSrc || active.src.indexOf(loopSrc) > -1) {
+                // Ensure loop is true
+                if (!active.loop) active.loop = true;
+                return;
+            }
+
+            // Otherwise, Crossfade to new Loop
+            this.introPlayed = true; // Ensure flag is set
+            this.transitionToVideo(loopSrc, true);
         }
+    }
+
+    transitionToVideo(src, looping) {
+        const active = this.getActiveVideo();
+        const next = this.video1 === active ? this.video2 : this.video1;
+
+        // Setup Next Video
+        next.src = src;
+        next.loop = looping;
+        next.load();
+
+        // Play
+        const playPromise = next.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                // Determine when to crossfade. 
+                // Immediate looks best if preloaded.
+                next.classList.add('active');
+                active.classList.remove('active');
+
+                // Cleanup Old
+                active.pause();
+                active.src = ""; // Unload to save memory? Optional.
+                // Keep onended clean
+                active.onended = null;
+            }).catch(e => {
+                console.log("Video Play Error", e);
+            });
+        }
+    }
+
+    getActiveVideo() {
+        return this.video1.classList.contains('active') ? this.video1 : this.video2;
     }
 
     updateMetaThemeColor() {
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (!metaThemeColor) return;
 
-        // If at top (Hero), use Light Blue #58c8f1 regardless of Dark Mode (as per request)
-        // OR should it be dark in Dark Mode? 
-        // Request: "#58c8f1 ... erst wenn man nach unten scrollt halt zur hintergrundfarbe wechselt"
-        // Implicitly implies the top color is fixed or at least the starting point.
-        // Assuming #58c8f1 is for the 'start' section visual (sky/water).
-
         if (this.isAtTop) {
-            metaThemeColor.setAttribute('content', '#58c8f1');
+            metaThemeColor.setAttribute('content', '#95d4f6');
         } else {
-            // Standard Theme Background
             metaThemeColor.setAttribute('content', this.currentIsDark ? '#16181b' : '#ebebeb');
         }
     }
 
     updateUI(val) {
         if (!this.icon) return;
-
-        // Reset classes and styles
         this.icon.className = 'fas';
-        // Remove JS rotation as it is handled by CSS now for fa-moon
         this.icon.style.transform = '';
 
-        // Set Icon based on state
         if (val === 'auto') {
-            this.icon.classList.add('fa-adjust'); // Half/Half
+            this.icon.classList.add('fa-adjust');
             this.toggleBtn.style.color = 'var(--text-light)';
         } else if (val === 'light') {
             this.icon.classList.add('fa-sun');
             this.toggleBtn.style.color = 'var(--orange)';
         } else if (val === 'dark') {
             this.icon.classList.add('fa-moon');
-            // .fa-moon rotation is handled by SCSS
             this.toggleBtn.style.color = 'var(--blue)';
         }
     }
