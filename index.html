@@ -13,16 +13,110 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Merriweather:wght@300;400;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script type="module" crossorigin src="/alles.website/assets/index-toTPT5gg.js"></script>
-  <link rel="stylesheet" crossorigin href="/alles.website/assets/index-1mWmIhFk.css">
+
+    <style>
+        /* CRITICAL CSS: Prevent FOUC (Flash of Unstyled Content) */
+        :root {
+            --bg-color: #ebebeb;
+            --text-main: #2b2f4e;
+            --orange: #FF7E21;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #16181b;
+                --text-main: #ebebeb;
+            }
+        }
+
+        body {
+            background-color: var(--bg-color);
+            margin: 0;
+        }
+
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+
+        .preloader__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .preloader__logo {
+            font-family: serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            opacity: 0;
+            animation: preloaderFadeInUp 0.8s ease-out forwards;
+        }
+
+        .preloader__spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: preloaderSpin 1s linear infinite;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .preloader__spinner {
+                border-color: rgba(255, 255, 255, 0.1);
+                border-top-color: var(--orange);
+            }
+        }
+
+        @keyframes preloaderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes preloaderFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+  <script type="module" crossorigin src="/alles.website/assets/index-MpBwY_4J.js"></script>
+  <link rel="stylesheet" crossorigin href="/alles.website/assets/index-BoPTZoic.css">
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader__content">
+            <div class="preloader__logo">Janosch Kartschall</div>
+            <div class="preloader__spinner"></div>
+        </div>
+    </div>
+
     <main>
         <!-- Start / Hero Section -->
         <section id="start" class="hero">
-            <div class="hero__video-background">
-                <video id="heroVideo1" src="/alles.website/assets/bg-start_intro_v07-BdTXw0K8.mp4" autoplay muted playsinline class="active"
+            <div class="hero__video-background hero__video-background--full">
+                <video id="heroVideo1" src="/alles.website/assets/bg-start_intro_v08-DDK8CDvv.mp4" autoplay muted playsinline class="active"
                     aria-label="Strand Video"></video>
                 <video id="heroVideo2" muted playsinline aria-hidden="true"></video>
             </div>
@@ -32,16 +126,16 @@
                 <span class="icon-wrap"><i class="fas fa-adjust"></i></span>
             </button>
             <div class="hero__wrapper">
-                <div class="hero__brand">
-                    <div class="name">Janosch Kartschall</div>
-                    <div class="tagline">Systemisches Coaching & Mediation</div>
-                </div>
-
                 <div class="hero__content">
                     <h1 class="hero__title">Eine neue Perspektive auf <span class="text-orange">deine Welt.</span></h1>
 
                     <p class="hero__text">Beziehungen gestalten, eigenmächtig Ziele erreichen und Konflikte strukturiert
                         lösen.</p>
+                </div>
+
+                <div class="hero__brand">
+                    <div class="name">Janosch Kartschall</div>
+                    <div class="tagline">Systemisches Coaching & Mediation</div>
                 </div>
 
             </div>
