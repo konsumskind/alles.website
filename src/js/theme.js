@@ -1,5 +1,5 @@
-import videoLightIntro from '/src/assets/bg-start_intro_v06.mp4';
-import videoLightLoop from '/src/assets/bg-start_loop_v06.mp4';
+import videoLightIntro from '/src/assets/bg-start_intro_v09.mp4';
+import videoLightLoop from '/src/assets/bg-start_loop_v10.mp4';
 import videoDarkIntro from '/src/assets/bg-start-dark_intro_v05.mp4';
 import videoDarkLoop from '/src/assets/bg-start-dark_loop_v05.mp4';
 

@@ -10,6 +10,7 @@
     .hero & {
         // width: calc(100% + 3rem);
         margin: 3rem 0 -0.5rem;
+        z-index: 20; // Above full video
         /* Pull to edges and bottom of hero */
         // padding: 2rem 0;
 
@@ -184,7 +185,6 @@
 }
 
 
-/* Pulse Animation for arrows to suggest interaction */
 @keyframes pulse-arrows {
     0% {
         opacity: 0.4;
@@ -196,5 +196,53 @@
 
     100% {
         opacity: 0.4;
+    }
+}
+
+/* --- Hero Animation States --- */
+.hero--animating {
+    .swipe-container {
+        width: 62px; // Start as circle (knob width)
+        transform: scale(0);
+        opacity: 0;
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), // Bouncy scale
+            width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+            opacity 0.3s;
+        will-change: width, transform;
+    }
+
+    .swipe-container.swipe-step-1 {
+        opacity: 1;
+        transform: scale(1);
+        width: 62px; // Keep small
+    }
+
+    .swipe-container.swipe-step-2 {
+        display: flex; // Ensure it keeps flex
+        width: 320px; // Expand to full
+        max-width: 90%;
+    }
+
+    .hero__scroll-down {
+        opacity: 0;
+        transform: translateY(-1rem);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .hero__scroll-down.reveal-arrow {
+        opacity: 0.6;
+        transform: translateY(0);
+    }
+
+    .swipe-cta-label {
+        opacity: 0;
+        transform: translate(-50%, 10px);
+        /* Slide up a bit */
+        transition: all 0.4s ease;
+    }
+
+    .swipe-cta-label.reveal-label {
+        opacity: 1;
+        transform: translate(-50%, 0);
     }
 }

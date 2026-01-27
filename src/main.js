@@ -8,6 +8,8 @@ import { initCarousel } from './js/carousel.js';
 import { ScrollManager } from './js/scroll.js';
 import { initContactForm, sendMail } from './js/contact.js';
 import { ProcessAnimation } from './js/process.js';
+import { initPreloader } from './js/preloader.js';
+import { HeroAnimation } from './js/hero.js';
 
 // Initialize Breathing Exercise
 const initBreathing = () => {
@@ -50,4 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initBreathing();
     initContactForm();
     initWorkshopToast();
+    initPreloader();
+
+    // Visuals
+    new HeroAnimation().init();
 });
+

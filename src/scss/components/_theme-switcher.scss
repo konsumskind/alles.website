@@ -3,13 +3,19 @@
 .theme-toggle-round {
     position: absolute;
     top: 1.5rem;
-    right: 1.5rem;
+    left: 1.5rem;
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: var(--theme-switch-bg);
+    // background: var(--theme-switch-bg);
     /* border: none; */
-    box-shadow: (inset -1px -1px 2px var(--theme-switch-shadow-dark), inset 1px 1px 2px var(--theme-switch-shadow-light), -1px -1px 2px var(--theme-switch-shadow-dark), 1px 1px 2px var(--theme-switch-shadow-light));
+    box-shadow: (inset -1px -1px 2px #d3d3d3,
+            inset 1px 1px 2px #ffffff,
+            -1px -1px 2px #d3d3d3,
+            1px 1px 2px #ffffff), (2px 2px 4px #d3d3d3,
+            -2px -2px 4px #ffffff,
+            inset -1px -1px 2px #d3d3d3,
+            inset 1px 1px 2px #ffffff);
     color: var(--text-light);
     font-size: var(--font-size-large);
     display: flex;
@@ -20,7 +26,11 @@
     overflow: hidden;
 
     &:active {
-        box-shadow: inset 2px 2px 4px var(--theme-switch-shadow-dark), inset -2px -2px 4px var(--theme-switch-shadow-light), -1px -1px 2px var(--theme-switch-shadow-dark), 1px 1px 2px var(--theme-switch-shadow-light);
+        box-shadow: (-1px -1px 2px #d3d3d3,
+                1px 1px 2px #ffffff), (inset 2px 2px 4px #d3d3d3,
+                inset -2px -2px 4px #ffffff,
+                -1px -1px 2px #d3d3d3,
+                1px 1px 2px #ffffff);
         transform: scale(0.95);
         color: var(--text-main);
     }
@@ -56,4 +66,25 @@
     100% {
         transform: rotate(0deg);
     }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.pop-in {
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
