@@ -1,0 +1,40 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    /* Adaptive Farben */
+    :root { --cube-color: #2b2f4e; }
+    @media (prefers-color-scheme: dark) {
+      :root { --cube-color: #ebebeb; }
+    }
+
+    .shard {
+      fill: var(--cube-color);
+      stroke: var(--cube-color);
+      stroke-width: 6;       
+      stroke-linejoin: round; 
+    }
+  </style>
+
+  <defs>
+    <!-- Maske, um den Kern freizustellen (Transparenter Ring um die Mitte) -->
+    <mask id="core-cutout">
+      <!-- Alles sichtbar (weiß) -->
+      <rect x="0" y="0" width="64" height="64" fill="white"/>
+      <!-- Loch in der Mitte (schwarz) - Radius 11 (7 für Kern + 4 Abstand) -->
+      <circle cx="32" cy="32" r="11" fill="black"/>
+    </mask>
+  </defs>
+
+  <!-- Gruppe mit Maske -->
+  <g mask="url(#core-cutout)">
+    <!-- Oben -->
+    <path class="shard" transform="translate(0, -7)" d="M32 16 L46 24 L32 32 L18 24 Z" />
+    <!-- Rechts -->
+    <path class="shard" transform="translate(6, 3.5)" d="M32 32 L46 24 L46 40 L32 48 Z" />
+    <!-- Links -->
+    <path class="shard" transform="translate(-6, 3.5)" d="M32 32 L32 48 L18 40 L18 24 Z" />
+  </g>
+
+  <!-- Der Kern -->
+  <circle cx="32" cy="32" r="7" fill="#FF7E21" />
+
+</svg>
