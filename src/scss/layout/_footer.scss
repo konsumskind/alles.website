@@ -1,0 +1,25 @@
+@use '../variables' as *;
+
+// Footer Links
+.footer-links {
+    margin-top: 3rem;
+    font-size: var(--font-size-small);
+    color: #9ca3af;
+    margin-bottom: 3rem;
+    text-align: center;
+
+    span.separator {
+        color: #d1d5db;
+        margin: 0 0.5rem;
+    }
+
+    a {
+        transition: color 0.15s;
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            color: var(--orange);
+        }
+    }
+}

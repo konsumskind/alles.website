@@ -8,6 +8,8 @@
   --orange: #FF7E21;
   --orange-dark: #e4660d;
   --orange-light: #ffd8ba;
+
+  --logo-cube-color: #ebebeb; // Light Logo on Light Theme (User Request)
   --blue: #00b3ff;
   --blue-light: #caddf8;
   --purple: #a855f7;
@@ -84,11 +86,32 @@
     2px 2px 4px var(--shadow-light);
 
   /* THEME SWITCHER */
-  --theme-switch-bg: #a8e1fa;
-  --theme-switch-shadow-dark: #96d5f9;
-  --theme-switch-shadow-light: #94d5f6;
-  --theme-switch-shadow-text-light: #94d5f6;
-  --theme-switch-shadow-text-dark: #96d5f9;
+  // Change this SINGLE value to update the whole button theme:
+  $theme-switch-base: #b1e2fe;
+
+  --theme-switch-bg: #{$theme-switch-base};
+
+  // Auto-calculated Gradient
+  --bg-gradient-blue: linear-gradient(145deg, #{darken($theme-switch-base, 10%)}, #{lighten($theme-switch-base, 8%)});
+
+  // Auto-calculated Shadows
+  --theme-switch-shadow-dark: #{rgba(darken($theme-switch-base, 40%), 0.25)};
+  --theme-switch-shadow-light: #{rgba(lighten($theme-switch-base, 40%), 0.6)};
+
+  // Explicit Shadow for Logo (to tackle SCSS scope issues in component)
+  --theme-switch-logo-shadow: #{darken($theme-switch-base, 40%)};
+
+  --raised-blue:
+    2px 2px 5px var(--theme-switch-shadow-dark),
+    -2px -2px 5px var(--theme-switch-shadow-light),
+    inset -1px -1px 2px var(--theme-switch-shadow-dark),
+    inset 1px 1px 2px var(--theme-switch-shadow-light);
+
+  --engraved-blue:
+    inset -1px -1px 2px var(--theme-switch-shadow-dark),
+    inset 1px 1px 2px var(--theme-switch-shadow-light),
+    -1px -1px 2px var(--theme-switch-shadow-dark),
+    1px 1px 2px var(--theme-switch-shadow-light);
 
   /* BREATHING */
   --breath-shadow-active:
@@ -101,6 +124,13 @@
   /* Dark Mode Overrides */
   body.dark-mode {
     --bg-color: #16181b;
+    --text-main: #f4f4f4;
+    --text-light: #b0b3b8;
+
+    // Logo adaptation: Dark Cube on Dark Background (User Request)
+    --logo-cube-color: #2b2f4e;
+
+    // ...
     --bg-gradient: linear-gradient(145deg, var(--shadow-dark), var(--shadow-light));
     --text-main: #ebebeb;
     --text-light: #9ca3af;
@@ -180,3 +210,45 @@ $text-main: var(--text-main);
 $text-light: var(--text-light);
 $text-lighter: var(--text-lighter);
 $orange: var(--orange);
+
+// ===========================================
+// Z-INDEX SCALE
+// Consistent hierarchy for layered elements
+// ===========================================
+$z-base: 0; // Background layers, videos
+$z-content: 1; // Normal content above base
+$z-elevated: 10; // Elevated content (active videos, swipe)
+$z-sticky: 100; // Sticky/fixed elements (navigation)
+$z-overlay: 500; // Overlays, dropdowns
+$z-modal: 1000; // Modal dialogs
+$z-toast: 1500; // Toast notifications
+$z-preloader: 9999; // Preloader (always on top)
+
+// ===========================================
+// MIXINS
+// Reusable style patterns
+// ===========================================
+
+/// Circular icon button with neumorphic styling
+/// @param {Length} $size [50px] - Width and height of the button
+/// @param {Color} $color [var(--text-light)] - Icon color
+/// @param {Color} $active-color [var(--orange)] - Icon color on active state
+@mixin icon-circle($size: 50px, $color: var(--text-light), $active-color: var(--orange)) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-gradient);
+  box-shadow: var(--engraved), var(--raised);
+  color: $color;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:active {
+    box-shadow: var(--pressed-small);
+    color: $active-color;
+    transform: scale(0.95);
+  }
+}

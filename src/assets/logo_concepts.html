@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Konzepte - Janosch Kartschall</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0;
+            padding: 40px;
+            color: #333;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo-container {
+            width: 128px;
+            height: 128px;
+            display: flex;
+            /* Center SVG */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Favicon Preview Mockup */
+        .preview-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: #e0e0e0;
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .browser-tab {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+            flex: 1;
+        }
+
+        .favicon-preview {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* SVG Styles */
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Colors */
+        .primary {
+            fill: #2b2f4e;
+        }
+
+        .accent {
+            fill: #FF7E21;
+        }
+
+        .bg-primary {
+            background-color: #2b2f4e;
+        }
+
+        /* Dark Mode Preview */
+        .dark-mode-card {
+            background: #16181b;
+            color: #ebebeb;
+        }
+
+        .dark-mode-card .browser-tab {
+            background: #2b2f4e;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Logo / Favicon Konzepte</h1>
+    <p>Vorschläge basierend auf Minimalismus und Erkennbarkeit in kleiner Größe.</p>
+
+    <div class="grid">
+
+        <!-- CONCEPT 1: Monogram JK -->
+        <div class="card">
+            <h3>1. Das Monogramm</h3>
+            <div class="logo-container">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="64" height="64" rx="12" fill="#2b2f4e" />
+                    <path d="M22 18h8v24c0 2.5-1.5 4-4 4h-4" stroke="#FF7E21" stroke-width="6" stroke-linecap="round"
+                        fill="none" />
+                    <path d="M46 18L32 32l14 14" stroke="white" stroke-width="6" stroke-linecap="round"
+                        stroke-linejoin="round" fill="none" />
+                </svg>
+            </div>
+            <div class="preview-row">
+                <div class="browser-tab">
+                    <svg class="favicon-preview" viewBox="0 0 64 64">
+                        <rect width="64" height="64" rx="12" fill="#2b2f4e" />
+                        <path d="M22 18h8v24c0 2.5-1.5 4-4 4h-4" stroke="#FF7E21" stroke-width="6"
+                            stroke-linecap="round" fill="none" />
+                        <path d="M46 18L32 32l14 14" stroke="white" stroke-width="6" stroke-linecap="round"
+                            stroke-linejoin="round" fill="none" />
+                    </svg>
+                    Janosch Kartschall
+                </div>
+            </div>
+            <p style="font-size: 0.9rem; text-align: center; margin-top: 10px;">Modernes "J" und "K" in einer Kachel.
+            </p>
+        </div>
+
+        <!-- CONCEPT 2: The Focus (Systemic) -->
+        <div class="card">
+            <h3>2. Der Fokus</h3>
+            <div class="logo-container">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="30" fill="#2b2f4e" />
+                    <circle cx="32" cy="32" r="22" stroke="white" stroke-width="4" fill="none" opacity="0.3" />
+                    <circle cx="42" cy="22" r="8" fill="#FF7E21" stroke="#2b2f4e" stroke-width="2" />
+                </svg>
+            </div>
+            <div class="preview-row">
+                <div class="browser-tab">
+                    <svg class="favicon-preview" viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="30" fill="#2b2f4e" />
+                        <circle cx="32" cy="32" r="22" stroke="white" stroke-width="4" fill="none" opacity="0.3" />
+                        <circle cx="42" cy="22" r="8" fill="#FF7E21" stroke="#2b2f4e" stroke-width="2" />
+                    </svg>
+                    Janosch Kartschall
+                </div>
+            </div>
+            <p style="font-size: 0.9rem; text-align: center; margin-top: 10px;">Der orangene Punkt symbolisiert
+                Veränderung im System.</p>
+        </div>
+
+        <!-- CONCEPT 3: The Pulse / Initials Abstract -->
+        <div class="card">
+            <h3>3. Der Impuls</h3>
+            <div class="logo-container">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="64" height="64" rx="16" fill="#ebebeb" />
+                    <path d="M20 44 L20 28 Q20 20 28 20 L36 20" stroke="#2b2f4e" stroke-width="8" stroke-linecap="round"
+                        fill="none" />
+                    <circle cx="44" cy="20" r="6" fill="#FF7E21" />
+                </svg>
+            </div>
+            <div class="preview-row">
+                <div class="browser-tab">
+                    <svg class="favicon-preview" viewBox="0 0 64 64">
+                        <rect width="64" height="64" rx="16" fill="#ebebeb" />
+                        <path d="M20 44 L20 28 Q20 20 28 20 L36 20" stroke="#2b2f4e" stroke-width="8"
+                            stroke-linecap="round" fill="none" />
+                        <circle cx="44" cy="20" r="6" fill="#FF7E21" />
+                    </svg>
+                    Janosch Kartschall
+                </div>
+            </div>
+            <p style="font-size: 0.9rem; text-align: center; margin-top: 10px;">Helles Theme. Minimalistisches "J" mit
+                Punkt.</p>
+        </div>
+
+        <!-- CONCEPT 4: Mediation / Bridge -->
+        <div class="card">
+            <h3>4. Die Verbindung</h3>
+            <div class="logo-container">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="32" fill="#FF7E21" />
+                    <path d="M18 32 Q32 12 46 32" stroke="#2b2f4e" stroke-width="6" stroke-linecap="round"
+                        fill="none" />
+                    <path d="M18 32 Q32 52 46 32" stroke="white" stroke-width="6" stroke-linecap="round" fill="none" />
+                </svg>
+            </div>
+            <div class="preview-row">
+                <div class="browser-tab">
+                    <svg class="favicon-preview" viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="32" fill="#FF7E21" />
+                        <path d="M18 32 Q32 12 46 32" stroke="#2b2f4e" stroke-width="6" stroke-linecap="round"
+                            fill="none" />
+                        <path d="M18 32 Q32 52 46 32" stroke="white" stroke-width="6" stroke-linecap="round"
+                            fill="none" />
+                    </svg>
+                    Janosch Kartschall
+                </div>
+            </div>
+            <p style="font-size: 0.9rem; text-align: center; margin-top: 10px;">Zwei Bögen die sich treffen (Mediation).
+                Sehr auffällig.</p>
+        </div>
+
+        <!-- CONCEPT 5: Geometric Abstract -->
+        <div class="card dark-mode-card">
+            <h3>5. Das Hexagon</h3>
+            <div class="logo-container">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32 4 L58 19 L58 45 L32 60 L6 45 L6 19 Z" fill="#2b2f4e" stroke="#FF7E21"
+                        stroke-width="3" />
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif"
+                        font-weight="900" font-size="32" fill="white">J</text>
+                </svg>
+            </div>
+            <div class="preview-row">
+                <div class="browser-tab">
+                    <svg class="favicon-preview" viewBox="0 0 64 64">
+                        <path d="M32 4 L58 19 L58 45 L32 60 L6 45 L6 19 Z" fill="#2b2f4e" stroke="#FF7E21"
+                            stroke-width="3" />
+                        <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif"
+                            font-weight="900" font-size="32" fill="white">J</text>
+                    </svg>
+                    Janosch Kartschall
+                </div>
+            </div>
+            <p style="font-size: 0.9rem; text-align: center; margin-top: 10px;">Starke geometrische Form, wirkt sehr
+                technisch/stabil.</p>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

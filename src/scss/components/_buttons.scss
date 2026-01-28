@@ -31,23 +31,8 @@
 }
 
 .icon-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-light);
+    box-shadow: var(--engraved), var(--raised);
+    @include icon-circle(50px);
     font-size: var(--font-size-large);
     text-shadow: var(--text-pressed);
-    box-shadow: var(--engraved), var(--raised);
-    background: var(--bg-gradient);
-    transition: all 0.3s ease;
-    cursor: pointer;
-
-    &:active {
-        box-shadow: var(--pressed-small);
-        color: var(--orange);
-        transform: scale(0.95);
-    }
 }

@@ -46,12 +46,14 @@ export class HeroAnimation {
         const scrollArrow = document.querySelector('.hero__scroll-down');
         const ctaLabel = document.querySelector('.swipe-cta-label');
         const themeToggle = document.getElementById('themeToggle');
+        const heroLogo = document.querySelector('.hero__logo');
 
         if (!swipeContainer) return;
 
-        // Step A: Scale Up (dot) & Theme Toggle
+        // Step A: Scale Up (dot) & Theme Toggle & Logo
         swipeContainer.classList.add('swipe-step-1');
         if (themeToggle) themeToggle.classList.add('pop-in');
+        if (heroLogo) heroLogo.classList.add('pop-in');
 
         // Step B: Expand Width (after scale up)
         setTimeout(() => {

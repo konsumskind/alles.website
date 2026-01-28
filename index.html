@@ -6,6 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#95d4f6">
     <title>Janosch Kartschall | Systemisches Coaching & Mediation</title>
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logo.svg">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Janosch Kartschall | Systemisches Coaching & Mediation">
+    <meta property="og:description"
+        content="Beziehungen gestalten, eigenmächtig Ziele erreichen und Konflikte strukturiert lösen.">
+    <meta property="og:image" content="/src/img/profile_picture_v01.jpg">
+    <meta property="og:url" content="https://janoschkartschall.de">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Janosch Kartschall | Systemisches Coaching & Mediation">
+    <meta name="twitter:description"
+        content="Beziehungen gestalten, eigenmächtig Ziele erreichen und Konflikte strukturiert lösen.">
+    <meta name="twitter:image" content="/src/img/profile_picture_v01.jpg">
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,8 +138,23 @@
             <!-- Theme Switcher -->
             <!-- Theme Switcher (Single Round Button) -->
             <button id="themeToggle" class="theme-toggle-round" aria-label="Theme umschalten">
-                <span class="icon-wrap"><i class="fas fa-adjust"></i></span>
+                <svg class="theme-toggle__logo" viewBox="0 0 64 64">
+                    <defs>
+                        <mask id="logo-mask">
+                            <rect x="0" y="0" width="64" height="64" fill="white" />
+                            <circle cx="32" cy="32" r="11" fill="black" />
+                        </mask>
+                    </defs>
+                    <g mask="url(#logo-mask)"
+                        style="fill: #ffffff; stroke: #ffffff; stroke-width: 6; stroke-linejoin: round;">
+                        <path d="M32 16 L46 24 L32 32 L18 24 Z" transform="translate(0, -7)" />
+                        <path d="M32 32 L46 24 L46 40 L32 48 Z" transform="translate(6, 3.5)" />
+                        <path d="M32 32 L32 48 L18 40 L18 24 Z" transform="translate(-6, 3.5)" />
+                    </g>
+                    <circle cx="32" cy="32" r="7" fill="#FF7E21" />
+                </svg>
             </button>
+
             <div class="hero__wrapper">
                 <div class="hero__content">
                     <h1 class="hero__title">Eine neue Perspektive auf <span class="text-orange">deine Welt.</span></h1>
@@ -534,9 +565,9 @@
                 <div class="profile-process__labels-container">
                     <div class="profile-process__labels-track" id="processLabels">
                         <div class="profile-process__label-item active">Kennenlernen</div>
-                        <div class="profile-process__label-item" style="z-index: 2;">Auftrag</div>
+                        <div class="profile-process__label-item">Auftrag</div>
                         <div class="profile-process__label-item">Sitzung</div>
-                        <div class="profile-process__label-item" style="z-index: 0;">Transfer</div>
+                        <div class="profile-process__label-item">Transfer</div>
                     </div>
                 </div>
                 <div class="profile-process__track" id="processTrack">

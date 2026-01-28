@@ -1,23 +1,60 @@
+@use '../variables' as *;
+
 #toast {
     visibility: hidden;
-    min-width: 250px;
-    background-color: rgb(45, 45, 48);
+    // min-width: 250px;
+    background-color: rgb(45, 45, 48); // Keep dark bg for contrast
     color: #fff;
-    text-align: center;
-    border-radius: 999px;
-    padding: 1rem;
+
+    // Flex Layout for Icon + Text
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+
+    border-radius: 999px; // Pill shape
+    padding: 0.75rem 1.5rem;
     position: fixed;
     left: 50%;
     top: 90vh;
     transform: translateX(-50%);
     font-size: var(--font-size-small);
+    font-weight: 500;
+
     opacity: 0;
-    transition: opacity 0.5s, top 0.5s;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: $z-toast;
 
     &.show {
         visibility: visible;
         opacity: 1;
-        top: 80vh;
+        top: 80vh; // Mobile default
+
+        @media (min-width: 768px) {
+            top: 85vh; // Desktop slightly lower
+        }
+    }
+
+    // Icon Style
+    .toast__icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+
+        // Ensure logo is visible on dark toast background
+        // Since we use the adaptive SVG, and the toast is ALWAYS dark, 
+        // we might want to force the 'dark mode' variant of the SVG if possible, 
+        // but SVG vars inside <img> are isolated.
+        // However, the text is white, so we are effectively in a "dark theme context".
+        // Luckily, our logo is adaptive. If the system is in Light Mode, the logo will be Dark Blue.
+        // Dark Blue on Dark Grey might be low contrast.
+        // Let's add a filter to ensure it pops if needed, or rely on the white outline if we had one.
+        // Since we removed outlines, we might want to force brightness.
+        // Or simply trust the adaptive nature.
+        // Actually, if system is Light, logo is Dark Blue. Dark Blue on Dark Toast = Bad visibility.
+        // Fix: Use CSS Filter to invert/brighten logo inside toast regardless of system theme.
     }
 }

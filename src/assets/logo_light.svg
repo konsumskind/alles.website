@@ -1,0 +1,31 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    /* Fixed Colors for Dark Backgrounds (Toast) */
+    .shard {
+      fill: #ebebeb; /* Light Grey */
+      stroke: #ebebeb;
+      stroke-width: 6;       
+      stroke-linejoin: round; 
+    }
+  </style>
+
+  <defs>
+    <mask id="core-cutout-light">
+      <rect x="0" y="0" width="64" height="64" fill="white"/>
+      <circle cx="32" cy="32" r="11" fill="black"/>
+    </mask>
+  </defs>
+
+  <g mask="url(#core-cutout-light)">
+    <!-- Oben -->
+    <path class="shard" transform="translate(0, -7)" d="M32 16 L46 24 L32 32 L18 24 Z" />
+    <!-- Rechts -->
+    <path class="shard" transform="translate(6, 3.5)" d="M32 32 L46 24 L46 40 L32 48 Z" />
+    <!-- Links -->
+    <path class="shard" transform="translate(-6, 3.5)" d="M32 32 L32 48 L18 40 L18 24 Z" />
+  </g>
+
+  <!-- Der Kern -->
+  <circle cx="32" cy="32" r="7" fill="#FF7E21" />
+
+</svg>

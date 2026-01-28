@@ -10,9 +10,11 @@
 @use 'components/configurator';
 @use 'components/theme-switcher';
 @use 'components/profile';
+@use 'components/badges';
 
 @use 'layout/hero';
 @use 'layout/sections';
+@use 'layout/footer';
 
 // Modules (Functionality specific)
 @use 'modules/animations';
@@ -23,6 +25,7 @@
 @use 'modules/carousel';
 @use 'modules/accordion';
 @use 'modules/preloader';
+@use 'modules/process';
 
 
 

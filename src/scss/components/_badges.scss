@@ -1,0 +1,117 @@
+@use '../variables' as *;
+
+// Reference & Certification Badges (Über Mich Section)
+.reference-wrapper {
+    margin-bottom: 1.5rem;
+    padding: 0 4px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    .rating-badge {
+        height: 47px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: white;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        border: 1px solid #f3f4f6;
+        color: #2b2f4e;
+
+        .g-icon {
+            font-size: var(--font-size-large);
+            color: var(--text-dark);
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+
+        &__score {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-weight: 700;
+            font-size: var(--font-size-small);
+
+            .stars {
+                font-size: var(--font-size-small);
+                display: flex;
+                gap: 1px;
+                color: var(--orange);
+            }
+        }
+
+        &__count {
+            font-size: var(--font-size-xs);
+            color: var(--text-light);
+        }
+    }
+
+    .certification-badge {
+        height: 47px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: white;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        border: 1px solid #f3f4f6;
+        color: var(--text-main);
+
+        &__logo {
+            width: 2.4rem;
+            margin-left: -10px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &__text {
+            font-size: var(--font-size-xs);
+            line-height: 1.2;
+            color: #2b2f4e;
+        }
+
+        &__seal {
+            position: absolute;
+            top: -10px;
+            right: -25px;
+            width: 2.8rem;
+            height: auto;
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+    }
+
+    .qualification-badge {
+        height: 47px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: white;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        border: 1px solid #f3f4f6;
+        color: #2b2f4e;
+
+        i {
+            font-size: var(--font-size-medium);
+        }
+
+        &__text {
+            font-size: var(--font-size-xs);
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+    }
+}

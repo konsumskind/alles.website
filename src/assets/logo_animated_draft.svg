@@ -1,0 +1,48 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes expand {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(var(--tx), var(--ty)); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.9; }
+    }
+
+    .part {
+      animation: expand 3s ease-in-out infinite;
+      fill: #ebebeb;
+      stroke: #9ca3af;
+      stroke-width: 2;
+      stroke-linejoin: round;
+    }
+    
+    .core {
+      animation: pulse 3s ease-in-out infinite;
+      fill: #FF7E21;
+      transform-origin: center;
+    }
+
+    /* Richtungs-Variablen für die Animation */
+    .top { --tx: 0px; --ty: -3px; }
+    .right { --tx: 2.5px; --ty: 1.5px; }
+    .left { --tx: -2.5px; --ty: 1.5px; }
+  </style>
+
+  <!-- Zentrum ist 32,32. Radius ca 28 -->
+  <!-- Ich konstruiere die 3 Teile des Würfels neu, damit sie einzeln bewegbar sind -->
+  
+  <g transform="translate(32, 32)">
+    <!-- Oben -->
+    <path class="part top" d="M0 -15 L20 -25 L0 -35 L-20 -25 Z" />
+    
+    <!-- Rechts -->
+    <path class="part right" d="M5 -11 L25 -21 L25 5 L5 16 Z" />
+    
+    <!-- Links -->
+    <path class="part left" d="M-5 -11 L-25 -21 L-25 5 L-5 16 Z" />
+  </g>
+
+  <!-- Damit es exakt wie das Logo aussieht, nutze ich lieber Masking auf transformierten Gruppen -->
+  <!-- Das ist sauberer. Neuer Ansatz unten. -->
+</svg>

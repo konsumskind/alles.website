@@ -1,3 +1,5 @@
+@use '../variables' as *;
+
 /* --- Bottom Nav & Items --- */
 .bottom-nav {
     position: fixed;
@@ -13,6 +15,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: $z-sticky; // Fixed navigation layer
 
     padding: 0 10px;
     // Exit Transition: Fast & Smooth

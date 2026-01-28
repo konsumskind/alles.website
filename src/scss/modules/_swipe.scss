@@ -1,4 +1,5 @@
 @use '../base/typography';
+@use '../variables' as *;
 
 /* --- Swipe Button Styles --- */
 /* --- Swipe Button Styles --- */
@@ -10,7 +11,7 @@
     .hero & {
         // width: calc(100% + 3rem);
         margin: 3rem 0 -0.5rem;
-        z-index: 20; // Above full video
+        z-index: $z-elevated; // Above video background
         /* Pull to edges and bottom of hero */
         // padding: 2rem 0;
 
@@ -31,7 +32,7 @@
             pointer-events: none;
             box-shadow: var(--engraved);
             border-radius: var(--border-radius);
-            z-index: 0;
+            z-index: $z-base;
             -webkit-mask-image: linear-gradient(to top, black 40%, transparent 50%);
             mask-image: linear-gradient(to top, black 40%, transparent 50%);
         } */

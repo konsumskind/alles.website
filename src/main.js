@@ -10,6 +10,10 @@ import { initContactForm, sendMail } from './js/contact.js';
 import { ProcessAnimation } from './js/process.js';
 import { initPreloader } from './js/preloader.js';
 import { HeroAnimation } from './js/hero.js';
+import { showToast } from './js/utils.js';
+
+// Expose showToast globally for modules that need it (e.g., ThemeManager)
+window.showToast = showToast;
 
 // Initialize Breathing Exercise
 const initBreathing = () => {
