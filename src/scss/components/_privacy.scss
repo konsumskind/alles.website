@@ -9,8 +9,10 @@
         margin: 1.5rem 0 0.5rem;
         color: var(--text-main);
     }
-    
+
     p {
+        hyphens: auto;
+        text-align: justify;
         margin-bottom: 1rem;
     }
 }

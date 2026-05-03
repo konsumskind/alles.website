@@ -2,40 +2,17 @@
 @use '../variables' as *;
 
 /* --- Swipe Button Styles --- */
-/* --- Swipe Button Styles --- */
 .swipe-wrapper {
-    /* Default wrapper behavior (for generic usage like in offers) */
     position: relative;
+    width: 100%;
 
-    /* Hero-Specific Styling (Concave Tray) */
     .hero & {
-        // width: calc(100% + 3rem);
         margin: 3rem 0 -0.5rem;
-        z-index: $z-elevated; // Above video background
-        /* Pull to edges and bottom of hero */
-        // padding: 2rem 0;
-
-        /* Bottom rounded, Top flat (visually handled by pseudos) */
-
+        z-index: $z-elevated;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-
-        /* Inverted (Concave) Top Corners */
-        /*         &::after {
-            content: "";
-            width: 100vw;
-            height: 100%;
-            position: absolute;
-            top: -265px;
-            pointer-events: none;
-            box-shadow: var(--engraved);
-            border-radius: var(--border-radius);
-            z-index: $z-base;
-            -webkit-mask-image: linear-gradient(to top, black 40%, transparent 50%);
-            mask-image: linear-gradient(to top, black 40%, transparent 50%);
-        } */
     }
 }
 
@@ -43,20 +20,14 @@
     @extend .ui-label;
     position: absolute;
     top: -4.5rem;
-    /* Position as a tab (Nase) on top */
     left: 50%;
     transform: translateX(-50%);
-
     background: var(--bg-color);
     padding: 0.5rem 1.5rem;
     border-radius: 17px 17px 0 0;
-    /* Tab shape */
-
-    /* Raised look for the tab to contrast with engraved wrapper */
     box-shadow:
         4px -4px 8px var(--shadow-dark),
         -4px -4px 8px var(--shadow-light);
-
     margin-bottom: 0;
     white-space: nowrap;
     text-align: center;
@@ -65,8 +36,7 @@
 .swipe-container {
     position: relative;
     width: 100%;
-    /* Default to full width of parent (e.g. 200px in offers) */
-    height: 62px;
+    height: 56px;
     border-radius: 999px;
     background: var(--bg-color);
     box-shadow: var(--pressed-small), var(--engraved);
@@ -76,11 +46,11 @@
     overflow: hidden;
     touch-action: none;
     user-select: none;
+    padding: 4px;
 }
 
-/* Force fixed width for the main hero swipe button */
 .hero .swipe-container {
-    width: 320px;
+    width: 300px;
     max-width: 90%;
 }
 
@@ -91,30 +61,51 @@
     bottom: 0;
     margin: auto;
     height: 1.5rem;
-    /* Fixed height for auto margin centering */
     display: flex;
     align-items: center;
     font-size: var(--font-size-large);
     color: var(--text-lighter);
     text-shadow: var(--text-pressed);
     pointer-events: none;
-    transition: none;
-    /* No transition needed */
+    z-index: 1;
 }
 
 .swipe-icon-left {
-    left: 25px;
+    left: 20px;
 }
 
 .swipe-icon-right {
-    right: 25px;
+    right: 20px;
+}
+
+.swipe-label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-lighter);
+    opacity: 0.25;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.swipe-label--left {
+    left: 65px;
+}
+
+.swipe-label--right {
+    right: 65px;
 }
 
 .swipe-knob {
     position: absolute;
-    left: 50%;
-    width: 62px;
-    height: 62px;
+    width: 56px;
+    height: 56px;
     border-radius: 999px;
     background: var(--bg-gradient);
     box-shadow: var(--raised), var(--engraved);
@@ -122,44 +113,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    // transition: box-shadow 0.1s;
+    gap: 10px;
+    z-index: 2;
 
     &:active {
         cursor: grabbing;
     }
 }
 
-/* --- Small Variant --- */
-.swipe-container--small {
-    height: 54px;
-    /* Reduced from 70px */
+/* --- Single Action Variants --- */
+.swipe-container--left-only {
+    .swipe-knob {
+        right: 0px;
+        left: auto;
+    }
+
+    .swipe-label {
+        // left: 65px;
+        width: 100%;
+        text-align: center;
+        display: none;
+    }
 }
 
-.swipe-container--small .swipe-knob {
-    width: 46px;
-    /* Reduced from 62px */
-    height: 46px;
-    gap: 8px;
-    /* Reduced gap between arrows */
-}
+.swipe-container--right-only {
+    .swipe-knob {
+        left: 0px;
+        right: auto;
+    }
 
-.swipe-container--small .swipe-icon-left,
-.swipe-container--small .swipe-icon-right {
-    font-size: var(--font-size-medium);
-    /* Smaller icons */
-}
-
-.swipe-container--small .swipe-icon-left {
-    left: 16px;
-}
-
-.swipe-container--small .swipe-icon-right {
-    right: 16px;
-}
-
-.swipe-container--small .swipe-arrow {
-    font-size: var(--font-size-small);
+    .swipe-label {
+        // right: 20px;
+        width: 100%;
+        text-align: center;
+        display: none;
+    }
 }
 
 .swipe-arrow {
@@ -180,65 +168,36 @@
     }
 
     50% {
-        color: var(--orange); // Use highlight (orange) variable
+        color: var(--orange);
         text-shadow: 0 0 5px rgba(255, 149, 0, 0.4);
-    }
-}
-
-
-@keyframes pulse-arrows {
-    0% {
-        opacity: 0.4;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.4;
     }
 }
 
 /* --- Hero Animation States --- */
 .hero--animating {
     .swipe-container {
-        width: 62px; // Start as circle (knob width)
+        width: 62px;
         transform: scale(0);
         opacity: 0;
-        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), // Bouncy scale
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
             width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
             opacity 0.3s;
-        will-change: width, transform;
     }
 
     .swipe-container.swipe-step-1 {
         opacity: 1;
         transform: scale(1);
-        width: 62px; // Keep small
+        width: 62px;
     }
 
     .swipe-container.swipe-step-2 {
-        display: flex; // Ensure it keeps flex
-        width: 320px; // Expand to full
+        width: 300px;
         max-width: 90%;
-    }
-
-    .hero__scroll-down {
-        opacity: 0;
-        transform: translateY(-1rem);
-        transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .hero__scroll-down.reveal-arrow {
-        opacity: 0.6;
-        transform: translateY(0);
     }
 
     .swipe-cta-label {
         opacity: 0;
         transform: translate(-50%, 10px);
-        /* Slide up a bit */
         transition: opacity 0.4s ease, transform 0.4s ease;
     }
 

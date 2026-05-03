@@ -1,14 +1,14 @@
-// src/js/privacy.js
+// src/js/imprint.js
 import { DraggableOverlay } from './modules/DraggableOverlay.js';
 
-export class PrivacyOverlay {
+export class ImprintOverlay {
     constructor() {
-        this.overlay = new DraggableOverlay('privacy-overlay', { 
-            historyKey: 'privacy',
+        this.overlay = new DraggableOverlay('imprint-overlay', { 
+            historyKey: 'imprint',
             topBuffer: 140 
         });
         
-        this.links = document.querySelectorAll('.js-open-privacy');
+        this.links = document.querySelectorAll('.js-open-imprint');
         if (!this.overlay.overlay) return;
 
         this.init();

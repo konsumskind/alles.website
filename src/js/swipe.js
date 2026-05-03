@@ -1,184 +1,232 @@
 import { showToast } from './utils.js';
+
 export class SwipeButton {
     constructor(container) {
         this.container = container;
         this.knob = container.querySelector('.swipe-knob');
+
         // Find icons and arrows within this specific container
         this.iconLeft = container.querySelector('.swipe-icon-left');
         this.iconRight = container.querySelector('.swipe-icon-right');
-        // Arrows might be direct children of knob or deeper.
-        // Using querySelector on container finding .swipe-arrow-left is safer if unique classes used.
-        // But current CSS uses .swipe-arrow and IDs. Let's assume we add classes .swipe-arrow-left/right to HTML.
         this.arrowLeft = container.querySelector('.swipe-arrow-left');
         this.arrowRight = container.querySelector('.swipe-arrow-right');
-        if (!this.knob || !this.iconLeft || !this.iconRight) {
-            console.warn('SwipeButton: Missing required elements', container);
+
+        // Mode detection
+        if (container.classList.contains('swipe-container--left-only')) {
+            this.mode = 'left-only';
+        } else if (container.classList.contains('swipe-container--right-only')) {
+            this.mode = 'right-only';
+        } else {
+            this.mode = 'dual';
+        }
+
+        // Action detection for single-mode buttons
+        this.forcedAction = container.getAttribute('data-action');
+
+        if (!this.knob) {
+            console.warn('SwipeButton: Missing knob element', container);
             return;
         }
+
         this.startX = 0;
         this.currentX = 0;
         this.isDragging = false;
-        this.containerWidth = this.container.offsetWidth;
-        this.knobWidth = this.knob.offsetWidth;
-        this.maxDrag = (this.containerWidth / 2) - (this.knobWidth / 2);
+
+        this.updateDimensions();
+
         // Bind methods
         this.startDrag = this.startDrag.bind(this);
         this.drag = this.drag.bind(this);
         this.endDrag = this.endDrag.bind(this);
+
         this.init();
     }
+
+    updateDimensions() {
+        this.containerWidth = this.container.offsetWidth;
+        this.knobWidth = this.knob.offsetWidth;
+
+        if (this.mode === 'dual') {
+            this.maxDrag = (this.containerWidth / 2) - (this.knobWidth / 2);
+        } else {
+            this.maxDrag = this.containerWidth - this.knobWidth;
+        }
+    }
+
     init() {
-        // Initial State Center
-        this.knob.style.transform = `translateX(-50%)`;
+        this.resetKnobPosition();
+
         this.container.addEventListener('mousedown', this.startDrag);
         this.container.addEventListener('touchstart', this.startDrag, { passive: false });
         document.addEventListener('mousemove', this.drag);
         document.addEventListener('touchmove', this.drag, { passive: false });
         document.addEventListener('mouseup', this.endDrag);
         document.addEventListener('touchend', this.endDrag);
-        // Update on resize
+
         window.addEventListener('resize', () => {
-            this.containerWidth = this.container.offsetWidth;
-            this.maxDrag = (this.containerWidth / 2) - (this.knobWidth / 2);
+            this.updateDimensions();
+            this.resetKnobPosition();
         });
     }
+
+    resetKnobPosition() {
+        if (this.mode === 'dual') {
+            this.knob.style.left = '50%';
+            this.knob.style.transform = `translateX(-50%)`;
+        } else if (this.mode === 'left-only') {
+            this.knob.style.left = 'auto';
+
+            this.knob.style.transform = `translateX(0)`;
+        } else if (this.mode === 'right-only') {
+
+            this.knob.style.right = 'auto';
+            this.knob.style.transform = `translateX(0)`;
+        }
+    }
+
     startDrag(e) {
         this.isDragging = true;
         this.startX = (e.type === 'touchstart') ? e.touches[0].clientX : e.clientX;
         this.knob.style.transition = 'none';
     }
+
     drag(e) {
         if (!this.isDragging) return;
-        // Only prevent default if we are actually dragging this specific button?
-        // Actually blocking vertical scroll globally while dragging is good UX for horizontal swipe.
-        // But we need to check if *this* instance is dragging.
-        // If multiple buttons exist, we need to be careful.
-        // Logic: if isDragging is true for THIS instance, block.
         if (e.cancelable) e.preventDefault();
+
         const clientX = (e.type === 'touchmove') ? e.touches[0].clientX : e.clientX;
-        const deltaX = clientX - this.startX;
-        // Clamp logic
-        if (deltaX > this.maxDrag) this.currentX = this.maxDrag;
-        else if (deltaX < -this.maxDrag) this.currentX = -this.maxDrag;
-        else this.currentX = deltaX;
-        this.knob.style.transform = `translateX(calc(-50% + ${this.currentX}px))`;
-        // Visual Feedback
+        let deltaX = clientX - this.startX;
+
+        if (this.mode === 'dual') {
+            if (deltaX > this.maxDrag) deltaX = this.maxDrag;
+            else if (deltaX < -this.maxDrag) deltaX = -this.maxDrag;
+        } else if (this.mode === 'left-only') {
+            if (deltaX > 0) deltaX = 0;
+            else if (deltaX < -this.maxDrag) deltaX = -this.maxDrag;
+        } else if (this.mode === 'right-only') {
+            if (deltaX < 0) deltaX = 0;
+            else if (deltaX > this.maxDrag) deltaX = this.maxDrag;
+        }
+
+        this.currentX = deltaX;
+
+        if (this.mode === 'dual') {
+            this.knob.style.transform = `translateX(calc(-50% + ${this.currentX}px))`;
+        } else {
+            this.knob.style.transform = `translateX(${this.currentX}px)`;
+        }
+
         this.updateVisuals();
     }
+
     updateVisuals() {
-        const progress = Math.abs(this.currentX) / this.maxDrag; // 0 to 1
+        const progress = Math.abs(this.currentX) / this.maxDrag;
+        const alpha = 0.5 + (progress * 0.3);
+        const shine = 2 + (progress * 10);
 
         const resetSide = (icon, arrow) => {
             if (icon) {
-                icon.style.opacity = '';
-                icon.style.color = '';
-                icon.style.textShadow = '';
+                icon.style.opacity = ''; icon.style.color = ''; icon.style.textShadow = '';
             }
             if (arrow) {
-                arrow.style.opacity = '';
-                arrow.style.color = '';
-                arrow.style.textShadow = '';
+                arrow.style.opacity = ''; arrow.style.color = ''; arrow.style.textShadow = '';
             }
         };
 
-        if (this.currentX < 0) { // Moving Left (Mail)
-            this.resetAnimations();
-            resetSide(this.iconRight, this.arrowRight);
+        const applyTheme = (side, colorVar, glowColor) => {
+            const icon = side === 'left' ? this.iconLeft : this.iconRight;
+            const arrow = side === 'left' ? this.arrowLeft : this.arrowRight;
+            const glow = `0 0 ${shine}px ${glowColor}`;
 
-            const alpha = 0.5 + (progress * 0.3);
-            const shine = 2 + (progress * 10);
-            const purpleGlow = `0 0 ${shine}px rgba(168, 85, 247, ${alpha})`;
+            if (icon) {
+                icon.style.opacity = alpha;
+                icon.style.color = `var(--${colorVar})`;
+                icon.style.textShadow = glow;
+            }
+            if (arrow) {
+                arrow.style.opacity = alpha;
+                arrow.style.color = `var(--${colorVar})`;
+                arrow.style.textShadow = glow;
+            }
+        };
 
-            if (this.iconLeft) {
-                this.iconLeft.style.opacity = alpha;
-                this.iconLeft.style.color = 'var(--purple)';
-                this.iconLeft.style.textShadow = purpleGlow;
-            }
-            if (this.arrowLeft) {
-                this.arrowLeft.style.opacity = alpha;
-                this.arrowLeft.style.color = 'var(--purple)';
-                this.arrowLeft.style.textShadow = purpleGlow;
-            }
-            if (this.knob) {
-                this.knob.style.boxShadow = `var(--raised), var(--engraved)`;
-            }
-        } else if (this.currentX > 0) { // Moving Right (Call)
-            this.resetAnimations();
-            resetSide(this.iconLeft, this.arrowLeft);
+        this.resetAnimations();
 
-            const alpha = 0.5 + (progress * 0.3);
-            const shine = 2 + (progress * 10);
-            const blueGlow = `0 0 ${shine}px rgba(0, 179, 255, ${alpha})`;
+        if (this.currentX < 0) { // Sliding Left
+            if (this.mode === 'dual') resetSide(this.iconRight, this.arrowRight);
+            applyTheme('left', 'purple', 'rgba(168, 85, 247, ' + alpha + ')');
+            this.knob.style.boxShadow = `var(--raised), var(--engraved)`;
+        } else if (this.currentX > 0) { // Sliding Right
+            if (this.mode === 'dual') resetSide(this.iconLeft, this.arrowLeft);
 
-            if (this.iconRight) {
-                this.iconRight.style.opacity = alpha;
-                this.iconRight.style.color = 'var(--blue)';
-                this.iconRight.style.textShadow = blueGlow;
+            // Determine theme based on action
+            const action = this.mode === 'dual' ? 'call' : (this.forcedAction || 'call');
+            if (action === 'mail') {
+                applyTheme('right', 'purple', 'rgba(168, 85, 247, ' + alpha + ')');
+            } else {
+                applyTheme('right', 'blue', 'rgba(0, 179, 255, ' + alpha + ')');
             }
-            if (this.arrowRight) {
-                this.arrowRight.style.opacity = alpha;
-                this.arrowRight.style.color = 'var(--blue)';
-                this.arrowRight.style.textShadow = blueGlow;
-            }
-            if (this.knob) {
-                this.knob.style.boxShadow = `var(--raised), var(--engraved)`;
-            }
+            this.knob.style.boxShadow = `var(--raised), var(--engraved)`;
         } else {
             resetSide(this.iconLeft, this.arrowLeft);
             resetSide(this.iconRight, this.arrowRight);
-            if (this.knob) {
-                this.knob.style.boxShadow = '';
-            }
+            this.knob.style.boxShadow = '';
         }
     }
+
     resetAnimations() {
         if (this.arrowLeft) this.arrowLeft.style.animation = 'none';
         if (this.arrowRight) this.arrowRight.style.animation = 'none';
     }
+
     endDrag() {
         if (!this.isDragging) return;
         this.isDragging = false;
         this.knob.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        const threshold = this.maxDrag * 0.9;
+
+        const threshold = this.maxDrag * 0.85;
+
         if (this.currentX < -threshold) {
-            this.knob.style.transform = `translateX(calc(-50% - ${this.maxDrag}px))`;
-            this.triggerAction('mail');
+            if (this.mode === 'dual') {
+                this.knob.style.transform = `translateX(calc(-50% - ${this.maxDrag}px))`;
+                this.triggerAction('mail');
+            } else {
+                this.knob.style.transform = `translateX(-${this.maxDrag}px)`;
+                this.triggerAction(this.forcedAction || 'mail');
+            }
         } else if (this.currentX > threshold) {
-            this.knob.style.transform = `translateX(calc(-50% + ${this.maxDrag}px))`;
-            this.triggerAction('call');
+            if (this.mode === 'dual') {
+                this.knob.style.transform = `translateX(calc(-50% + ${this.maxDrag}px))`;
+                this.triggerAction('call');
+            } else {
+                this.knob.style.transform = `translateX(${this.maxDrag}px)`;
+                this.triggerAction(this.forcedAction || 'call');
+            }
         } else {
             this.resetSwipe();
         }
     }
+
     resetSwipe() {
         this.currentX = 0;
-        this.knob.style.transform = `translateX(-50%)`;
-        // Reset Styles
+        this.resetKnobPosition();
+
         const els = [this.iconLeft, this.iconRight, this.arrowLeft, this.arrowRight];
         els.forEach(el => {
             if (el) {
-                el.style.opacity = '';
-                el.style.color = '';
-                el.style.textShadow = '';
-                el.style.animation = ''; // let CSS take over
+                el.style.opacity = ''; el.style.color = ''; el.style.textShadow = ''; el.style.animation = '';
             }
         });
-        if (this.knob) {
-            this.knob.style.boxShadow = '';
-        }
+        this.knob.style.boxShadow = '';
     }
+
     triggerAction(type) {
         if (type === 'mail') {
-            if (this.container.closest('#start')) {
-                document.dispatchEvent(new CustomEvent('openBookingForm'));
-            } else {
-                window.location.href = "mailto:janoschkartschall@gmail.com";
-                showToast('Mail-App wird geöffnet...');
-            }
+            document.dispatchEvent(new CustomEvent('openBookingForm'));
         } else {
             window.location.href = "tel:+4915772998248";
             showToast('Anruf wird gestartet...');
         }
-        setTimeout(() => this.resetSwipe(), 1000);
+        setTimeout(() => this.resetSwipe(), 300);
     }
 }

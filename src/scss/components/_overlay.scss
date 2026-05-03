@@ -163,7 +163,7 @@ body.overlay-active {
     .overlay.is-open {
         visibility: visible;
         transition-delay: 0s;
-        background-color: rgba(0, 0, 0, 0.05); // Very subtle dim
+        // background-color: rgba(0, 0, 0, 0.05); // Very subtle dim
 
         .overlay__content {
             transform: translateY(0);
@@ -182,8 +182,8 @@ body.overlay-active {
     }
 
     .overlay.has-blur {
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
 
         @media (min-width: 768px) {
             backdrop-filter: none; // No blur on desktop

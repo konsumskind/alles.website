@@ -1,0 +1,14 @@
+// src/scss/components/_imprint.scss
+.imprint-text {
+    h4 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-main);
+        font-size: 1.1rem;
+    }
+
+    p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+}

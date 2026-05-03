@@ -13,6 +13,7 @@ import { HeroAnimation } from './js/hero.js';
 import { showToast } from './js/utils.js';
 import { BookingForm } from './js/booking.js';
 import { PrivacyOverlay } from './js/privacy.js';
+import { ImprintOverlay } from './js/imprint.js';
 // Initialize Breathing Exercise
 const initBreathing = () => {
     new BreathExercise();
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPreloader();
     new BookingForm();
     new PrivacyOverlay();
+    new ImprintOverlay();
 
     // Visuals
     new HeroAnimation().init();
