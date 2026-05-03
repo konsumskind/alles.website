@@ -6,6 +6,7 @@ export class HeroAnimation {
         this.text = document.querySelector('.hero__text');
         this.name = document.querySelector('.hero__brand .name');
         this.tagline = document.querySelector('.hero__brand .tagline');
+        this.badge = document.getElementById('heroBadge');
         this.uiElements = [];
     }
 
@@ -156,5 +157,34 @@ export class HeroAnimation {
         // 5. Theme Toggle
         currentDelay += 400;
         this.uiElements.forEach(el => animate(el, currentDelay));
+
+        // 6. Trigger custom event when animation completes
+        setTimeout(() => {
+            document.dispatchEvent(new CustomEvent('heroAnimationComplete'));
+            
+            // Start badge observer after animation
+            this.initBadgeObserver();
+        }, currentDelay + 400);
+    }
+
+    initBadgeObserver() {
+        if (!this.badge || !this.hero) return;
+
+        let visibilityTimeout;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    visibilityTimeout = setTimeout(() => {
+                        this.badge.classList.add('show');
+                    }, 500); // kurze Zeit warten
+                } else {
+                    clearTimeout(visibilityTimeout);
+                    this.badge.classList.remove('show');
+                }
+            });
+        }, { threshold: 0.6 });
+
+        // Start observing immediately
+        observer.observe(this.hero);
     }
 }

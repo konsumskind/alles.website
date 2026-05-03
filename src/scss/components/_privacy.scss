@@ -1,0 +1,16 @@
+// src/scss/components/_privacy.scss
+
+.privacy-text {
+    margin-top: 1.5rem;
+    line-height: 1.6;
+    padding-right: 0.5rem;
+
+    h4 {
+        margin: 1.5rem 0 0.5rem;
+        color: var(--text-main);
+    }
+    
+    p {
+        margin-bottom: 1rem;
+    }
+}

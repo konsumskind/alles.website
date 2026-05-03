@@ -67,29 +67,67 @@ export class SwipeButton {
     }
     updateVisuals() {
         const progress = Math.abs(this.currentX) / this.maxDrag; // 0 to 1
+
+        const resetSide = (icon, arrow) => {
+            if (icon) {
+                icon.style.opacity = '';
+                icon.style.color = '';
+                icon.style.textShadow = '';
+            }
+            if (arrow) {
+                arrow.style.opacity = '';
+                arrow.style.color = '';
+                arrow.style.textShadow = '';
+            }
+        };
+
         if (this.currentX < 0) { // Moving Left (Mail)
             this.resetAnimations();
-            const alpha = 0.5 + (progress * 0.5);
-            // const purple = `rgba(168, 85, 247, ${alpha})`;
-            // Better to use opacity with CSS variable to avoid Hex parsing
+            resetSide(this.iconRight, this.arrowRight);
+
+            const alpha = 0.5 + (progress * 0.3);
+            const shine = 2 + (progress * 10);
+            const purpleGlow = `0 0 ${shine}px rgba(168, 85, 247, ${alpha})`;
+
             if (this.iconLeft) {
                 this.iconLeft.style.opacity = alpha;
                 this.iconLeft.style.color = 'var(--purple)';
+                this.iconLeft.style.textShadow = purpleGlow;
             }
             if (this.arrowLeft) {
                 this.arrowLeft.style.opacity = alpha;
                 this.arrowLeft.style.color = 'var(--purple)';
+                this.arrowLeft.style.textShadow = purpleGlow;
             }
-        } else { // Moving Right (Call)
+            if (this.knob) {
+                this.knob.style.boxShadow = `var(--raised), var(--engraved)`;
+            }
+        } else if (this.currentX > 0) { // Moving Right (Call)
             this.resetAnimations();
-            const alpha = 0.5 + (progress * 0.5);
+            resetSide(this.iconLeft, this.arrowLeft);
+
+            const alpha = 0.5 + (progress * 0.3);
+            const shine = 2 + (progress * 10);
+            const blueGlow = `0 0 ${shine}px rgba(0, 179, 255, ${alpha})`;
+
             if (this.iconRight) {
                 this.iconRight.style.opacity = alpha;
                 this.iconRight.style.color = 'var(--blue)';
+                this.iconRight.style.textShadow = blueGlow;
             }
             if (this.arrowRight) {
                 this.arrowRight.style.opacity = alpha;
                 this.arrowRight.style.color = 'var(--blue)';
+                this.arrowRight.style.textShadow = blueGlow;
+            }
+            if (this.knob) {
+                this.knob.style.boxShadow = `var(--raised), var(--engraved)`;
+            }
+        } else {
+            resetSide(this.iconLeft, this.arrowLeft);
+            resetSide(this.iconRight, this.arrowRight);
+            if (this.knob) {
+                this.knob.style.boxShadow = '';
             }
         }
     }
@@ -121,14 +159,22 @@ export class SwipeButton {
             if (el) {
                 el.style.opacity = '';
                 el.style.color = '';
+                el.style.textShadow = '';
                 el.style.animation = ''; // let CSS take over
             }
         });
+        if (this.knob) {
+            this.knob.style.boxShadow = '';
+        }
     }
     triggerAction(type) {
         if (type === 'mail') {
-            window.location.href = "mailto:janoschkartschall@gmail.com";
-            showToast('Mail-App wird geöffnet...');
+            if (this.container.closest('#start')) {
+                document.dispatchEvent(new CustomEvent('openBookingForm'));
+            } else {
+                window.location.href = "mailto:janoschkartschall@gmail.com";
+                showToast('Mail-App wird geöffnet...');
+            }
         } else {
             window.location.href = "tel:+4915772998248";
             showToast('Anruf wird gestartet...');

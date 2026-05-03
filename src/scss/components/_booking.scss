@@ -1,0 +1,56 @@
+// src/scss/components/_booking.scss
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    .input-group {
+        display: flex;
+        gap: 1rem;
+
+        .input-field {
+            flex: 1;
+            min-width: 0;
+        }
+    }
+
+    .form-divider {
+        height: 1px;
+        background-color: var(--shadow-dark);
+        margin: 1rem 0;
+        opacity: 0.5;
+    }
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    color: var(--text-main);
+    font-size: 0.9rem;
+
+
+    input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        background-color: var(--bg-color);
+        box-shadow: var(--pressed-small), var(--engraved);
+        cursor: pointer;
+        position: relative;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        &:checked {
+            box-shadow: var(--pressed-small), var(--engraved), inset 0 0 0 4px var(--bg-color), inset 0 0 0 10px var(--orange);
+        }
+    }
+}

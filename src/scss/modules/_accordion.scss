@@ -3,6 +3,11 @@
     // max-width: 800px; // Match standard text width
     margin: 0 auto;
     // padding: 0 1.5rem;
+
+    &--spaced {
+        margin-top: 1.3125rem;
+        margin-bottom: 1.3125rem;
+    }
 }
 
 .accordion__item {

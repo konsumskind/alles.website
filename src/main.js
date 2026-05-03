@@ -6,20 +6,15 @@ import { ThemeManager } from './js/theme.js';
 import { Accordion } from './js/accordion.js';
 import { initCarousel } from './js/carousel.js';
 import { ScrollManager } from './js/scroll.js';
-import { initContactForm, sendMail } from './js/contact.js';
+import { initContactForm } from './js/contact.js';
 import { ProcessAnimation } from './js/process.js';
 import { initPreloader } from './js/preloader.js';
 import { HeroAnimation } from './js/hero.js';
 import { showToast } from './js/utils.js';
-
-// Expose showToast globally for modules that need it (e.g., ThemeManager)
-window.showToast = showToast;
-
+import { BookingForm } from './js/booking.js';
+import { PrivacyOverlay } from './js/privacy.js';
 // Initialize Breathing Exercise
 const initBreathing = () => {
-    // Clean up inline handler if present
-    const btn = document.getElementById('breathBtn');
-    if (btn) btn.removeAttribute('onclick');
     new BreathExercise();
 };
 
@@ -34,13 +29,19 @@ const initWorkshopToast = () => {
     const card = document.getElementById('workshopCard');
     if (card) {
         card.addEventListener('click', () => {
-            showToast('Infos zu Workshops folgen in Kürze!');
+            showToast('Infos folgen in Kürze!');
         });
     }
 };
 
-// Application Bootstrap
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Prevent browser from jumping on history navigation
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
     // Core Modules
     new ThemeManager();
     window.scrollManager = new ScrollManager(); // Handles Nav, Scroll & Touch Feedback
@@ -57,8 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initContactForm();
     initWorkshopToast();
     initPreloader();
+    new BookingForm();
+    new PrivacyOverlay();
 
     // Visuals
     new HeroAnimation().init();
 });
-

@@ -27,7 +27,7 @@
   --font-family-title: 'Inter', sans-serif;
   --font-family-text: 'Merriweather', serif;
   --font-size-xs: 0.65rem;
-  --font-size-small: 0.80rem;
+  --font-size-small: 0.813rem;
   --font-size-medium: 1rem;
   --font-size-large: 1.25rem;
   --font-size-xl: 1.5rem;
@@ -42,6 +42,13 @@
     -2px -2px 4px var(--shadow-light),
     inset -1px -1px 2px var(--shadow-dark),
     inset 1px 1px 2px var(--shadow-light);
+
+  --floating:
+    8px 8px 12px rgba(0, 0, 0, 0.08),
+    inset -1px -1px 2px var(--shadow-dark),
+    inset 1px 1px 2px var(--shadow-light),
+    inset 1px 1px 2px var(--shadow-light),
+    inset -1px -1px 2px var(--shadow-dark);
 
   /* PRESSED (Vertieft - Box/Input) */
   --pressed-medium:
@@ -121,7 +128,7 @@
     inset -1px -1px 2px var(--shadow-dark),
     0 0 30px var(--blue-light);
 
-  /* Dark Mode Overrides */
+  ///////////////////////////////////////////////////////////////////////* Dark Mode Overrides */
   body.dark-mode {
     --bg-color: #16181b;
     --text-main: #f4f4f4;
@@ -153,6 +160,13 @@
       inset 1px 1px 1px var(--shadow-light),
       inset -1px -1px 1px var(--shadow-dark);
 
+    --floating:
+      8px 8px 12px rgba(0, 0, 0, 0.2),
+      inset -1px -1px 2px var(--shadow-dark),
+      inset 1px 1px 2px var(--shadow-light),
+      inset 1px 1px 2px var(--shadow-light),
+      inset -1px -1px 2px var(--shadow-dark);
+
     --pressed-medium:
       inset 4px 4px 8px var(--shadow-dark),
       inset -4px -4px 8px var(--shadow-light),
@@ -161,8 +175,10 @@
 
 
     --pressed-small:
-      inset 4px 4px 8px var(--shadow-dark),
-      inset -2px -2px 4px var(--shadow-light);
+      inset 2px 2px 4px var(--shadow-dark),
+      inset -2px -2px 4px var(--shadow-light),
+      -1px -1px 2px var(--shadow-dark),
+      1px 1px 2px var(--shadow-light);
 
     --pressed-small-orange:
       inset 2px 2px 4px var(--orange-dark),

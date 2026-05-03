@@ -21,6 +21,10 @@
     align-items: center;
     text-align: center;
 
+    &--full-height {
+        height: 100%;
+    }
+
     &__icon {
         font-size: var(--font-size-large);
         color: var(--orange);
@@ -313,6 +317,11 @@
         display: flex;
         align-items: center;
         gap: 1rem;
+    }
+
+    &__title {
+        font-weight: 700;
+        color: var(--text-main);
     }
 
     &__icon-box {

@@ -252,3 +252,21 @@ body.mode-immersive {
 .dot.bounce-in {
     animation: bounce-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
+
+.breath-circle-inner__icon {
+    font-size: var(--font-size-large);
+    text-shadow: var(--text-pressed);
+}
+
+.breath-btn-wrapper {
+    margin-top: 1rem;
+}
+
+.breath-btn__icon {
+    margin-right: 0.5rem;
+
+    &--reverse {
+        margin-right: 0.5rem;
+        transform: rotate(180deg);
+    }
+}

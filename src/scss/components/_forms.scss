@@ -3,7 +3,7 @@
 .input-field {
     width: 100%;
     background: var(--bg-color);
-    box-shadow: var(--pressed-medium);
+    box-shadow: var(--pressed-small), var(--engraved);
     border-radius: var(--border-radius);
     border: none;
     padding: 16px 20px;
@@ -14,11 +14,70 @@
     margin-bottom: 1rem;
 
     &:focus {
-        box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
-        color: var(--orange);
+        background: var(--shadow-light);
+        // color: var(--orange);
     }
 
     &::placeholder {
         color: var(--text-lighter);
+    }
+
+    // Custom Autofill Styling to match Neumorphism
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:active {
+        // We stack the Neumorphic shadows on top of the background-fill shadow
+        // Using var(--bg-color) here ensures it returns to the base color
+        -webkit-box-shadow: var(--pressed-small), var(--engraved), 0 0 0 1000px var(--bg-color) inset !important;
+        -webkit-text-fill-color: var(--text-main) !important;
+        transition: background-color 5000s ease-in-out 0s;
+        caret-color: var(--text-main);
+    }
+
+    &:-webkit-autofill:focus {
+        // When focused while autofilled, we can use var(--shadow-light) to match your focus style
+        -webkit-box-shadow: var(--pressed-small), var(--engraved), 0 0 0 1000px var(--shadow-light) inset !important;
+        -webkit-text-fill-color: var(--text-main) !important;
+    }
+}
+
+.select-wrapper {
+    position: relative;
+
+    select.input-field {
+        cursor: pointer;
+        padding-right: 3rem;
+        appearance: none;
+        -webkit-appearance: none;
+        box-shadow: var(--engraved), var(--pressed-small);
+
+        &:focus {
+            background: var(--bg-color);
+            // color: var(--orange);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+
+            &~.select-wrapper__icon {
+                opacity: 0.6;
+            }
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-100%);
+        color: var(--orange);
+        font-size: var(--font-size-small);
+        pointer-events: none;
+        transition: transform 0.3s ease;
+
+        &--open {
+            transform: translateY(-100%) rotate(-180deg);
+        }
     }
 }

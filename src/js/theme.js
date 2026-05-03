@@ -2,6 +2,7 @@ import videoLightIntro from '/src/assets/bg-start_intro_v09.mp4';
 import videoLightLoop from '/src/assets/bg-start_loop_v10.mp4';
 import videoDarkIntro from '/src/assets/bg-start-dark_loop_v08.mp4';
 import videoDarkLoop from '/src/assets/bg-start-dark_loop_v08.mp4';
+import { showToast } from './utils.js';
 
 export class ThemeManager {
     constructor() {
@@ -69,10 +70,8 @@ export class ThemeManager {
 
         this.setTheme(next);
 
-        if (window.showToast) {
-            const labels = { 'auto': 'Automatisch', 'light': 'Hell', 'dark': 'Dunkel' };
-            window.showToast(labels[next]);
-        }
+        const labels = { 'auto': 'Automatisch', 'light': 'Hell', 'dark': 'Dunkel' };
+        showToast(labels[next]);
     }
 
     setTheme(val) {

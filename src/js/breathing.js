@@ -141,7 +141,7 @@ export class BreathExercise {
 
         this.removeCalibrationListeners();
         this.elements.btn.onclick = null;
-        this.elements.btn.innerHTML = '<i class="fas fa-play" style="margin-right: 0.5rem;"></i> Übung starten';
+        this.elements.btn.innerHTML = '<i class="fas fa-play breath-btn__icon"></i> Übung starten';
 
         if (this.elements.intro && this.originalIntro) {
             this.updateIntroText(this.originalIntro);
@@ -228,7 +228,7 @@ export class BreathExercise {
                 });
             });
 
-            this.elements.btn.innerHTML = '<i class="fas fa-stop" style="margin-right: 0.5rem;"></i> Abbrechen';
+            this.elements.btn.innerHTML = '<i class="fas fa-stop breath-btn__icon"></i> Abbrechen';
 
             if (this.elements.intro) {
                 if (!isRestart) {
@@ -356,7 +356,7 @@ export class BreathExercise {
     }
 
     startGuidance() {
-        this.elements.btn.innerHTML = '<i class="fas fa-stop" style="margin-right: 0.5rem;"></i> Abbrechen';
+        this.elements.btn.innerHTML = '<i class="fas fa-stop breath-btn__icon"></i> Abbrechen';
 
         const runCycle = () => {
             if (this.state !== 'GUIDANCE') return;
@@ -424,7 +424,7 @@ export class BreathExercise {
         this.elements.circle.addEventListener('touchend', this.restartHandler);
 
         this.elements.text.innerHTML = `Ein: ${inSec}s | Aus: ${outSec}s<br>${bpm} Atemzüge/Min | Verhältnis 1:${ratio}`;
-        this.elements.btn.innerHTML = '<i class="fas fa-play" style="margin-right: 0.5rem; transform: rotate(180deg);"></i> Zurück';
+        this.elements.btn.innerHTML = '<i class="fas fa-play breath-btn__icon breath-btn__icon--reverse"></i> Zurück';
 
         const dotsContainer = document.getElementById('breathDots');
         if (dotsContainer) dotsContainer.classList.remove('visible');
@@ -441,7 +441,7 @@ export class BreathExercise {
 
     updateUI(text) {
         if (text === '') {
-            this.elements.circle.innerHTML = '<i class="fas fa-lungs" style="font-size: var(--font-size-large); text-shadow: var(--text-pressed);"></i>';
+            this.elements.circle.innerHTML = '<i class="fas fa-lungs breath-circle-inner__icon"></i>';
         } else {
             this.elements.circle.innerText = 'Start';
         }

@@ -11,7 +11,9 @@
 @use 'components/theme-switcher';
 @use 'components/profile';
 @use 'components/badges';
-
+@use 'components/overlay';
+@use 'components/booking';
+@use 'components/privacy';
 @use 'layout/hero';
 @use 'layout/sections';
 @use 'layout/footer';

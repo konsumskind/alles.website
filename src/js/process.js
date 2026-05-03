@@ -41,6 +41,22 @@ export class ProcessAnimation {
             this.updateLayout(this.currentIndex, this.currentIndex);
         });
 
+        // Intersection Observer to add/remove .in-view
+        let visibilityTimeout;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    visibilityTimeout = setTimeout(() => {
+                        this.container.classList.add('in-view');
+                    }, 500); // kurze Zeit warten, bevor es auftaucht
+                } else {
+                    clearTimeout(visibilityTimeout);
+                    this.container.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.6 });
+        observer.observe(this.container);
+
         // Touch / Swipe Support
         this.touchStartX = 0;
         this.touchEndX = 0;

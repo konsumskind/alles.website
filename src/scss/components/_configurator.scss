@@ -10,6 +10,12 @@
     user-select: none;
     position: relative;
 
+    &--compact {
+        margin: 0;
+        transform: scale(0.9);
+        transform-origin: right center;
+    }
+
     .toggle-input {
         display: none;
     }
@@ -51,7 +57,7 @@
     .toggle-input:checked~.toggle-slider::after {
         transform: translateX(1.25rem);
         box-shadow: 2px 2px 4px var(--shadow-dark),
-            -2px -2px 4px var(--orange-dark),
+            -2px -2px 4px var(--orange-light),
             inset -1px -1px 2px var(--shadow-dark),
             inset 1px 1px 2px var(--shadow-light);
     }
@@ -65,6 +71,7 @@
 .configurator__slider {
     -webkit-appearance: none;
     appearance: none;
+    width: 100%;
     height: 8px;
     /* Slightly thicker track for better touch */
     background: transparent;
@@ -129,5 +136,56 @@
         background: rgba(0, 0, 0, 0.05);
         border-radius: 4px;
         box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .configurator__slider {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.slider-ticks {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    right: 12px;
+    height: 26px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 0;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+        position: relative;
+        width: 0.5px;
+        height: 100%;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 0.5px;
+            height: 5px;
+            background-color: var(--bg-color);
+            box-shadow: var(--engraved);
+            border-radius: 1px;
+        }
+
+        &::before {
+            top: 0;
+        }
+
+        &::after {
+            bottom: 0;
+        }
     }
 }

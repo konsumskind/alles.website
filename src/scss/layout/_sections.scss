@@ -25,6 +25,10 @@
         margin-bottom: 2rem;
         hyphens: auto;
         text-align: justify;
+
+        &--flush {
+            margin-bottom: 0;
+        }
     }
 
     &__grid {
@@ -51,6 +55,20 @@
             max-width: 32rem;
             margin: 0 auto;
         }
+    }
+}
+
+.section__references {
+    margin-top: 2.5rem;
+}
+
+.config-value {
+    &--wide {
+        min-width: 6rem;
+    }
+
+    &--narrow {
+        min-width: 3.5rem;
     }
 }
 
@@ -115,6 +133,10 @@
 
 
 // Contact Section
+.contact-card__inner {
+    position: relative;
+}
+
 .contact-intro-text {
     font-size: var(--font-size-small);
     color: var(--text-light);
@@ -130,4 +152,45 @@
     .btn {
         gap: 0.75rem;
     }
+
+    .btn__icon {
+        font-size: var(--font-size-medium);
+    }
+}
+
+.location-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.location-header__title {
+    margin-bottom: 0.25rem;
+}
+
+.location-header__icon {
+    margin-right: 0.5rem;
+}
+
+.location-header__address {
+    margin-left: 1.5rem;
+}
+
+.location-header__link {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: var(--font-size-medium);
+}
+
+.location-preview__map iframe {
+    border: 0;
+    opacity: 0.7;
+    mix-blend-mode: multiply;
+}
+
+.location-preview__map-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
 }
