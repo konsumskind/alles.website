@@ -115,8 +115,8 @@
         }
     </style>
 
-  <script type="module" crossorigin src="/alles.website/assets/index-D_nF44iU.js"></script>
-  <link rel="stylesheet" crossorigin href="/alles.website/assets/index-CoLUVWEw.css">
+  <script type="module" crossorigin src="/alles.website/assets/index-Dl7iyd8I.js"></script>
+  <link rel="stylesheet" crossorigin href="/alles.website/assets/index-ClcXuV0S.css">
 </head>
 
 <body>
@@ -173,11 +173,14 @@
 
 
             <div class="swipe-wrapper">
-                <div class="swipe-cta-label">Jetzt Anfragen</div>
+                <div class="swipe-cta-label">
+                    Jetzt Anfragen
+                    <div class="highlight-badge" id="heroBadge">Kostenlos!</div>
+                </div>
                 <div class="swipe-container">
                     <div class="swipe-icon-left"><i class="fas fa-envelope"></i></div>
                     <div class="swipe-icon-right"><i class="fas fa-phone-alt"></i></div>
-                    <div class="swipe-knob" style="transform: translateX(-50%);">
+                    <div class="swipe-knob">
                         <i class="fas fa-chevron-left swipe-arrow swipe-arrow-left"></i>
                         <i class="fas fa-chevron-right swipe-arrow swipe-arrow-right"></i>
                     </div>
@@ -200,7 +203,7 @@
 
                 <h3>Die systemische Brille</h3>
 
-                <div class="section__intro" style="margin-bottom: 0;">
+                <div class="section__intro section__intro--flush">
                     <p>Herausforderungen entstehen selten isoliert. Sie sind das Ergebnis von Wechselwirkungen –
                         zwischen Menschen, Erwartungen, Zielen und Bedürfnissen. Bei der systemischen Arbeit befassen
                         wir uns mit der Dynamik hinter dem Inhalt. Es geht nicht nur darum, was eine Erzählung enthält,
@@ -211,7 +214,7 @@
             </div>
 
             <!-- Accordion Container -->
-            <div id="haltungAccordion" class="accordion" style="margin-top: 1.3125rem; margin-bottom: 1.3125rem;">
+            <div id="haltungAccordion" class="accordion accordion--spaced">
                 <!-- Item 1 -->
                 <div class="accordion__item">
                     <div class="accordion__header">
@@ -318,12 +321,12 @@
                 </div>
             </div>
 
-            <div class="carousel" id="featureCarousel" data-mobile-only style="padding: 2rem 0 0 0;">
+            <div class="carousel carousel--top-only" id="featureCarousel" data-mobile-only>
                 <div class="carousel__viewport">
                     <div class="carousel__track">
                         <!-- Card 1 -->
                         <div class="carousel__item">
-                            <article class="feature-card" style="height: 100%;">
+                            <article class="feature-card feature-card--full-height">
                                 <div class="feature-card__icon">
                                     <i class="fas fa-shield-alt"></i>
                                 </div>
@@ -336,7 +339,7 @@
 
                         <!-- Card 2 -->
                         <div class="carousel__item">
-                            <article class="feature-card" style="height: 100%; transition-delay: 100ms;">
+                            <article class="feature-card feature-card--full-height">
                                 <div class="feature-card__icon">
                                     <i class="fas fa-binoculars"></i>
                                 </div>
@@ -348,7 +351,7 @@
 
                         <!-- Card 3 -->
                         <div class="carousel__item">
-                            <article class="feature-card" style="height: 100%; transition-delay: 200ms;">
+                            <article class="feature-card feature-card--full-height">
                                 <div class="feature-card__icon">
                                     <i class="fas fa-hand-holding-heart"></i>
                                 </div>
@@ -375,8 +378,7 @@
                     <!-- Custom Image Layout - Inline Styles Preserved for Complexity/Uniqueness -->
                     <div class="profile-container">
                         <div class="profile-container__inner">
-                            <img src="/alles.website/assets/profile_picture_v01-BczCEZac.jpg" alt="Janosch Kartschall"
-                                onerror="this.src='https://placehold.co/200x200?text=JK';">
+                            <img src="/alles.website/assets/profile_picture_v01-BczCEZac.jpg" alt="Janosch Kartschall">
                         </div>
                     </div>
 
@@ -413,7 +415,7 @@
                     </div>
                 </div>
 
-                <div style="margin-top: 2.5rem;">
+                <div class="section__references">
                     <div class="reference-wrapper">
                         <div class="qualification-badge">
                             <i class="fas fa-certificate text-orange"></i>
@@ -579,7 +581,7 @@
                     <!-- 1. Kennenlernen -->
                     <div class="profile-process__step" data-step="1" data-label="Kennenlernen"
                         data-text="In einem unverbindlichen Telefonat klären wir dein Anliegen und prüfen, ob wir zueinander passen.">
-                        <div class="profile-process__badge">Kostenlos</div>
+                        <div class="highlight-badge">Kostenlos!</div>
                         <div class="profile-process__icon" aria-label="Kennenlernen">
                             <svg viewBox="0 0 62 62">
                                 <circle cx="31" cy="31" r="30"></circle>
@@ -646,134 +648,172 @@
 
                 <h3>Investiere in dich</h3>
                 <div class="section__intro">
-                    <p>Du entscheidest über Taktung und Dauer.</p>
+                    <p>Wähle dein Setting, finde herraus, wie sich dein Investment im laufe unserer Zusammenarbeit
+                        entwickelt und welche Pakete es für den Anfang gibt. Die Taktung
+                        und Anzahl der Sitzungen ist je nach Bedürfniss und Geschwindigkeit flexibel.</p>
                 </div>
             </div>
 
             <div class="section__grid section__grid--offers">
                 <!-- Offer 1 -->
                 <article class="offer-card group" id="offer-fokus" data-offer-type="session">
-                    <div class="offer-card__badge offer-card__badge--primary">Fokus</div>
-                    <h4 class="offer-card__title">Die Einzelsitzung</h4>
-                    <p class="offer-card__subtitle">Wir analysieren die Situation, strukturieren komplexe Gedanken und
-                        erarbeiten konkrete Handlungsoptionen für den Alltag.</p>
-                    <div class="offer-card__config-grid">
-                        <div class="config-label"><i class="far fa-clock"></i> 90 Minuten</div>
-                        <div></div>
-                        <div class="config-label"><i class="fas fa-map-marker-alt"></i> Online / Atelier</div>
-                        <div></div>
-                        <div class="config-label"><i class="fas fa-user"></i><span id="people-val-fokus">1 Person</span>
-                        </div>
-                        <div class="config-control">
-                            <label class="toggle-switch"
-                                style="margin: 0; transform: scale(0.9); transform-origin: right center;">
-                                <input type="checkbox" class="toggle-input" data-target="people-fokus">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="config-label"><i class="fas fa-layer-group"></i><span id="sessions-val-fokus"
-                                style="min-width: 6rem;">1<span> Sitzung</span></span></div>
-                        <div class="config-control">
-                            <input type="range" min="1" max="5" value="1" class="configurator__slider"
-                                id="sessions-fokus" style="width: 100%;">
-                        </div>
+                    <div class="offer-card__header">
+                        <div class="offer-card__badge offer-card__badge--primary">Fokus</div>
+                        <h4 class="offer-card__title">Die Einzelsitzung</h4>
+                        <p class="offer-card__subtitle">Wir analysieren die Situation, strukturieren komplexe Gedanken
+                            und
+                            finden die Frage, deren Antwort zur Lösung führt. Indem wir Bedürfnisse, Gefühle und
+                            Blockaden
+                            ergründen, finden wir Antworten und erarbeiten konkrete
+                            Handlungsoptionen.</p>
                     </div>
-                    <div class="offer-card__footer">
-                        <div class="offer-card__price">
-                            <div class="amount-large"><span class="price-value" id="price-total-fokus">180</span> €
+                    <div class="offer-card__body">
+                        <div class="offer-card__config-grid">
+                            <div class="config-label"><i class="far fa-clock"></i> 90 Minuten</div>
+                            <div></div>
+                            <div class="config-label"><i class="fas fa-map-marker-alt"></i> Online / Atelier</div>
+                            <div></div>
+                            <div class="config-label"><i class="fas fa-user"></i><span id="people-val-fokus">1
+                                    Person</span>
                             </div>
-                            <span class="note"><span id="price-per-session-fokus">180</span>€ /Sitzung</span>
+                            <div class="config-control">
+                                <label class="toggle-switch toggle-switch--compact">
+                                    <input type="checkbox" class="toggle-input" data-target="people-fokus">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="config-label"><i class="fas fa-layer-group"></i><span id="sessions-val-fokus"
+                                    class="config-value config-value--wide">1<span> Sitzung einzeln</span></span></div>
+                            <div class="config-control" style="gap: 0.5rem; align-items: center;">
+                                <div class="slider-wrapper">
+                                    <div class="slider-ticks"></div>
+                                    <input type="range" min="1" max="6" value="1" class="configurator__slider"
+                                        id="sessions-fokus">
+                                </div>
+                                <label class="toggle-switch toggle-switch--compact" title="Paketbuchung">
+                                    <input type="checkbox" class="toggle-input" data-target="package-fokus">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
                         </div>
-                        <div class="swipe-wrapper">
-                            <div class="swipe-container swipe-container--small">
-                                <div class="swipe-icon-left"><i class="fas fa-envelope"></i></div>
-                                <div class="swipe-icon-right"><i class="fas fa-phone-alt"></i></div>
-                                <div class="swipe-knob">
-                                    <i class="fas fa-chevron-left swipe-arrow swipe-arrow-left"></i>
-                                    <i class="fas fa-chevron-right swipe-arrow swipe-arrow-right"></i>
+                        <div class="offer-card__footer">
+                            <div class="offer-card__price">
+                                <div class="amount-large"><span class="price-value" id="price-total-fokus">170</span> €
+                                </div>
+                                <span class="note"><span id="price-per-session-fokus">170</span>€ /Sitzung</span>
+                            </div>
+                            <div class="swipe-wrapper">
+                                <div class="swipe-container swipe-container--small">
+                                    <div class="swipe-icon-left"><i class="fas fa-envelope"></i></div>
+                                    <div class="swipe-icon-right"><i class="fas fa-phone-alt"></i></div>
+                                    <div class="swipe-knob">
+                                        <i class="fas fa-chevron-left swipe-arrow swipe-arrow-left"></i>
+                                        <i class="fas fa-chevron-right swipe-arrow swipe-arrow-right"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </article>
 
                 <!-- Offer 2 -->
                 <article class="offer-card group" id="offer-deep-dive" data-offer-type="session">
-                    <div class="offer-card__badge offer-card__badge--secondary">Deep Dive</div>
-                    <h4 class="offer-card__title">Intensiv-Sitzung</h4>
-                    <p class="offer-card__subtitle">Kompaktes Format (halber Tag) für Themen mit hoher Dringlichkeit
-                        oder Komplexität. Ermöglicht die tiefe Bearbeitung von Blockaden, akute Krisenintervention oder
-                        Entscheidungsfindung am Stück.</p>
-                    <div class="offer-card__config-grid">
-                        <div class="config-label"><i class="far fa-clock"></i> 3.5 Stunden</div>
-                        <div></div>
-                        <div class="config-label"><i class="fas fa-map-marker-alt"></i> Online / Atelier</div>
-                        <div></div>
-                        <div class="config-label"><i class="fas fa-user"></i><span id="people-val-deep-dive">1
-                                Person</span></div>
-                        <div class="config-control">
-                            <label class="toggle-switch"
-                                style="margin: 0; transform: scale(0.9); transform-origin: right center;">
-                                <input type="checkbox" class="toggle-input" data-target="people-deep-dive">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="config-label"><i class="fas fa-layer-group"></i><span id="sessions-val-deep-dive"
-                                style="min-width: 6rem;">1<span> Sitzung</span></span></div>
-                        <div class="config-control">
-                            <input type="range" min="1" max="3" value="1" class="configurator__slider"
-                                id="sessions-deep-dive" style="width: 100%;">
-                        </div>
+                    <div class="offer-card__header">
+                        <div class="offer-card__badge offer-card__badge--secondary">Deep Dive</div>
+                        <h4 class="offer-card__title">Intensiv-Sitzung</h4>
+                        <p class="offer-card__subtitle">Kompaktes Format für Themen mit hoher Dringlichkeit
+                            oder Komplexität. Ermöglicht tiefes Eintauchen in das System, akute Krisenintervention oder
+                            Entscheidungsfindung in einem Rutsch. </p>
                     </div>
-                    <div class="offer-card__footer">
-                        <div class="offer-card__price">
-                            <div class="amount-large"><span class="price-value" id="price-total-deep-dive">490</span> €
+                    <div class="offer-card__body">
+                        <div class="offer-card__config-grid">
+                            <div class="config-label"><i class="far fa-clock"></i> 3.5 Stunden</div>
+                            <div></div>
+                            <div class="config-label"><i class="fas fa-map-marker-alt"></i> Online / Atelier</div>
+                            <div></div>
+                            <div class="config-label"><i class="fas fa-user"></i><span id="people-val-deep-dive">1
+                                    Person</span></div>
+                            <div class="config-control">
+                                <label class="toggle-switch toggle-switch--compact">
+                                    <input type="checkbox" class="toggle-input" data-target="people-deep-dive">
+                                    <span class="toggle-slider"></span>
+                                </label>
                             </div>
-                            <span class="note"><span id="price-per-session-deep-dive">490</span>€ / Sitzung</span>
+                            <div class="config-label"><i class="fas fa-layer-group"></i><span
+                                    id="sessions-val-deep-dive" class="config-value config-value--wide">1<span> Sitzung
+                                        einzeln</span></span></div>
+                            <div class="config-control" style="gap: 0.5rem; align-items: center;">
+                                <div class="slider-wrapper">
+                                    <div class="slider-ticks"></div>
+                                    <input type="range" min="1" max="3" value="1" class="configurator__slider"
+                                        id="sessions-deep-dive">
+                                </div>
+                                <label class="toggle-switch toggle-switch--compact" title="Paketbuchung">
+                                    <input type="checkbox" class="toggle-input" data-target="package-deep-dive">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
                         </div>
-                        <div class="swipe-wrapper">
-                            <div class="swipe-container swipe-container--small">
-                                <div class="swipe-icon-left"><i class="fas fa-envelope"></i></div>
-                                <div class="swipe-icon-right"><i class="fas fa-phone-alt"></i></div>
-                                <div class="swipe-knob">
-                                    <i class="fas fa-chevron-left swipe-arrow swipe-arrow-left"></i>
-                                    <i class="fas fa-chevron-right swipe-arrow swipe-arrow-right"></i>
+                        <div class="offer-card__footer">
+                            <div class="offer-card__price">
+                                <div class="amount-large"><span class="price-value"
+                                        id="price-total-deep-dive">370</span> €
+                                </div>
+                                <span class="note"><span id="price-per-session-deep-dive">370</span>€ / Sitzung</span>
+                            </div>
+                            <div class="swipe-wrapper">
+                                <div class="swipe-container swipe-container--small">
+                                    <div class="swipe-icon-left"><i class="fas fa-envelope"></i></div>
+                                    <div class="swipe-icon-right"><i class="fas fa-phone-alt"></i></div>
+                                    <div class="swipe-knob">
+                                        <i class="fas fa-chevron-left swipe-arrow swipe-arrow-left"></i>
+                                        <i class="fas fa-chevron-right swipe-arrow swipe-arrow-right"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </article>
 
                 <!-- Offer 3 -->
                 <article class="offer-card group" id="offer-mediation" data-offer-type="time">
-                    <div class="offer-card__badge offer-card__badge--blue">Klärung</div>
-                    <h4 class="offer-card__title">Mediation</h4>
-                    <p class="offer-card__subtitle">Konfliktmoderation für Paare oder Geschäftspartner. Als
-                        allparteilicher Dritter leite ich das Gespräch, um die Kommunikation wiederherzustellen und
-                        tragfähige, verbindliche Vereinbarungen zu erarbeiten.</p>
-                    <div class="offer-card__config-grid">
-                        <div class="config-label"><i class="fas fa-map-marker-alt"></i> Online / Atelier</div>
-                        <div></div>
-                        <div class="config-label"><i class="far fa-clock"></i><span id="duration-val-mediation"
-                                style="min-width: 3.5rem;">60 min</span></div>
-                        <div class="config-control">
-                            <input type="range" min="60" max="120" step="15" value="60" class="configurator__slider"
-                                id="duration-mediation" style="width: 100%;">
-                        </div>
+                    <div class="offer-card__header">
+                        <div class="offer-card__badge offer-card__badge--blue">Klärung</div>
+                        <h4 class="offer-card__title">Mediation</h4>
+                        <p class="offer-card__subtitle">Auch wenn nichts mehr zu gehen scheint, gibt es Jenseits der
+                            Möglichkeiten eines Gerichtsprozesses einen Weg zurück zur Kooperation. Als
+                            allparteilicher Dritter leite ich den strukturierten Prozess, um die Kommunikation
+                            wiederherzustellen und
+                            tragfähige, verbindliche Vereinbarungen zu erarbeiten. Dabei berücksichtigen wir alle
+                            Bedürfnisse und finden so echten Konsens.</p>
                     </div>
-                    <div class="offer-card__footer">
-                        <div class="offer-card__price">
-                            <div class="amount-large"><span class="price-value" id="price-total-mediation">150</span> €
+                    <div class="offer-card__body">
+                        <div class="offer-card__config-grid">
+                            <div class="config-label"><i class="fas fa-map-marker-alt"></i> Online / Atelier</div>
+                            <div></div>
+                            <div class="config-label"><i class="far fa-clock"></i><span id="duration-val-mediation"
+                                    class="config-value config-value--narrow">60 min</span></div>
+                            <div class="config-control">
+                                <div class="slider-wrapper">
+                                    <div class="slider-ticks"></div>
+                                    <input type="range" min="60" max="120" step="15" value="60"
+                                        class="configurator__slider" id="duration-mediation">
+                                </div>
                             </div>
-                            <span class="note"><span id="price-per-partei-mediation">75</span>€ / Partei</span>
                         </div>
-                        <div class="swipe-wrapper">
-                            <div class="swipe-container swipe-container--small">
-                                <div class="swipe-icon-left"><i class="fas fa-envelope"></i></div>
-                                <div class="swipe-icon-right"><i class="fas fa-phone-alt"></i></div>
-                                <div class="swipe-knob">
-                                    <i class="fas fa-chevron-left swipe-arrow swipe-arrow-left"></i>
-                                    <i class="fas fa-chevron-right swipe-arrow swipe-arrow-right"></i>
+                        <div class="offer-card__footer">
+                            <div class="offer-card__price">
+                                <div class="amount-large"><span class="price-value"
+                                        id="price-total-mediation">150</span> €
+                                </div>
+                                <span class="note"><span id="price-per-partei-mediation">75</span>€ / Partei</span>
+                            </div>
+                            <div class="swipe-wrapper">
+                                <div class="swipe-container swipe-container--small">
+                                    <div class="swipe-icon-left"><i class="fas fa-envelope"></i></div>
+                                    <div class="swipe-icon-right"><i class="fas fa-phone-alt"></i></div>
+                                    <div class="swipe-knob">
+                                        <i class="fas fa-chevron-left swipe-arrow swipe-arrow-left"></i>
+                                        <i class="fas fa-chevron-right swipe-arrow swipe-arrow-right"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -788,7 +828,7 @@
                         <i class="fas fa-users"></i>
                     </div>
                     <div>
-                        <h5 style="font-weight: 700; color: var(--text-main);">Spezialgebiet</h5>
+                        <h5 class="workshop-card__title">Spezialgebiet</h5>
                         <p class="text-xs text-light">Kurse, Workshops & Vätergruppen</p>
                     </div>
                 </div>
@@ -814,8 +854,7 @@
                     <div class="breath-visuals-wrapper">
                         <div class="breath-circle-outer">
                             <div class="breath-circle-inner" id="breathCircle">
-                                <i class="fas fa-lungs"
-                                    style="font-size: var(--font-size-large); text-shadow: var(--text-pressed);"></i>
+                                <i class="fas fa-lungs breath-circle-inner__icon"></i>
                             </div>
                         </div>
 
@@ -841,9 +880,9 @@
 
                     <div class="breath-text" id="breathText"></div>
 
-                    <div style="margin-top: 1rem;">
+                    <div class="breath-btn-wrapper">
                         <button class="btn btn--large" id="breathBtn">
-                            <i class="fas fa-play" style="margin-right: 0.5rem;"></i> Übung starten
+                            <i class="fas fa-play breath-btn__icon"></i> Übung starten
                         </button>
                     </div>
                 </div>
@@ -853,7 +892,7 @@
         <!-- Kontakt Section -->
         <section id="kontakt" class="section">
             <div class="contact-card">
-                <div style="position: relative;">
+                <div class="contact-card__inner">
                     <h3>Lass uns sprechen!</h3>
                     <p class="contact-intro-text">Vorgespräch kostenlos (15 Min).</p>
 
@@ -862,7 +901,7 @@
                         <input type="text" id="contactSubject" class="input-field"
                             placeholder="Thema (z.B. Coaching, Konflikt)">
                         <button id="contactSubmitBtn" class="btn btn--large btn--full">
-                            <i class="fas fa-paper-plane text-orange" style="font-size: var(--font-size-medium);"></i>
+                            <i class="fas fa-paper-plane text-orange btn__icon"></i>
                             Anfrage senden
                         </button>
                     </div>
@@ -874,36 +913,34 @@
                         <a href="mailto:janoschkartschall@gmail.com" class="icon-btn">
                             <i class="fas fa-envelope"></i>
                         </a>
-                        <div class="icon-btn" onclick="window.open('https://wa.me/4915772998248')">
+                        <a href="https://wa.me/4915772998248" target="_blank" rel="noopener noreferrer" class="icon-btn"
+                            id="whatsappLink">
                             <i class="fab fa-whatsapp"></i>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="location-preview">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div class="location-header">
                             <div>
-                                <p class="font-bold" style="margin-bottom: 0.25rem;"><i
-                                        class="fas fa-map-marker-alt text-orange" style="margin-right: 0.5rem;"></i>
+                                <p class="font-bold location-header__title"><i
+                                        class="fas fa-map-marker-alt text-orange location-header__icon"></i>
                                     Atelier
                                 </p>
-                                <p class="text-sm text-light" style="margin-left: 1.5rem;">Hedwigstraße 6<br>80636
+                                <p class="text-sm text-light location-header__address">Hedwigstraße 6<br>80636
                                     München</p>
                             </div>
-                            <div class="icon-btn"
-                                style="width: 2.5rem; height: 2.5rem; font-size: var(--font-size-medium);"
-                                onclick="window.open('https://maps.google.com')">
+                            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer"
+                                class="icon-btn location-header__link" id="mapsLink">
                                 <i class="fas fa-external-link-alt"></i>
-                            </div>
+                            </a>
                         </div>
 
                         <div class="location-preview__map">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2661.642548843949!2d11.5358!3d48.1555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479e760000000001%3A0x1234567890abcdef!2sHedwigstra%C3%9Fe%206%2C%2080636%20M%C3%BCnchen!5e0!3m2!1sde!2sde!4v1620000000000!5m2!1sde!2sde"
-                                width="100%" height="100%" style="border:0; opacity: 0.7; mix-blend-mode: multiply;"
-                                allowfullscreen="" loading="lazy">
+                                width="100%" height="100%" allowfullscreen="" loading="lazy">
                             </iframe>
-                            <div
-                                style="position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.1);">
+                            <div class="location-preview__map-overlay">
                             </div>
                         </div>
                     </div>
@@ -957,8 +994,157 @@
         <div class="nav-overlay"></div>
     </nav>
 
+    <div id="booking-overlay" class="overlay">
+        <div class="overlay__content">
+            <div class="overlay__grab"></div>
+            <button class="icon-btn overlay__close" id="bookingCloseBtn" aria-label="Schließen">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="ui-label">
+                <span class="text-orange">Auftragsklärung</span>
+            </div>
+            <h3>Termin buchen</h3>
+            <p class="text-light">Wähle einen freien Termin und hinterlasse deine Kontaktdaten. Das Gespräch (15 Min.)
+                ist kostenlos.</p>
+
+            <div class="overlay__body">
+                <form id="bookingForm" class="booking-form">
+                    <div class="input-group">
+                        <input type="text" id="b-firstName" class="input-field" placeholder="Vorname" required>
+                        <input type="text" id="b-lastName" class="input-field" placeholder="Nachname" required>
+                    </div>
+                    <input type="email" id="b-email" class="input-field" placeholder="E-Mail" required>
+                    <input type="tel" id="b-phone" class="input-field" placeholder="Telefonnummer" required>
+
+                    <div class="form-divider"></div>
+
+                    <h4 style="margin-bottom: 0.5rem; font-size: 1rem;">Termin wählen</h4>
+                    <div class="booking-slots-container">
+                        <div id="bookingSpinner" class="preloader__spinner"
+                            style="width: 20px; height: 20px; margin: 0 auto; display: none;"></div>
+                        <div class="select-wrapper">
+                            <select id="b-slotSelect" class="input-field" required>
+                                <option value="">Lade Termine...</option>
+                            </select>
+                            <i class="fas fa-chevron-down select-wrapper__icon"></i>
+                        </div>
+                    </div>
+
+                    <label class="checkbox-label" style="margin-top: 1rem;">
+                        <input type="checkbox" id="b-privacyCheckbox" required>
+                        <span style="font-size: 0.8rem;">Ich stimme den <a href="#" id="privacyLink" class="text-orange"
+                                style="text-decoration: none;">Datenschutzbestimmungen</a> und Nutzungsbedingungen
+                            zu.</span>
+                    </label>
+
+                    <button type="submit" id="b-submitBtn" class="btn btn--large btn--full" style="margin-top: 1rem;">
+                        <i class="fas fa-check btn__icon"></i> Buchen
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div id="toast"></div>
 
+    <div id="privacy-overlay" class="overlay overlay--high">
+        <div class="overlay__content">
+            <div class="overlay__grab"></div>
+            <button class="icon-btn overlay__close" id="privacyCloseBtn" aria-label="Schließen">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="ui-label">
+                <span class="text-orange">Rechtliches</span>
+            </div>
+            <h3>Datenschutzbestimmungen</h3>
+            <div class="overlay__body">
+                <div class="privacy-text text-light">
+
+                    <h4>1. Datenschutz auf einen Blick</h4>
+                    <p><strong>Allgemeine Hinweise</strong><br>
+                        Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen
+                        Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit
+                        denen
+                        Sie persönlich identifiziert werden können.</p>
+                    <p><strong>Wer ist verantwortlich für die Datenerfassung?</strong><br>
+                        Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten
+                        können Sie dem Abschnitt „Hinweis zur verantwortlichen Stelle“ entnehmen.</p>
+                    <p><strong>Wie erfassen wir Ihre Daten?</strong><br>
+                        Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen (z. B. im
+                        Kontaktformular
+                        oder bei der Terminbuchung). Andere Daten (vor allem technische Daten wie Browser,
+                        Betriebssystem
+                        oder Uhrzeit) werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst.</p>
+                    <p><strong>Wofür nutzen wir Ihre Daten?</strong><br>
+                        Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu
+                        gewährleisten.
+                        Andere Daten werden zur Bearbeitung Ihrer Anfragen und für die Vorbereitung und Durchführung von
+                        Aufträgen verwendet.</p>
+
+                    <h4>2. Allgemeine Hinweise und Pflichtinformationen</h4>
+                    <p><strong>Hinweis zur verantwortlichen Stelle</strong><br>
+                        Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br>
+                        [Dein Vorname und Nachname]<br>
+                        [Deine Straße und Hausnummer]<br>
+                        [Deine PLZ und Ort]<br>
+                        Telefon: [Deine Telefonnummer, falls gewünscht]<br>
+                        E-Mail: [Deine E-Mail-Adresse]</p>
+                    <p><strong>Speicherdauer</strong><br>
+                        Soweit keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten
+                        bei
+                        uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen
+                        geltend machen oder eine Einwilligung widerrufen, werden Ihre Daten gelöscht, sofern keine
+                        gesetzlichen Aufbewahrungsfristen dagegen sprechen.</p>
+                    <p><strong>Ihre Rechte</strong><br>
+                        Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer
+                        gespeicherten Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung, Löschung oder
+                        Einschränkung der Verarbeitung dieser Daten zu verlangen. Zudem steht Ihnen ein Beschwerderecht
+                        bei
+                        der zuständigen Aufsichtsbehörde zu.</p>
+                    <p><strong>SSL- bzw. TLS-Verschlüsselung</strong><br>
+                        Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte
+                        eine
+                        SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die
+                        Adresszeile des Browsers von „http://“ auf „https://“ wechselt.</p>
+
+                    <h4>3. Datenerfassung auf dieser Website</h4>
+                    <p><strong>Hosting (Privater Server)</strong><br>
+                        Wir hosten unsere Website auf einem privaten Server. Es wird kein externer kommerzieller
+                        Hosting-Dienstleister eingesetzt. Der Server erfasst automatisch Informationen in
+                        Server-Log-Dateien
+                        (Browsertyp/-version, Betriebssystem, Referrer URL, Hostname, Uhrzeit, IP-Adresse). Die
+                        Erfassung
+                        erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO zur technisch fehlerfreien Darstellung der
+                        Website.</p>
+                    <p><strong>Kontaktformular</strong><br>
+                        Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben inklusive der
+                        Kontaktdaten zwecks Bearbeitung der Anfrage gespeichert (Art. 6 Abs. 1 lit. f DSGVO bzw. Art. 6
+                        Abs.
+                        1 lit. b DSGVO). Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+
+                    <h4>4. Plugins, Tools und Kundenverwaltung</h4>
+                    <p><strong>Google Tools zur Terminbuchung und Kundenverwaltung</strong><br>
+                        Zur Organisation von Terminen, zur Verwaltung von Kundendaten sowie zur vertraglichen und
+                        buchhalterischen Abwicklung nutzen wir Dienste von Google (Google Workspace, Google Kalender).
+                        Anbieter ist die Google Ireland Limited. Ihre eingegebenen Daten werden auf Servern von Google
+                        verarbeitet (Grundlage: Art. 6 Abs. 1 lit. b DSGVO). Daten können in die USA übertragen werden.
+                        Wir
+                        haben mit Google einen Vertrag zur Auftragsverarbeitung (AVV) geschlossen.</p>
+                    <p><strong>Google Maps</strong><br>
+                        Diese Seite nutzt den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited. Zur
+                        Nutzung
+                        ist es notwendig, Ihre IP-Adresse zu speichern, welche in der Regel an einen Google-Server in
+                        den
+                        USA übertragen wird. Die Nutzung erfolgt im Interesse einer ansprechenden Darstellung (Art. 6
+                        Abs. 1
+                        lit. f DSGVO) bzw. auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Mehr
+                        Informationen
+                        finden Sie in der Datenschutzerklärung von Google.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
