@@ -114,10 +114,6 @@ class BookingPicker {
         this.isDragging = false;
         this.startX = 0;
         this.scrollLeftStart = 0;
-        this.velocity = 0;
-        this.lastX = 0;
-        this.lastTime = 0;
-        this.physicsRaf = null;
         this.isSnapping = false;
 
         this.init();
@@ -129,157 +125,79 @@ class BookingPicker {
             this.monthSelector.addEventListener('click', () => this.toggleMonth());
         }
 
-        // Event Listeners for Thumbwheel
-        this.daysTrack.addEventListener('mousedown', (e) => this.onDragStart(e));
-        this.daysTrack.addEventListener('touchstart', (e) => this.onDragStart(e), { passive: true });
+        // Native CSS Snap DAUERHAFT deaktivieren, da wir nun 100% JS Magnet-LERP nutzen!
+        this.daysTrack.style.scrollSnapType = 'none';
+
+        let scrollEndTimeout = null;
+
+        // Native Scroll Listener for updating UI dynamically
         this.daysTrack.addEventListener('scroll', () => {
+            this.updateWheelRotation();
             if (!this.isDragging && !this.isSnapping) {
                 this.detectCenterDay();
+                
+                // Debounce: Erkennt, wann die native "Schwungkraft" des iPhones endet
+                clearTimeout(scrollEndTimeout);
+                scrollEndTimeout = setTimeout(() => {
+                    if (!this.isDragging && !this.isSnapping) {
+                        const closest = this.detectCenterDay();
+                        if (closest) {
+                            this.scrollToItem(closest); // Magnetischer JS-Snap!
+                        }
+                    }
+                }, 150);
             }
         });
+        
+        // Stoppt den JS-Snap sofort, wenn der Nutzer wieder auf das Display tippt
+        this.daysTrack.addEventListener('touchstart', () => {
+            cancelAnimationFrame(this.scrollRaf);
+            this.isSnapping = false;
+        }, { passive: true });
 
-        window.addEventListener('mousemove', (e) => this.onDragMove(e));
-        window.addEventListener('touchmove', (e) => this.onDragMove(e), { passive: false });
+        this.daysTrack.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return; // Only primary mouse button
+            this.isDragging = true;
+            cancelAnimationFrame(this.scrollRaf); // Stop ongoing snap
+            this.isSnapping = false;
+            
+            this.startX = e.pageX - this.daysTrack.offsetLeft;
+            this.scrollLeftStart = this.daysTrack.scrollLeft;
+            
+            this.daysTrack.style.scrollBehavior = 'auto';
+            this.daysTrack.style.cursor = 'grabbing';
+        });
 
-        window.addEventListener('mouseup', () => this.onDragEnd());
-        window.addEventListener('touchend', () => this.onDragEnd());
+        window.addEventListener('mousemove', (e) => {
+            if (!this.isDragging) return;
+            e.preventDefault(); // Prevent text selection
+
+            const x = e.pageX - this.daysTrack.offsetLeft;
+            const walk = (x - this.startX) * 1.5; // Drag speed multiplier
+            this.daysTrack.scrollLeft = this.scrollLeftStart - walk;
+
+            this.detectCenterDay();
+        });
+
+        const stopDragging = () => {
+            if (!this.isDragging) return;
+            this.isDragging = false;
+            
+            this.daysTrack.style.cursor = 'grab';
+            
+            // Sofort JS-Magnet einrasten lassen
+            const closest = this.detectCenterDay();
+            if (closest) {
+                this.scrollToItem(closest);
+            }
+        };
+
+        window.addEventListener('mouseup', stopDragging);
+        window.addEventListener('mouseleave', stopDragging);
 
         this.timeSelect.addEventListener('change', () => {
             this.onSelect(this.timeSelect.value);
         });
-    }
-
-    onDragStart(e) {
-        this.isDragging = true;
-        this.isSnapping = false;
-        this.startX = this.getX(e);
-        this.scrollLeftStart = this.daysTrack.scrollLeft;
-        this.velocity = 0;
-        this.lastX = this.startX;
-        this.lastTime = Date.now();
-        cancelAnimationFrame(this.physicsRaf);
-        this.daysTrack.style.scrollSnapType = 'none';
-        this.daysTrack.style.scrollBehavior = 'auto';
-    }
-
-    onDragMove(e) {
-        if (!this.isDragging) return;
-
-        const x = this.getX(e);
-        const now = Date.now();
-        const dt = now - this.lastTime;
-        const dx = x - this.lastX;
-
-        if (dt > 0) {
-            this.velocity = -dx / dt; // Invert because we pull
-        }
-
-        this.daysTrack.scrollLeft = this.scrollLeftStart - (x - this.startX);
-        this.lastX = x;
-        this.lastTime = now;
-        this.detectCenterDay();
-    }
-
-    onDragEnd() {
-        if (!this.isDragging) return;
-        this.isDragging = false;
-
-        if (Math.abs(this.velocity) > 0.1) {
-            this.applyPhysics();
-        } else {
-            this.snapToCenter();
-        }
-    }
-
-    applyPhysics() {
-        const friction = 0.95;
-        this.velocity *= friction;
-        
-        const previousScroll = this.daysTrack.scrollLeft;
-        this.daysTrack.scrollLeft += this.velocity * 16;
-        const newScroll = this.daysTrack.scrollLeft;
-
-        this.detectCenterDay();
-
-        // Check if the browser clamped the scroll (we hit the physical end of the track)
-        // If so, we should abort the inertia so it bounces back immediately, instead of "hanging".
-        const hitWall = Math.abs(this.velocity * 16) > 0.5 && previousScroll === newScroll;
-
-        if (Math.abs(this.velocity) > 0.1 && !hitWall) {
-            this.physicsRaf = requestAnimationFrame(() => this.applyPhysics());
-        } else {
-            // If we hit the wall, kill the momentum so the spring doesn't fight against it
-            if (hitWall) this.velocity = 0;
-            this.snapToCenter();
-        }
-    }
-
-    animateToScroll(targetScroll, initialVelocity = 0) {
-        this.daysTrack.style.scrollBehavior = 'auto';
-        this.daysTrack.style.scrollSnapType = 'none';
-
-        const spring = 0.08;
-        const friction = 0.82;
-        let vel = initialVelocity;
-        let currentScroll = this.daysTrack.scrollLeft;
-        
-        cancelAnimationFrame(this.physicsRaf);
-
-        const loop = () => {
-            const distance = targetScroll - currentScroll;
-            vel += distance * spring;
-            vel *= friction;
-            
-            currentScroll += vel;
-            this.daysTrack.scrollLeft = currentScroll;
-
-            if (Math.abs(distance) > 0.5 || Math.abs(vel) > 0.5) {
-                this.physicsRaf = requestAnimationFrame(loop);
-            } else {
-                this.daysTrack.scrollLeft = targetScroll;
-                this.daysTrack.style.scrollSnapType = 'x mandatory';
-                this.isSnapping = false;
-                this.detectCenterDay();
-            }
-        };
-
-        loop();
-    }
-
-    snapToCenter() {
-        this.isSnapping = true;
-        const items = Array.from(this.daysTrack.querySelectorAll('.thumbwheel-item:not(.disabled)'));
-        const trackRect = this.daysTrack.getBoundingClientRect();
-        const centerX = trackRect.left + trackRect.width / 2;
-
-        let closestItem = null;
-        let minDistance = Infinity;
-
-        items.forEach(item => {
-            const itemRect = item.getBoundingClientRect();
-            const itemCenter = itemRect.left + itemRect.width / 2;
-            const distance = Math.abs(centerX - itemCenter);
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestItem = item;
-            }
-        });
-
-        if (closestItem) {
-            const itemRect = closestItem.getBoundingClientRect();
-            const offset = (itemRect.left + itemRect.width / 2) - centerX;
-            const targetScroll = this.daysTrack.scrollLeft + offset;
-            
-            // Pass the current velocity from the manual swipe to continue the momentum into the bounce
-            const initialVelocity = (this.velocity || 0) * 16;
-            this.animateToScroll(targetScroll, initialVelocity);
-        } else {
-            this.isSnapping = false;
-        }
-    }
-
-    getX(e) {
-        return e.touches ? e.touches[0].clientX : e.clientX;
     }
 
     async loadSlots() {
@@ -335,10 +253,10 @@ class BookingPicker {
 
             if (hasSlots) {
                 trackItems.push({ date, dateStr, isDummy: false });
-                
+
                 const monthStr = date.toLocaleDateString('de-DE', { month: 'long' });
                 const monthYearStr = dateStr.substring(0, 7); // YYYY-MM
-                
+
                 if (!this.monthsAvailable.some(m => m.name === monthStr)) {
                     this.monthsAvailable.push({
                         name: monthStr,
@@ -370,7 +288,7 @@ class BookingPicker {
         trackItems.forEach(item => {
             const dayEl = document.createElement('div');
             dayEl.className = 'thumbwheel-item';
-            
+
             if (item.isDummy) {
                 dayEl.classList.add('disabled');
             } else {
@@ -378,7 +296,7 @@ class BookingPicker {
                 dayEl.dataset.month = item.dateStr.substring(0, 7);
                 dayEl.addEventListener('click', () => this.scrollToItem(dayEl));
             }
-            
+
             dayEl.innerHTML = `
                 <span class="day-name">${item.date.toLocaleDateString('de-DE', { weekday: 'short' })}</span>
                 <span class="day-num">${item.date.getDate()}</span>
@@ -391,14 +309,14 @@ class BookingPicker {
         if (this.monthSelector) {
             this.monthSelector.innerHTML = '';
             this.monthBtns = [];
-            
+
             // Only create buttons for unique short month names
             const processedMonths = new Set();
-            
+
             this.monthsAvailable.forEach((monthObj, index) => {
                 // Determine short name (e.g. "Mai", "Jun") for compact display like before
                 const shortName = new Date(monthObj.yearMonth + "-01").toLocaleDateString('de-DE', { month: 'short' });
-                
+
                 if (processedMonths.has(shortName)) return;
                 processedMonths.add(shortName);
 
@@ -408,7 +326,7 @@ class BookingPicker {
                 btn.textContent = shortName;
                 btn.dataset.monthYear = monthObj.yearMonth;
                 btn.style.pointerEvents = 'none'; // Click goes to parent container
-                
+
                 this.monthSelector.appendChild(btn);
                 this.monthBtns.push(btn);
             });
@@ -420,19 +338,20 @@ class BookingPicker {
             if (firstActive) {
                 this.scrollToItem(firstActive);
             }
+            this.updateWheelRotation();
             this.detectCenterDay();
         }, 100);
     }
 
     toggleMonth() {
         if (!this.monthBtns || this.monthBtns.length <= 1) return;
-        
+
         let currentIndex = this.monthBtns.findIndex(btn => btn.classList.contains('active'));
         if (currentIndex === -1) currentIndex = 0;
-        
+
         let nextIndex = (currentIndex + 1) % this.monthBtns.length;
         const targetMonthYear = this.monthBtns[nextIndex].dataset.monthYear;
-        
+
         const firstDayOfMonth = this.daysTrack.querySelector(`.thumbwheel-item[data-month="${targetMonthYear}"]:not(.disabled)`);
         if (firstDayOfMonth) {
             this.scrollToItem(firstDayOfMonth);
@@ -451,7 +370,7 @@ class BookingPicker {
         if (this.selectedDateStr !== dateStr) {
             this.selectedDateStr = dateStr;
             this.updateTimes(dateStr);
-            
+
             const monthYear = item.dataset.month;
             if (this.monthBtns && monthYear) {
                 this.monthBtns.forEach(btn => {
@@ -464,26 +383,101 @@ class BookingPicker {
             }
         }
 
-        const trackRect = this.daysTrack.getBoundingClientRect();
-        const itemRect = item.getBoundingClientRect();
-        const scrollOffset = (itemRect.left + itemRect.width / 2) - (trackRect.left + trackRect.width / 2);
-        const targetScroll = this.daysTrack.scrollLeft + scrollOffset;
-        
-        this.animateToScroll(targetScroll, 0);
+        cancelAnimationFrame(this.scrollRaf);
+
+        const animateScroll = () => {
+            const trackRect = this.daysTrack.getBoundingClientRect();
+            const itemRect = item.getBoundingClientRect();
+            const currentOffset = (itemRect.left + itemRect.width / 2) - (trackRect.left + trackRect.width / 2);
+
+            // Wenn wir fast perfekt in der Mitte sind
+            if (Math.abs(currentOffset) < 0.5) {
+                this.isSnapping = false;
+                this.updateWheelRotation();
+                this.detectCenterDay();
+                return;
+            }
+
+            // Smooth Scroll (LERP) - passt sich dynamisch an veränderte Breiten an!
+            let step = currentOffset * 0.15;
+            const minStep = Math.sign(currentOffset) * 1.0;
+            if (Math.abs(step) < Math.abs(minStep)) step = minStep;
+
+            this.daysTrack.scrollLeft += step;
+            this.scrollRaf = requestAnimationFrame(animateScroll);
+        };
+
+        this.scrollRaf = requestAnimationFrame(animateScroll);
+    }
+
+    updateWheelRotation() {
+        const trackWidth = this.daysTrack.offsetWidth;
+        const scrollLeft = this.daysTrack.scrollLeft;
+        const scrollCenter = scrollLeft + (trackWidth / 2);
+        const maxDistance = trackWidth / 1.8;
+
+        const items = Array.from(this.daysTrack.querySelectorAll('.thumbwheel-item'));
+
+        // 1. Lese-Phase: Alle Layout-Werte sammeln (Verhindert Layout Thrashing!)
+        const itemMetrics = items.map(item => {
+            return {
+                item,
+                itemCenter: item.offsetLeft + (item.offsetWidth / 2)
+            };
+        });
+
+        // 2. Schreib-Phase: CSS Variablen aktualisieren
+        itemMetrics.forEach(({ item, itemCenter }) => {
+            const offset = itemCenter - scrollCenter;
+
+            let normalizedOffset = offset / maxDistance;
+            normalizedOffset = Math.max(-1, Math.min(1, normalizedOffset));
+
+            const sign = Math.sign(normalizedOffset);
+            // Non-linear easing: rotation steps get larger closer to the edge
+            const easing = Math.pow(Math.abs(normalizedOffset), 1.5);
+            const angle = sign * easing * 70;
+
+            // Size scaling (visual size of the content)
+            const visualScale = 1 - (easing * 0.3); // Drops to 0.7
+
+            // Layout width scaling (to counteract the 3D rotateY spreading them apart)
+            // Rotating by 'angle' squashes visual width by exactly cos(angle).
+            // We apply this exact mathematical ratio to the physical width to keep them tight!
+            const radians = Math.abs(angle) * (Math.PI / 180);
+            let widthScale = Math.cos(radians);
+            // Pack them slightly tighter at the edges by multiplying widthScale slightly if needed,
+            // but cos(angle) is usually perfect.
+
+            // We apply a minimum width scale so they don't vanish completely
+            widthScale = Math.max(0.2, widthScale);
+
+            item.style.setProperty('--wheel-rotate', `${angle}deg`);
+            item.style.setProperty('--wheel-scale', visualScale);
+            item.style.setProperty('--wheel-width-scale', widthScale);
+        });
     }
 
     detectCenterDay() {
-        const trackRect = this.daysTrack.getBoundingClientRect();
-        const centerX = trackRect.left + trackRect.width / 2;
+        const trackWidth = this.daysTrack.offsetWidth;
+        const scrollCenter = this.daysTrack.scrollLeft + (trackWidth / 2);
 
         let closestItem = null;
         let minDistance = Infinity;
 
-        const items = this.daysTrack.querySelectorAll('.thumbwheel-item:not(.disabled)');
-        items.forEach(item => {
-            const itemRect = item.getBoundingClientRect();
-            const itemCenter = itemRect.left + itemRect.width / 2;
-            const distance = Math.abs(centerX - itemCenter);
+        const items = Array.from(this.daysTrack.querySelectorAll('.thumbwheel-item:not(.disabled)'));
+
+        // 1. Lese-Phase
+        const itemMetrics = items.map(item => {
+            return {
+                item,
+                itemCenter: item.offsetLeft + (item.offsetWidth / 2)
+            };
+        });
+
+        // 2. Schreib-Phase
+        itemMetrics.forEach(({ item, itemCenter }) => {
+            const distance = Math.abs(scrollCenter - itemCenter);
 
             item.classList.remove('active');
             if (distance < minDistance) {
@@ -498,7 +492,7 @@ class BookingPicker {
             if (this.selectedDateStr !== dateStr) {
                 this.selectedDateStr = dateStr;
                 this.updateTimes(dateStr);
-                
+
                 // Update month buttons
                 const monthYear = closestItem.dataset.month;
                 if (this.monthBtns && monthYear) {
@@ -512,6 +506,7 @@ class BookingPicker {
                 }
             }
         }
+        return closestItem;
     }
 
     updateTimes(dateStr) {

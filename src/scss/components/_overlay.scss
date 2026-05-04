@@ -52,7 +52,7 @@
 
     // Neumorphic internal style
     box-shadow: var(--floating),
-    0 -10px 30px rgba(0, 0, 0, 0.42);
+    0 -10px 30px rgba(0, 0, 0, 0.33);
 
     @media (min-width: 768px) {
         position: absolute;
@@ -207,26 +207,7 @@ body.overlay-active {
 
         @media (min-width: 768px) {
             background-color: transparent;
-            // backdrop-filter: none; // No blur on desktop
-            // -webkit-backdrop-filter: none;
         }
     }
 
-    .overlay.has-blur {
-        // backdrop-filter: blur(2px);
-        // -webkit-backdrop-filter: blur(2px);
-
-        @media (min-width: 768px) {
-            // backdrop-filter: none; // No blur on desktop
-            // -webkit-backdrop-filter: none;
-        }
-    }
-
-    // Hide bottom nav when any overlay is active (mobile only)
-    .bottom-nav {
-        @media (max-width: 767px) {
-            opacity: 0;
-            pointer-events: none;
-        }
-    }
 }
