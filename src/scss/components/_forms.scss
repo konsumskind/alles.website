@@ -11,7 +11,7 @@
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
     transition: all 0.3s ease;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     &:focus {
         background: var(--shadow-light);
@@ -46,7 +46,7 @@
 
     select.input-field {
         cursor: pointer;
-        padding-right: 3rem;
+        // padding-right: 3rem;
         appearance: none;
         -webkit-appearance: none;
         box-shadow: var(--engraved), var(--pressed-small);
@@ -57,6 +57,7 @@
         }
 
         &:disabled {
+            color: var(--text-light);
             opacity: 0.6;
             cursor: not-allowed;
 

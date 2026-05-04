@@ -16,19 +16,24 @@
     transition: visibility 0s linear 0.4s;
 
     // Default blur state when active (managed by body class)
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
+    // backdrop-filter: blur(0px);
+    // -webkit-backdrop-filter: blur(0px);
     transition: backdrop-filter 0.4s ease, visibility 0s linear 0.4s;
 }
 
 .overlay__content {
     font-size: var(--font-size-small);
     background-color: var(--bg-color);
-    box-shadow: var(--floating);
+    // box-shadow: var(--floating);
     top: 100px;
     width: 100%;
     max-width: 600px;
     height: fit-content;
+
+    @media (max-width: 767px) {
+        min-height: calc(100% - 100px);
+    }
+
     margin: 0 auto;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
     padding: 2rem 1.5rem;
@@ -38,15 +43,16 @@
     flex-shrink: 0;
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    will-change: transform, top, left;
+    will-change: transform,
+    top,
+    left;
 
     display: flex;
     flex-direction: column;
 
     // Neumorphic internal style
-    box-shadow:
-        inset 0 1px 1px var(--shadow-light),
-        0 -10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--floating),
+    0 -10px 30px rgba(0, 0, 0, 0.42);
 
     @media (min-width: 768px) {
         position: absolute;
@@ -57,7 +63,7 @@
         border-radius: var(--border-radius);
         box-shadow: var(--floating);
         max-width: 500px;
-        max-height: 792.08px;
+        max-height: 80vh;
         opacity: 0;
         transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
         pointer-events: none; // Ensure it doesn't block while fading
@@ -75,8 +81,24 @@
 
 .overlay__body {
     width: 100%;
+}
 
-    @media (min-width: 768px) {
+// Scrollable Variant (for long legal texts)
+.overlay--scrollable {
+    .overlay__content {
+        max-height: calc(100% - 100px);
+
+        @media (min-width: 768px) {
+            height: 750px;
+            max-height: 85vh;
+        }
+    }
+
+    &.overlay--high .overlay__content {
+        max-height: 100%;
+    }
+
+    .overlay__body {
         flex: 1;
         overflow-y: auto;
         padding-right: 0.5rem;
@@ -148,8 +170,13 @@
     .overlay__content {
         top: 140px; // Offset from the first overlay (which is at 100px)
 
+        @media (max-width: 767px) {
+            min-height: calc(100% - 140px);
+        }
+
         @media (min-width: 768px) {
             top: auto; // Keep centered on desktop
+            max-height: 750px;
         }
     }
 }
@@ -164,6 +191,8 @@ body.overlay-active {
         visibility: visible;
         transition-delay: 0s;
         // background-color: rgba(0, 0, 0, 0.05); // Very subtle dim
+        // backdrop-filter: blur(2px);
+        // -webkit-backdrop-filter: blur(2px);
 
         .overlay__content {
             transform: translateY(0);
@@ -178,16 +207,18 @@ body.overlay-active {
 
         @media (min-width: 768px) {
             background-color: transparent;
+            // backdrop-filter: none; // No blur on desktop
+            // -webkit-backdrop-filter: none;
         }
     }
 
     .overlay.has-blur {
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px);
+        // backdrop-filter: blur(2px);
+        // -webkit-backdrop-filter: blur(2px);
 
         @media (min-width: 768px) {
-            backdrop-filter: none; // No blur on desktop
-            -webkit-backdrop-filter: none;
+            // backdrop-filter: none; // No blur on desktop
+            // -webkit-backdrop-filter: none;
         }
     }
 

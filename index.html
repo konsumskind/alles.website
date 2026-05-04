@@ -1008,8 +1008,8 @@
                 <span class="text-orange">Auftragsklärung</span>
             </div>
             <h3>Termin buchen</h3>
-            <p class="text-light">Wähle einen freien Termin und hinterlasse deine Kontaktdaten. Das Gespräch (15 Min.)
-                ist kostenlos.</p>
+            <p class="text-light">Hinterlasse deine Kontaktdaten und wähle einen Termin. Ich rufe zum vereinbarten
+                Termin zurück und wir klähren in einem unverbindlichen Gespräch die Details.</p>
 
             <div class="overlay__body">
                 <form id="bookingForm" class="booking-form">
@@ -1023,15 +1023,30 @@
                     <div class="form-divider"></div>
 
                     <h4 style="margin-bottom: 0.5rem; font-size: 1rem;">Termin wählen</h4>
-                    <div class="booking-slots-container">
-                        <div id="bookingSpinner" class="preloader__spinner"
-                            style="width: 20px; height: 20px; margin: 0 auto; display: none;"></div>
+                    <div class="booking-picker" id="bookingPicker">
+                        <div class="picker-main-row">
+
+                            <div class="thumbwheel">
+                                <div class="thumbwheel__mask thumbwheel__mask--left"></div>
+                                <div class="thumbwheel__track" id="daysTrack">
+                                    <!-- Days will be injected here -->
+                                </div>
+                                <div class="thumbwheel__mask thumbwheel__mask--right"></div>
+                                <div class="thumbwheel__center-marker"></div>
+                            </div>
+                        </div>
+
+                        <div class="month-selector" id="monthSelector">
+                            <button type="button" class="month-btn active">...</button>
+                        </div>
                         <div class="select-wrapper">
-                            <select id="b-slotSelect" class="input-field" required>
-                                <option value="">Lade Termine...</option>
+                            <select id="b-timeSelect" class="input-field" disabled required>
+                                <option value="" disabled selected>Uhrzeit...</option>
                             </select>
                             <i class="fas fa-chevron-down select-wrapper__icon"></i>
                         </div>
+
+                        <input type="hidden" id="b-slotSelect" required>
                     </div>
 
                     <label class="checkbox-label" style="margin-top: 1rem;">
@@ -1052,7 +1067,7 @@
 
     <div id="toast"></div>
 
-    <div id="imprint-overlay" class="overlay overlay--high">
+    <div id="imprint-overlay" class="overlay overlay--high overlay--scrollable">
         <div class="overlay__content">
             <div class="overlay__grab"></div>
             <button class="icon-btn overlay__close" aria-label="Schließen">
@@ -1092,7 +1107,7 @@
         </div>
     </div>
 
-    <div id="privacy-overlay" class="overlay overlay--high">
+    <div id="privacy-overlay" class="overlay overlay--high overlay--scrollable">
         <div class="overlay__content">
             <div class="overlay__grab"></div>
             <button class="icon-btn overlay__close" id="privacyCloseBtn" aria-label="Schließen">
