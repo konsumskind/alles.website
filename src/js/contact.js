@@ -6,6 +6,13 @@ export const initContactForm = () => {
     if (contactBtn) {
         contactBtn.addEventListener('click', sendMail);
     }
+
+    const bookingBtn = document.getElementById('contactBookingBtn');
+    if (bookingBtn) {
+        bookingBtn.addEventListener('click', () => {
+            document.dispatchEvent(new CustomEvent('openBookingForm'));
+        });
+    }
 };
 
 export const sendMail = () => {

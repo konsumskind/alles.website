@@ -2,7 +2,7 @@
 import { showToast } from './utils.js';
 import { DraggableOverlay } from './modules/DraggableOverlay.js';
 
-const GAS_WEB_APP_URL = '';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwivI94m_a2ep-4UkIpJu__twJJ7imtQQfZMZzw0Zus_IE0mY7kBMU0qAjVpZnJjDEdnA/exec';
 
 export class BookingForm {
     constructor() {
@@ -30,9 +30,41 @@ export class BookingForm {
         document.addEventListener('openBookingForm', () => this.overlay.open());
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
 
-        document.addEventListener('openBookingForm', () => {
-            this.picker.loadSlots();
-        });
+        // Slots direkt im Hintergrund laden, sobald die Seite initialisiert wird
+        this.picker.loadSlots();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        this.inviteToken = urlParams.get('invite');
+        this.inviteMode = urlParams.get('mode');
+
+        if (this.inviteToken) {
+            if (this.inviteMode !== 'separate') {
+                // Gemeinsamer Termin -> Verstecke die Datumsauswahl
+                if (this.pickerContainer) {
+                    this.pickerContainer.style.display = 'none';
+                    const h4 = this.pickerContainer.previousElementSibling;
+                    if (h4 && h4.tagName === 'H4') {
+                        h4.style.display = 'none';
+                    }
+                }
+                if (this.timeSelect) {
+                    this.timeSelect.style.display = 'none';
+                    this.timeSelect.removeAttribute('required');
+                }
+                if (this.slotInput) {
+                    this.slotInput.removeAttribute('required');
+                }
+                this.submitBtn.innerHTML = 'Am Termin teilnehmen';
+            } else {
+                // Eigener Termin -> Zeige Datumsauswahl, ändere nur den Button-Text
+                this.submitBtn.innerHTML = 'Termin vereinbaren (Einladung)';
+            }
+
+            setTimeout(() => {
+                document.dispatchEvent(new CustomEvent('openBookingForm'));
+            }, 800);
+        }
+
 
         // Select Animation Logic
         const selectIcon = this.timeSelect.parentElement.querySelector('.select-wrapper__icon');
@@ -54,7 +86,7 @@ export class BookingForm {
     async handleSubmit(e) {
         e.preventDefault();
 
-        if (!this.slotInput.value) {
+        if (!this.slotInput.value && !this.inviteToken) {
             showToast('Bitte wähle einen Termin aus.');
             return;
         }
@@ -68,7 +100,9 @@ export class BookingForm {
             lastName: document.getElementById('b-lastName').value,
             email: document.getElementById('b-email').value,
             phone: document.getElementById('b-phone').value,
-            selectedTime: this.slotInput.value
+            selectedTime: this.slotInput.value,
+            inviteToken: this.inviteToken,
+            inviteMode: this.inviteMode
         };
 
         try {
@@ -83,7 +117,7 @@ export class BookingForm {
             } else {
                 await new Promise(r => setTimeout(r, 1500));
             }
-            showToast('Termin erfolgreich angefragt!');
+            showToast('Fast geschafft! Bitte bestätige den Link in deinen E-Mails.');
             this.form.reset();
             this.picker.reset();
             this.overlay.close();
@@ -104,7 +138,6 @@ class BookingPicker {
         this.onSelect = onSelect;
         this.daysTrack = container.querySelector('#daysTrack');
         this.monthSelector = container.querySelector('.month-selector');
-        this.monthBtns = [];
 
         this.monthsAvailable = [];
         this.availableSlots = [];
@@ -115,14 +148,27 @@ class BookingPicker {
         this.startX = 0;
         this.scrollLeftStart = 0;
         this.isSnapping = false;
+        this.snapCooldown = false;
 
         this.init();
     }
 
     init() {
         if (this.monthSelector) {
-            this.monthSelector.style.cursor = 'pointer';
-            this.monthSelector.addEventListener('click', () => this.toggleMonth());
+
+            // We treat any "drag attempt" (mousedown followed by mouseup) as a click
+            // to simulate a vertical scroll interaction without full physics.
+            this.monthSelector.addEventListener('mouseup', (e) => {
+                this.toggleMonth();
+            });
+
+            this.monthSelector.addEventListener('touchend', (e) => {
+                e.preventDefault(); // Prevent ghost clicks
+                this.toggleMonth();
+            });
+
+            // Block standard click to prevent double execution with mouseup
+            this.monthSelector.addEventListener('click', (e) => e.preventDefault());
         }
 
         // Native CSS Snap DAUERHAFT deaktivieren, da wir nun 100% JS Magnet-LERP nutzen!
@@ -133,13 +179,13 @@ class BookingPicker {
         // Native Scroll Listener for updating UI dynamically
         this.daysTrack.addEventListener('scroll', () => {
             this.updateWheelRotation();
-            if (!this.isDragging && !this.isSnapping) {
+            if (!this.isDragging && !this.isSnapping && !this.snapCooldown) {
                 this.detectCenterDay();
-                
+
                 // Debounce: Erkennt, wann die native "Schwungkraft" des iPhones endet
                 clearTimeout(scrollEndTimeout);
                 scrollEndTimeout = setTimeout(() => {
-                    if (!this.isDragging && !this.isSnapping) {
+                    if (!this.isDragging && !this.isSnapping && !this.snapCooldown) {
                         const closest = this.detectCenterDay();
                         if (closest) {
                             this.scrollToItem(closest); // Magnetischer JS-Snap!
@@ -148,7 +194,7 @@ class BookingPicker {
                 }, 150);
             }
         });
-        
+
         // Stoppt den JS-Snap sofort, wenn der Nutzer wieder auf das Display tippt
         this.daysTrack.addEventListener('touchstart', () => {
             cancelAnimationFrame(this.scrollRaf);
@@ -160,10 +206,10 @@ class BookingPicker {
             this.isDragging = true;
             cancelAnimationFrame(this.scrollRaf); // Stop ongoing snap
             this.isSnapping = false;
-            
+
             this.startX = e.pageX - this.daysTrack.offsetLeft;
             this.scrollLeftStart = this.daysTrack.scrollLeft;
-            
+
             this.daysTrack.style.scrollBehavior = 'auto';
             this.daysTrack.style.cursor = 'grabbing';
         });
@@ -182,9 +228,9 @@ class BookingPicker {
         const stopDragging = () => {
             if (!this.isDragging) return;
             this.isDragging = false;
-            
+
             this.daysTrack.style.cursor = 'grab';
-            
+
             // Sofort JS-Magnet einrasten lassen
             const closest = this.detectCenterDay();
             if (closest) {
@@ -305,31 +351,9 @@ class BookingPicker {
             this.daysTrack.appendChild(dayEl);
         });
 
-        // Initialize Month Buttons
+        // Initialize Month Selector
         if (this.monthSelector) {
-            this.monthSelector.innerHTML = '';
-            this.monthBtns = [];
-
-            // Only create buttons for unique short month names
-            const processedMonths = new Set();
-
-            this.monthsAvailable.forEach((monthObj, index) => {
-                // Determine short name (e.g. "Mai", "Jun") for compact display like before
-                const shortName = new Date(monthObj.yearMonth + "-01").toLocaleDateString('de-DE', { month: 'short' });
-
-                if (processedMonths.has(shortName)) return;
-                processedMonths.add(shortName);
-
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = index === 0 ? 'month-btn active' : 'month-btn';
-                btn.textContent = shortName;
-                btn.dataset.monthYear = monthObj.yearMonth;
-                btn.style.pointerEvents = 'none'; // Click goes to parent container
-
-                this.monthSelector.appendChild(btn);
-                this.monthBtns.push(btn);
-            });
+            this.updateMonthSelector();
         }
 
         // Initial detection
@@ -343,14 +367,48 @@ class BookingPicker {
         }, 100);
     }
 
+    updateMonthSelector() {
+        if (!this.monthSelector) return;
+
+        // Current selection or first available or actual current month
+        let baseDate;
+        if (this.selectedDateStr) {
+            const [y, m] = this.selectedDateStr.split('-').map(Number);
+            baseDate = new Date(y, m - 1, 1);
+        } else if (this.monthsAvailable.length > 0) {
+            const [y, m] = this.monthsAvailable[0].yearMonth.split('-').map(Number);
+            baseDate = new Date(y, m - 1, 1);
+        } else {
+            const now = new Date();
+            baseDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        }
+
+        const prevDate = new Date(baseDate.getFullYear(), baseDate.getMonth() - 1, 1);
+        const nextDate = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1, 1);
+
+        const getShort = (date) => date.toLocaleDateString('de-DE', { month: 'short' }).replace('.', '');
+
+        this.monthSelector.innerHTML = `
+            <span class="month-label">${getShort(prevDate)}</span>
+            <span class="month-label month-label--current">${getShort(baseDate)}</span>
+            <span class="month-label">${getShort(nextDate)}</span>
+        `;
+    }
+
     toggleMonth() {
-        if (!this.monthBtns || this.monthBtns.length <= 1) return;
+        if (!this.monthsAvailable || this.monthsAvailable.length <= 1) {
+            this.monthSelector.classList.add('month-selector--bounce');
+            setTimeout(() => {
+                this.monthSelector.classList.remove('month-selector--bounce');
+            }, 650);
+            return;
+        }
 
-        let currentIndex = this.monthBtns.findIndex(btn => btn.classList.contains('active'));
-        if (currentIndex === -1) currentIndex = 0;
+        const currentMonthYear = this.selectedDateStr ? this.selectedDateStr.substring(0, 7) : this.monthsAvailable[0].yearMonth;
+        let currentIndex = this.monthsAvailable.findIndex(m => m.yearMonth === currentMonthYear);
 
-        let nextIndex = (currentIndex + 1) % this.monthBtns.length;
-        const targetMonthYear = this.monthBtns[nextIndex].dataset.monthYear;
+        let nextIndex = (currentIndex + 1) % this.monthsAvailable.length;
+        const targetMonthYear = this.monthsAvailable[nextIndex].yearMonth;
 
         const firstDayOfMonth = this.daysTrack.querySelector(`.thumbwheel-item[data-month="${targetMonthYear}"]:not(.disabled)`);
         if (firstDayOfMonth) {
@@ -372,14 +430,8 @@ class BookingPicker {
             this.updateTimes(dateStr);
 
             const monthYear = item.dataset.month;
-            if (this.monthBtns && monthYear) {
-                this.monthBtns.forEach(btn => {
-                    if (btn.dataset.monthYear === monthYear) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
+            if (this.monthSelector && monthYear) {
+                this.updateMonthSelector();
             }
         }
 
@@ -393,6 +445,11 @@ class BookingPicker {
             // Wenn wir fast perfekt in der Mitte sind
             if (Math.abs(currentOffset) < 0.5) {
                 this.isSnapping = false;
+
+                // Kurzer Cooldown verhindert, dass der Scroll-Event sofort erneut scrollToItem feuert
+                this.snapCooldown = true;
+                setTimeout(() => { this.snapCooldown = false; }, 200);
+
                 this.updateWheelRotation();
                 this.detectCenterDay();
                 return;
@@ -493,16 +550,10 @@ class BookingPicker {
                 this.selectedDateStr = dateStr;
                 this.updateTimes(dateStr);
 
-                // Update month buttons
+                // Update month selector
                 const monthYear = closestItem.dataset.month;
-                if (this.monthBtns && monthYear) {
-                    this.monthBtns.forEach(btn => {
-                        if (btn.dataset.monthYear === monthYear) {
-                            btn.classList.add('active');
-                        } else {
-                            btn.classList.remove('active');
-                        }
-                    });
+                if (this.monthSelector && monthYear) {
+                    this.updateMonthSelector();
                 }
             }
         }

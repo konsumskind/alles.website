@@ -14,6 +14,7 @@ import { showToast } from './js/utils.js';
 import { BookingForm } from './js/booking.js';
 import { PrivacyOverlay } from './js/privacy.js';
 import { ImprintOverlay } from './js/imprint.js';
+import { AgbOverlay } from './js/agb.js';
 // Initialize Breathing Exercise
 const initBreathing = () => {
     new BreathExercise();
@@ -62,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new BookingForm();
     new PrivacyOverlay();
     new ImprintOverlay();
+    new AgbOverlay();
 
     // Visuals
     new HeroAnimation().init();

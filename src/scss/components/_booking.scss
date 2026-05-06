@@ -53,32 +53,97 @@
     height: 56px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    // padding-right: 0.5rem;
-    // border-right: 1px solid var(--shadow-dark);
-    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    border-radius: 20px;
     box-shadow: var(--pressed-small), var(--engraved);
+    padding: 4px 10px;
+    cursor: pointer;
+    background: var(--bg-color);
+    transition: all 0.2s ease;
+    min-width: 50px;
     flex-shrink: 0;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    perspective: 400px; // Added for 3D illusion
+
+    // Subtle gradient to emphasize the "hole" or "slot" look
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle, var(--bg-color) 60%, var(--shadow-dark) 89%);
+        pointer-events: none;
+        border-radius: 22%;
+        box-shadow: var(--raised);
+        width: 43px;
+        height: 58px;
+        margin: auto auto;
+    }
+
+    &:active {
+        // More "pressed" on active
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    .month-label {
+        font-size: 0.55rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-light);
+        line-height: 1;
+        opacity: 0.3;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        display: block;
+        text-align: center;
+        height: 14px; // Fixed height to ensure 3 fit in 56px
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+
+        &--current {
+            font-size: 0.8rem;
+            color: var(--orange);
+            opacity: 1;
+            height: 20px;
+            margin: 2px 0;
+        }
+    }
+
+    &--bounce {
+        .month-label {
+            animation: monthBounce 0.65s ease-in-out;
+        }
+    }
 }
 
-.month-btn {
-    height: 50%;
-    border: none;
-    background: transparent;
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--text-lighter);
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
-    box-shadow: var(--raised), var(--engraved);
+@keyframes monthBounce {
 
-    &.active {
-        // background: var(--bg-gradient);
-        color: var(--orange);
-        box-shadow: none;
+    0%,
+    100% {
+        transform: rotateX(0deg) translateY(0);
+    }
+
+    20% {
+        transform: rotateX(25deg) translateY(-2px);
+    }
+
+    40% {
+        transform: rotateX(-25deg) translateY(2px);
+    }
+
+    60% {
+        transform: rotateX(12deg) translateY(-1px);
+    }
+
+    80% {
+        transform: rotateX(-12deg) translateY(1px);
     }
 }
 
@@ -238,17 +303,19 @@
 
     .input-field {
         width: 100%;
-        padding: 12px 35px 12px 15px;
+        padding: 12px 35px 12px 30px;
 
         // --- TEXT STYLING FÜR DIE UHRZEIT ---
         font-size: var(--font-size-small);
         color: var(--text-main);
-        font-weight: 400;
+        font-weight: 700;
+        margin-left: 2rem;
 
         // Styling für den Platzhalter ("Uhrzeit..." - value="")
         &:invalid {
             color: var(--text-light);
             font-weight: 400; // Etwas dünner für den Platzhalter-Look (optional)
+            padding: 12px 35px 12px 15px;
         }
 
         // ------------------------------------
@@ -278,7 +345,7 @@
         top: 50%;
         transform: translateY(-50%);
         pointer-events: none;
-        color: var(--text-lighter);
+        color: var(--orange);
         font-size: 0.8rem;
         transition: transform 0.3s ease;
 

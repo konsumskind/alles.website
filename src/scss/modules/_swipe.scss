@@ -52,6 +52,13 @@
 .hero .swipe-container {
     width: 300px;
     max-width: 90%;
+    height: 70px;
+    padding: 0;
+}
+
+.hero .swipe-knob {
+    width: 70px;
+    height: 70px;
 }
 
 .swipe-icon-left,
@@ -95,11 +102,11 @@
 }
 
 .swipe-label--left {
-    left: 65px;
+    left: 55px;
 }
 
 .swipe-label--right {
-    right: 65px;
+    right: 55px;
 }
 
 .swipe-knob {
@@ -176,7 +183,7 @@
 /* --- Hero Animation States --- */
 .hero--animating {
     .swipe-container {
-        width: 62px;
+        width: 70px;
         transform: scale(0);
         opacity: 0;
         transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -187,7 +194,7 @@
     .swipe-container.swipe-step-1 {
         opacity: 1;
         transform: scale(1);
-        width: 62px;
+        width: 70px;
     }
 
     .swipe-container.swipe-step-2 {
