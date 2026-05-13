@@ -26,77 +26,106 @@
   /* Fonts */
   --font-family-title: 'Inter', sans-serif;
   --font-family-text: 'Merriweather', serif;
-  --font-size-xs: 0.65rem;
-  --font-size-small: 0.813rem;
-  --font-size-medium: 1rem;
-  --font-size-large: 1.25rem;
-  --font-size-xl: 1.5rem;
-  --font-size-xxl: 1.75rem;
+  --font-size-s: 0.625rem;
+  --font-size-m: 0.813rem;
+  --font-size-l: 1rem;
+  --font-size-xl: 1.25rem;
+  --font-size-xxl: 1.5rem;
+
+  // @media (min-width: 768px) {
+  //   --font-size-s: 0.688rem;
+  //   --font-size-m: 0.875rem;
+  //   --font-size-l: 1.125rem;
+  //   --font-size-xl: 1.5rem;
+  //   --font-size-xxl: 1.875rem;
+  //   --border-radius: 20px;
+  //   --border-radius-small: 10px;
+  // }
+
+  // Spacing
+  --space-s2: calc(var(--font-size-m)*.25);
+  --space-s1: calc(var(--font-size-m)*.5);
+  --space-x1: calc(var(--font-size-m)*1);
+  --space-x2: calc(var(--font-size-m)*2);
+  --space-x3: calc(var(--font-size-m)*3);
+  --space-x4: calc(var(--font-size-m)*4);
+  --space-x5: calc(var(--font-size-m)*5);
+  --space-x6: calc(var(--font-size-m)*6);
 
   /* Formen */
   --border-radius: 38px;
+  --border-radius-small: 15px;
+
+  @media (min-width: 768px) {
+    --font-size-s: 0.688rem;
+    --font-size-m: 0.875rem;
+    --font-size-l: 1.125rem;
+    --font-size-xl: 1.5rem;
+    --font-size-xxl: 1.875rem;
+    --border-radius: 20px;
+    --border-radius-small: 10px;
+    --space-x1: calc(var(--font-size-m)*1.5);
+    --space-x2: calc(var(--font-size-m)*2.5);
+    --space-x3: calc(var(--font-size-m)*3.5);
+    --space-x4: calc(var(--font-size-m)*4);
+    --space-x5: calc(var(--font-size-m)*5.5);
+    --space-x6: calc(var(--font-size-m)*6.5);
+  }
 
   /* RAISED (Erhaben - Box) */
-  --raised:
-    2px 2px 4px var(--shadow-dark),
-    -2px -2px 4px var(--shadow-light),
-    inset -1px -1px 2px var(--shadow-dark),
-    inset 1px 1px 2px var(--shadow-light);
+  --raised: 2px 2px 4px var(--shadow-dark),
+  -2px -2px 4px var(--shadow-light),
+  inset -1px -1px 2px var(--shadow-dark),
+  inset 1px 1px 2px var(--shadow-light);
 
-  --raised-small:
-    2px 2px 2px var(--shadow-dark),
-    -2px -2px 2px var(--shadow-light),
-    inset -1px -1px 2px var(--shadow-dark),
-    inset 1px 1px 2px var(--shadow-light);
+  --raised-small: 2px 2px 2px var(--shadow-dark),
+  -2px -2px 2px var(--shadow-light),
+  inset -1px -1px 2px var(--shadow-dark),
+  inset 1px 1px 2px var(--shadow-light);
 
-  --floating:
-    8px 8px 12px rgba(0, 0, 0, 0.08),
-    inset -1px -1px 2px var(--shadow-dark),
-    inset 1px 1px 2px var(--shadow-light),
-    inset 1px 1px 2px var(--shadow-light),
-    inset -1px -1px 2px var(--shadow-dark);
+  --floating: 8px 8px 12px rgba(0, 0, 0, 0.08),
+  inset -1px -1px 2px var(--shadow-dark),
+  inset 1px 1px 2px var(--shadow-light),
+  inset 1px 1px 2px var(--shadow-light),
+  inset -1px -1px 2px var(--shadow-dark);
 
   /* PRESSED (Vertieft - Box/Input) */
-  --pressed-medium:
-    inset 4px 4px 8px var(--shadow-dark),
-    inset -4px -4px 8px var(--shadow-light),
-    -1px -1px 2px var(--shadow-dark),
-    1px 1px 2px var(--shadow-light);
+  --pressed-medium: inset 4px 4px 8px var(--shadow-dark),
+  inset -4px -4px 8px var(--shadow-light),
+  -1px -1px 2px var(--shadow-dark),
+  1px 1px 2px var(--shadow-light);
 
-  --pressed-small:
-    inset 2px 2px 4px var(--shadow-dark),
-    inset -2px -2px 4px var(--shadow-light),
-    -1px -1px 2px var(--shadow-dark),
-    1px 1px 2px var(--shadow-light);
+  --pressed-small: inset 2px 2px 4px var(--shadow-dark),
+  inset -2px -2px 4px var(--shadow-light),
+  -1px -1px 2px var(--shadow-dark),
+  1px 1px 2px var(--shadow-light);
 
-  --pressed-small-orange:
-    inset 2px 2px 4px var(--orange-dark),
-    inset -2px -2px 4px var(--orange-light),
-    -1px -1px 2px var(--shadow-dark),
-    1px 1px 2px var(--shadow-light);
+  --pressed-small-orange: inset 2px 2px 4px var(--orange-dark),
+  inset -2px -2px 4px var(--orange-light),
+  -1px -1px 2px var(--shadow-dark),
+  1px 1px 2px var(--shadow-light);
 
-  --engraved:
-    inset -1px -1px 2px var(--shadow-dark),
-    inset 1px 1px 2px var(--shadow-light),
-    -1px -1px 2px var(--shadow-dark),
-    1px 1px 2px var(--shadow-light);
+  --engraved: inset -1px -1px 2px var(--shadow-dark),
+  inset 1px 1px 2px var(--shadow-light),
+  -1px -1px 2px var(--shadow-dark),
+  1px 1px 2px var(--shadow-light);
 
   /* TEXT/ICON SHADOWS */
-  --text-raised: -1px -1px 2px var(--shadow-light), 1px 1px 2px var(--shadow-dark);
-  --text-pressed: 1px 1px 2px var(--shadow-light), -1px -1px 2px var(--shadow-dark);
+  --text-raised: -1px -1px 2px var(--shadow-light),
+  1px 1px 2px var(--shadow-dark);
+  --text-pressed: 1px 1px 2px var(--shadow-light),
+  -1px -1px 2px var(--shadow-dark);
 
   /* HERO SPECIFIC */
-  --hero-profile-shadow-outer:
-    16px 16px 24px var(--shadow-dark),
-    -16px -16px 24px var(--shadow-light),
-    inset 2px 2px 4px var(--shadow-light),
-    inset -2px -2px 4px var(--shadow-dark);
+  --hero-profile-shadow-outer: 16px 16px 24px var(--shadow-dark),
+  -16px -16px 24px var(--shadow-light),
+  inset 2px 2px 4px var(--shadow-light),
+  inset -2px -2px 4px var(--shadow-dark);
 
-  --hero-profile-shadow-inner:
-    inset 6px 6px 12px rgba(0, 0, 0, 0.38),
-    inset -6px -6px 12px rgba(255, 236, 220, 0.48),
-    -2px -2px 4px var(--shadow-dark),
-    2px 2px 4px var(--shadow-light);
+  --hero-profile-shadow-inner: inset 6px 6px 12px rgba(0, 0, 0, 0.38),
+  inset -6px -6px 12px rgba(255, 236, 220, 0.48),
+  -2px -2px 4px var(--shadow-dark),
+  2px 2px 4px var(--shadow-light);
 
   /* THEME SWITCHER */
   // Change this SINGLE value to update the whole button theme:
@@ -114,25 +143,22 @@
   // Explicit Shadow for Logo (to tackle SCSS scope issues in component)
   --theme-switch-logo-shadow: #{darken($theme-switch-base, 40%)};
 
-  --raised-blue:
-    2px 2px 5px var(--theme-switch-shadow-dark),
-    -2px -2px 5px var(--theme-switch-shadow-light),
-    inset -1px -1px 2px var(--theme-switch-shadow-dark),
-    inset 1px 1px 2px var(--theme-switch-shadow-light);
+  --raised-blue: 2px 2px 5px var(--theme-switch-shadow-dark),
+  -2px -2px 5px var(--theme-switch-shadow-light),
+  inset -1px -1px 2px var(--theme-switch-shadow-dark),
+  inset 1px 1px 2px var(--theme-switch-shadow-light);
 
-  --engraved-blue:
-    inset -1px -1px 2px var(--theme-switch-shadow-dark),
-    inset 1px 1px 2px var(--theme-switch-shadow-light),
-    -1px -1px 2px var(--theme-switch-shadow-dark),
-    1px 1px 2px var(--theme-switch-shadow-light);
+  --engraved-blue: inset -1px -1px 2px var(--theme-switch-shadow-dark),
+  inset 1px 1px 2px var(--theme-switch-shadow-light),
+  -1px -1px 2px var(--theme-switch-shadow-dark),
+  1px 1px 2px var(--theme-switch-shadow-light);
 
   /* BREATHING */
-  --breath-shadow-active:
-    6px 6px 12px var(--shadow-dark),
-    -6px -6px 12px var(--shadow-light),
-    inset 1px 1px 2px var(--shadow-light),
-    inset -1px -1px 2px var(--shadow-dark),
-    0 0 30px var(--blue-light);
+  --breath-shadow-active: 6px 6px 12px var(--shadow-dark),
+  -6px -6px 12px var(--shadow-light),
+  inset 1px 1px 2px var(--shadow-light),
+  inset -1px -1px 2px var(--shadow-dark),
+  0 0 30px var(--blue-light);
 
   ///////////////////////////////////////////////////////////////////////* Dark Mode Overrides */
   body.dark-mode {
@@ -274,9 +300,9 @@ $z-preloader: 9999; // Preloader (always on top)
   cursor: pointer;
   transition: all 0.3s ease;
 
-  &:active {
-    box-shadow: var(--pressed-small);
-    color: $active-color;
-    transform: scale(0.95);
-  }
+  // &:active {
+  //   box-shadow: var(--pressed-small);
+  //   color: $active-color;
+  //   transform: scale(0.95);
+  // }
 }

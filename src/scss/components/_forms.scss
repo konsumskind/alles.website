@@ -2,8 +2,8 @@
 
 .input-field {
     display: flex;
-    width: 100%;
-    height: 56px;
+    // width: 100%;
+    height: 50px;
     background-color: var(--bg-color);
     box-shadow: var(--pressed-small), var(--engraved);
     border-radius: var(--border-radius);
@@ -16,6 +16,7 @@
     // transform: translateZ(0);
     backface-visibility: hidden;
     margin-bottom: 0.5rem;
+    font-size: var(--font-size-m);
 
     &:focus {
         background: var(--shadow-light);
@@ -42,6 +43,31 @@
         // When focused while autofilled, we can use var(--shadow-light) to match your focus style
         -webkit-box-shadow: var(--pressed-small), var(--engraved), 0 0 0 1000px var(--shadow-light) inset !important;
         -webkit-text-fill-color: var(--text-main) !important;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-x1);
+    // margin-top: 1rem;
+
+
+}
+
+.form-divider {
+    height: 1px;
+    margin: var(--space-x1) var(--space-x4);
+    box-shadow: var(--engraved);
+}
+
+.input-group {
+    display: flex;
+    gap: var(--space-x1);
+
+    .input-field {
+        flex: 1;
+        // min-width: 0;
     }
 }
 
@@ -79,12 +105,60 @@
         top: 50%;
         transform: translateY(-100%);
         color: var(--orange);
-        font-size: var(--font-size-small);
+        font-size: var(--font-size-s);
         pointer-events: none;
         transition: transform 0.3s ease;
 
         &--open {
             transform: translateY(-100%) rotate(-180deg);
         }
+    }
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 35px 12px 15px;
+    font-size: var(--font-size-m);
+    color: var(--text-main);
+    font-weight: 500;
+    cursor: pointer;
+    margin: 0;
+
+    &:invalid,
+    &[value=""] {
+        color: var(--text-light);
+        font-weight: 400;
+    }
+
+    &--selected {
+        color: transparent !important;
+    }
+
+    option {
+        font-size: 0.9rem;
+        color: var(--text-main);
+        font-weight: 400;
+        background-color: var(--bg-color);
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            color: var(--text-light);
+        }
+    }
+}
+
+.select-wrapper__icon {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--orange);
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+
+    &--open {
+        transform: translateY(-50%) rotate(180deg);
     }
 }

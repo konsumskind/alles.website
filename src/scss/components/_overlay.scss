@@ -7,54 +7,41 @@
     width: 100%;
     height: 100%;
     z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     overflow: hidden;
     pointer-events: none;
     visibility: hidden;
     transition: visibility 0s linear 0.4s;
-
-    // Default blur state when active (managed by body class)
-    // backdrop-filter: blur(0px);
-    // -webkit-backdrop-filter: blur(0px);
-    transition: backdrop-filter 0.4s ease, visibility 0s linear 0.4s;
 }
 
 .overlay__content {
-    font-size: var(--font-size-small);
+    // font-size: var(--font-size-small);
     background-color: var(--bg-color);
     // box-shadow: var(--floating);
     top: 100px;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     height: fit-content;
-
-    @media (max-width: 767px) {
-        min-height: calc(100% - 100px);
-    }
-
+    min-height: calc(100% - 100px);
     margin: 0 auto;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
-    padding: 2rem 1.5rem;
-    padding-top: 0.5rem; // Keep grab handle close to top edge
+    padding: 0 var(--space-x2) var(--space-x2);
+    // padding-top: 0.5rem; // Keep grab handle close to top edge
     pointer-events: auto;
     position: relative;
     flex-shrink: 0;
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    will-change: transform,
-    top,
-    left;
-
+    will-change: transform, top, left;
     display: flex;
     flex-direction: column;
+    gap: var(--space-x2);
 
     // Neumorphic internal style
     box-shadow: var(--floating),
-    0 -10px 30px rgba(0, 0, 0, 0.33);
+        0 -10px 30px rgba(0, 0, 0, 0.33);
 
-    @media (min-width: 768px) {
+    @media (min-width: 500px) {
+        min-height: fit-content;
         position: absolute;
         top: 15%;
         left: 50%;
@@ -63,15 +50,13 @@
         border-radius: var(--border-radius);
         box-shadow: var(--floating);
         max-width: 500px;
-        max-height: 80vh;
+        // max-height: 80vh;
         opacity: 0;
         transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
         pointer-events: none; // Ensure it doesn't block while fading
+        transform: translate(-50%, 0); // Keep centered even when closed
+        transition: opacity 0.3s ease; // Only animate opacity on desktop
 
-        @media (min-width: 768px) {
-            transform: translate(-50%, 0); // Keep centered even when closed
-            transition: opacity 0.3s ease; // Only animate opacity on desktop
-        }
     }
 
     &.is-dragging {
@@ -88,10 +73,10 @@
     .overlay__content {
         max-height: calc(100% - 100px);
 
-        @media (min-width: 768px) {
-            height: 750px;
-            max-height: 85vh;
-        }
+        // @media (min-width: 768px) {
+        //     height: 750px;
+        //     max-height: 85vh;
+        // }
     }
 
     &.overlay--high .overlay__content {
@@ -124,22 +109,20 @@
 
 .overlay__grab {
     width: 100%;
-    height: 40px;
+    height: 20px;
     flex-shrink: 0; // Prevent shrinking in flex container
     cursor: grab;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    margin-bottom: 0.5rem;
+    // margin-bottom: 0.5rem;
 
     &::after {
         content: '';
         width: 60px;
         height: 2px;
-        border-radius: 37px;
-        background-color: var(--text-light);
+        height: 1px;
         box-shadow: var(--engraved);
-        opacity: 0.8;
     }
 
     &:active {
@@ -156,7 +139,7 @@
     height: 35px;
     display: none;
 
-    @media (min-width: 768px) {
+    @media (min-width: 500px) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -170,44 +153,65 @@
     .overlay__content {
         top: 140px; // Offset from the first overlay (which is at 100px)
 
-        @media (max-width: 767px) {
+        @media (max-width: 499px) {
             min-height: calc(100% - 140px);
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 500px) {
             top: auto; // Keep centered on desktop
-            max-height: 750px;
+            height: 783px !important;
         }
     }
 }
 
 // Body State Styles
 body.overlay-active {
-    @media (max-width: 767px) {
+    @media (max-width: 499px) {
         overflow: hidden;
+    }
+
+    // Single backdrop layer for blur + darkening
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        pointer-events: none;
+        animation: backdrop-in 0.4s ease forwards;
     }
 
     .overlay.is-open {
         visibility: visible;
         transition-delay: 0s;
-        // background-color: rgba(0, 0, 0, 0.05); // Very subtle dim
-        // backdrop-filter: blur(2px);
-        // -webkit-backdrop-filter: blur(2px);
 
         .overlay__content {
             transform: translateY(0);
 
-            @media (min-width: 768px) {
+            @media (min-width: 500px) {
                 // We keep the -50% here to maintain centering if no left/top is set
                 transform: translate(-50%, 0);
                 opacity: 1;
                 pointer-events: auto;
             }
         }
-
-        @media (min-width: 768px) {
-            background-color: transparent;
-        }
     }
+}
 
+@keyframes backdrop-in {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
 }

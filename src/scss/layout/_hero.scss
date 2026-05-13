@@ -34,7 +34,7 @@
         margin-bottom: 4rem;
 
         .name {
-            font-size: var(--font-size-large); // smaller
+            font-size: var(--font-size-xl); // smaller
             font-weight: 800;
             color: var(--text-main);
             letter-spacing: -0.025em;
@@ -103,7 +103,7 @@
     }
 
     &__text {
-        font-size: var(--font-size-small);
+        font-size: var(--font-size-m);
         color: var(--text-light);
         margin-top: 0.5rem;
     }
@@ -114,10 +114,11 @@
     &__scroll-down {
         margin: 1.5rem 0 1.5rem;
         color: var(--text-lighter);
-        font-size: var(--font-size-large);
+        font-size: var(--font-size-xl);
         opacity: 0.6;
         cursor: pointer;
     }
+
 
 
 }
@@ -157,4 +158,146 @@
 .hero__title .hero-word {
     display: inline-block;
     white-space: pre; // Respect spaces in spans
+}
+
+.hero__desktop-cta {
+    display: none !important;
+}
+
+// Layout Adjustments for Desktop
+@media (min-width: 900px) {
+    .hero {
+        height: 848px;
+        min-height: unset;
+        display: block;
+
+        &__wrapper {
+            position: relative;
+            align-items: flex-start;
+            text-align: left;
+            min-height: 51vh;
+            justify-content: end;
+            border-bottom-left-radius: 26px;
+            padding: 0 var(--space-x4);
+        }
+
+        &__content {
+            position: absolute;
+            align-items: flex-start;
+            text-align: left;
+            margin: 0 0 82px 0;
+            max-width: 340px;
+        }
+
+        &__brand {
+            position: absolute;
+            top: 9rem;
+            left: var(--space-x4);
+            text-align: left;
+            z-index: $z-content;
+            // opacity: .2;
+
+            .name {
+                color: var(--text-light);
+                // text-shadow: var(--text-pressed);
+                font-size: var(--font-size-l);
+                line-height: 0.5;
+
+            }
+
+            .tagline {
+                color: var(--text-light);
+                // text-shadow: var(--text-pressed);
+                margin: 0;
+            }
+        }
+
+        .swipe-wrapper:not(.hero__desktop-cta) {
+            display: none !important;
+        }
+
+        .swipe-cta-label {
+            display: none !important;
+        }
+
+        &__desktop-cta {
+            display: block !important;
+            position: absolute;
+            bottom: -5.4px;
+            right: 134.5px;
+            margin: 0 !important;
+            z-index: 1;
+            width: auto;
+            transform: scale(0.8);
+
+            .swipe-container {
+                // border-bottom-left-radius: 20px;
+            }
+        }
+
+        &__video-background {
+            height: 70% !important;
+            z-index: 1;
+
+            // video {
+            //     object-fit: cover;
+            // }
+        }
+    }
+
+    .process-desktop-only {
+        display: flex !important;
+        padding: 0 !important;
+        bottom: 1rem;
+        left: 450px;
+        flex-direction: column;
+        gap: calc(var(--font-size-m)*2);
+        width: fit-content;
+        height: 260px;
+        z-index: 10;
+
+        .profile-process__labels-container {
+            position: unset;
+            top: 0;
+            left: 0;
+            transform: unset;
+            width: unset;
+            max-width: unset;
+            height: unset;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 5;
+        }
+
+        .profile-process__description {
+            margin: 0;
+            padding: 0;
+
+            p {
+                text-align: right;
+                justify-content: flex-end;
+                height: 5rem;
+                min-height: unset;
+            }
+        }
+
+        .profile-process__track {
+            position: unset;
+        }
+
+    }
+
+    .process-mobile-only {
+        display: none !important;
+    }
+}
+
+// Base visibility classes
+.process-desktop-only {
+    display: none;
+}
+
+.process-mobile-only {
+    display: block;
 }

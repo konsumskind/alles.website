@@ -1,12 +1,12 @@
 export class ProcessAnimation {
-    constructor() {
-        this.container = document.getElementById('profileProcess');
-        this.track = document.getElementById('processTrack');
-        this.labelsTrack = document.getElementById('processLabels');
-        this.labelItems = document.querySelectorAll('.profile-process__label-item');
-        this.textElement = document.getElementById('processText');
-        this.progressLine = document.getElementById('processProgress');
-        this.steps = document.querySelectorAll('.profile-process__step');
+    constructor(containerElement) {
+        this.container = containerElement;
+        this.track = this.container.querySelector('.profile-process__track');
+        this.labelsTrack = this.container.querySelector('.profile-process__labels-track');
+        this.labelItems = this.container.querySelectorAll('.profile-process__label-item');
+        this.textElement = this.container.querySelector('.process-text');
+        this.progressLine = this.container.querySelector('.profile-process__line--progress');
+        this.steps = this.container.querySelectorAll('.profile-process__step');
 
         if (!this.container || !this.track || !this.labelsTrack) return;
 
@@ -131,17 +131,22 @@ export class ProcessAnimation {
         // 1. Update Icons Track (Horizontal snap to center active step)
         const activeStep = this.steps[index];
         if (activeStep) {
-            const containerCenter = this.container.offsetWidth / 2;
+            // Disable translate X for desktop hero version
+            if (this.container.classList.contains('process-desktop-only')) {
+                this.track.style.transform = 'none';
+            } else {
+                const containerCenter = this.container.offsetWidth / 2;
 
-            // Calculate step center relative to the track START
-            const stepLeft = activeStep.offsetLeft;
-            const stepWidth = activeStep.offsetWidth;
-            const stepCenter = stepLeft + (stepWidth / 2);
+                // Calculate step center relative to the track START
+                const stepLeft = activeStep.offsetLeft;
+                const stepWidth = activeStep.offsetWidth;
+                const stepCenter = stepLeft + (stepWidth / 2);
 
-            // Desired shift: Move track so stepCenter aligns with containerCenter
-            const shift = containerCenter - stepCenter;
+                // Desired shift: Move track so stepCenter aligns with containerCenter
+                const shift = containerCenter - stepCenter;
 
-            this.track.style.transform = `translateX(${shift}px)`;
+                this.track.style.transform = `translateX(${shift}px)`;
+            }
         }
 
         // 2. Update Labels Track (Horizontal scroll to center)

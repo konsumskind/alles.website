@@ -19,6 +19,7 @@ export class ScrollManager {
         this.autoScrollTimeout = null;
 
         this.init();
+        this.setupViewObserver();
     }
 
     init() {
@@ -118,7 +119,18 @@ export class ScrollManager {
 
         const isImmersive = document.body.classList.contains('mode-immersive');
 
-        if (currentScrollY <= 50 || isImmersive) {
+        if (isImmersive) {
+            this.nav.classList.remove('nav-visible');
+            this.scrollUpStartY = null;
+            return;
+        }
+
+        if (window.innerWidth >= 900) {
+            this.nav.classList.add('nav-visible');
+            return;
+        }
+
+        if (currentScrollY <= 50) {
             this.nav.classList.remove('nav-visible');
             this.scrollUpStartY = null;
         } else {
@@ -178,5 +190,23 @@ export class ScrollManager {
                 });
             }
         });
+    }
+
+    setupViewObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    // Optional: Remove if they should shrink again when scrolling out
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -20% 0px', // Shrink trigger area by 20% top/bottom
+            threshold: 0.7 // Trigger when 80% is visible within that shrunk area
+        });
+
+        document.querySelectorAll('.observe-view').forEach(el => observer.observe(el));
     }
 }

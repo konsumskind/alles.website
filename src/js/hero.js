@@ -43,56 +43,36 @@ export class HeroAnimation {
     }
 
     animateSwipeButton() {
-        const swipeContainer = document.querySelector('.hero .swipe-container');
-        const scrollArrow = document.querySelector('.hero__scroll-down');
-        const ctaLabel = document.querySelector('.swipe-cta-label');
+        const swipeContainers = document.querySelectorAll('.hero .swipe-container');
+        const scrollArrows = document.querySelectorAll('.hero .hero__scroll-down');
+        const ctaLabels = document.querySelectorAll('.hero .swipe-cta-label');
         const themeToggle = document.getElementById('themeToggle');
-        const heroLogo = document.querySelector('.hero__logo');
+        const heroLogo = document.querySelector('.hero .hero__logo');
 
-        if (!swipeContainer) return;
+        if (swipeContainers.length === 0) return;
 
         // Step A: Scale Up (dot) & Theme Toggle & Logo
-        swipeContainer.classList.add('swipe-step-1');
+        swipeContainers.forEach(container => container.classList.add('swipe-step-1'));
         if (themeToggle) themeToggle.classList.add('pop-in');
         if (heroLogo) heroLogo.classList.add('pop-in');
 
         // Step B: Expand Width (after scale up)
         setTimeout(() => {
-            swipeContainer.classList.add('swipe-step-2');
+            swipeContainers.forEach(container => container.classList.add('swipe-step-2'));
         }, 600); // Wait for scale
 
         // Step C: Show Label
         setTimeout(() => {
-            if (ctaLabel) ctaLabel.classList.add('reveal-label');
+            ctaLabels.forEach(label => label.classList.add('reveal-label'));
         }, 800);
 
         // Step D: Show Scroll Arrow
         setTimeout(() => {
-            if (scrollArrow) scrollArrow.classList.add('reveal-arrow');
+            scrollArrows.forEach(arrow => arrow.classList.add('reveal-arrow'));
         }, 1100);
     }
 
     splitTitle() {
-        const processNode = (node) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const words = node.textContent.trim().split(/\s+/);
-                const fragment = document.createDocumentFragment();
-
-                words.forEach((word, index) => {
-                    if (!word) return;
-                    const span = document.createElement('span');
-                    span.textContent = word + ' ';
-                    span.classList.add('word');
-                    span.style.opacity = '0'; // Ensure hidden initially
-                    fragment.appendChild(span);
-                });
-
-                node.parentNode.replaceChild(fragment, node);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                Array.from(node.childNodes).forEach(processNode);
-            }
-        };
-
         // Helper to wrap words
         const wrapWords = (element) => {
             const childNodes = Array.from(element.childNodes);

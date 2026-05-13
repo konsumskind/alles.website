@@ -10,7 +10,7 @@ export class BreathExercise {
             text: document.getElementById('breathText'),
             btn: document.getElementById('breathBtn'),
             container: document.querySelector('.breath-container'),
-            intro: document.querySelector('#atmung .section__intro'),
+            intro: document.querySelector('#atmung .block-text'),
             hint: document.getElementById('breathHint'),
             controlsExtra: document.getElementById('breathControlsExtra'),
             shareBtn: document.getElementById('shareBtn'),

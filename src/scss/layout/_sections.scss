@@ -2,39 +2,48 @@
 
 .section {
     width: 100vw;
-    max-width: 1080px;
+    max-width: 900px;
     position: relative;
-    padding: 4rem 1.5rem; // section-spacer
-    overflow: hidden;
+    padding: var(--space-x4) var(--space-x2); // section-spacer
+    // overflow: hidden;
     box-shadow: var(--engraved);
     background: linear-gradient(38deg, var(--bg-color) 30%, var(--shadow-light) 60%, var(--bg-color) 100%);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: var(--space-x2);
     // border-radius: var(--border-radius); // Defined individually below per User request
 
     &__header {
-        margin-bottom: 0.5rem;
-        // padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-x1);
     }
 
-    &__title {
-        margin-bottom: 2rem;
+    &__references {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: var(--space-x2);
     }
 
-    &__intro {
-        font-size: var(--font-size-small); // text-sm
-        color: var(--text-dark); // gray-600
-        margin-bottom: 2rem;
-        hyphens: auto;
-        text-align: justify;
-
-        &--flush {
-            margin-bottom: 0;
-        }
+    @media (min-width: 900px) {
+        padding: var(--space-x6) var(--space-x4);
+        padding-bottom: 15vh;
     }
+
+    // &__title,
+    // &__intro {
+    //     margin-bottom: 2rem;
+    // }
 
     &__grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: var(--space-x2);
+        transition: grid-template-columns 0.5s ease;
 
         @media (min-width: 768px) {
             grid-template-columns: repeat(3, 1fr);
@@ -45,8 +54,44 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            @media (min-width: 1080px) {
+                width: 100vw;
+                max-width: 1080px;
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+
+                &> :nth-child(1) {
+                    transform: translateX(40%);
+                    z-index: 1;
+                    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+                }
+
+                &> :nth-child(2) {
+                    z-index: 2;
+                    position: relative;
+                }
+
+                &> :nth-child(3) {
+                    transform: translateX(-40%);
+                    z-index: 1;
+                    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+                }
+            }
+
+            &.in-view {
+                @media (min-width: 1080px) {
+
+                    &> :nth-child(1),
+                    &> :nth-child(3) {
+                        transform: translateX(0);
+                    }
+                }
+            }
+
             @media (max-width: 768px) {
                 grid-template-columns: 1fr;
+                margin: 0 auto;
             }
         }
 
@@ -56,10 +101,6 @@
             margin: 0 auto;
         }
     }
-}
-
-.section__references {
-    margin-top: 2.5rem;
 }
 
 .config-value {
@@ -72,7 +113,7 @@
     }
 }
 
-#atmung .section__intro {
+#atmung .block-text {
     min-height: 8rem;
     // margin-bottom: 0.5rem;
     transition: opacity 0.5s ease;
@@ -94,6 +135,50 @@
     /* Ensure it sits above hero swipe wrapper (z-20) so shadows are visible */
     border-radius: var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius);
     overflow: hidden;
+
+    @media (min-width: 768px) {
+        overflow: unset;
+    }
+
+    .carousel__track {
+        margin: 0 var(--space-x2);
+
+        @media (min-width: 900px) {
+            margin: 0;
+            width: 100vw !important;
+            max-width: 1080px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%) !important;
+
+            &> :nth-child(1) {
+                transform: translateX(40%);
+                z-index: 1;
+                transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+
+            &> :nth-child(2) {
+                z-index: 2;
+                position: relative;
+            }
+
+            &> :nth-child(3) {
+                transform: translateX(-40%);
+                z-index: 1;
+                transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+        }
+
+        &.in-view {
+            @media (min-width: 900px) {
+
+                &> :nth-child(1),
+                &> :nth-child(3) {
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
 }
 
 #atmung {
@@ -106,6 +191,7 @@
 
 // Override Section Style for "Über mich" to allow floating icons
 #ueber-mich {
+    overflow: unset;
     border-radius: var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius);
     background: transparent;
     box-shadow: none;
@@ -115,8 +201,17 @@
         background: linear-gradient(38deg, var(--bg-color) 30%, var(--shadow-light) 60%, var(--bg-color) 100%);
         box-shadow: var(--engraved);
         border-radius: var(--border-radius);
-        padding: 4rem 1.5rem;
+        padding: var(--space-x4) var(--space-x2); // section-spacer
         position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: var(--space-x2);
+
+        @media (min-width: 900px) {
+            padding: var(--space-x6) var(--space-x4) var(--space-x6) var(--space-x4);
+        }
     }
 }
 
@@ -126,6 +221,10 @@
 
 #kontakt {
     border-radius: var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius);
+
+    @media (min-width: 900px) {
+        padding-bottom: 15vh;
+    }
 }
 
 // --- Specific Section Elements ---
@@ -133,33 +232,20 @@
 
 
 // Contact Section
-.contact-card__inner {
+.contact-card__header {
     position: relative;
 }
 
 .contact-intro-text {
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-m);
     color: var(--text-light);
-    margin: 0 auto 2rem auto;
+    // margin: 0 auto 2rem auto;
     max-width: 20rem;
-    margin-bottom: 2rem;
-}
-
-.contact-form-container {
-    display: none;
-    text-align: left;
-    margin-bottom: 2rem;
-
-    .btn {
-        gap: 0.75rem;
-    }
-
-    .btn__icon {
-        font-size: var(--font-size-medium);
-    }
+    // margin-bottom: 2rem;
 }
 
 .location-header {
+    padding-top: var(--space-x1);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -183,15 +269,25 @@
     font-size: var(--font-size-medium);
 }
 
-.location-preview__map iframe {
-    border: 0;
-    // opacity: 0.7;
-    mix-blend-mode: multiply;
-}
+.location-preview {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-x2);
 
-.location-preview__map-overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+    &__map iframe {
+        border: 0;
+        // opacity: 0.7;
+        mix-blend-mode: multiply;
+
+        body.dark-mode & {
+            filter: invert(100%) hue-rotate(180deg);
+        }
+    }
+
+    &__map-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+    }
 }

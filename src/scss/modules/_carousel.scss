@@ -2,11 +2,14 @@
 .carousel {
     position: relative;
     width: 100%;
-    padding: 2rem 0; // Padding for shadows
-
-    &--top-only {
-        padding: 2rem 0 0 0;
-    }
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--space-x1);
+    overflow: hidden;
+    width: calc(100% + (var(--space-x1) * 5));
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 
     &__viewport {
         width: 100%;
@@ -22,6 +25,8 @@
         display: flex;
         gap: 1.5rem;
         width: max-content;
+        padding-bottom: 12px;
+
         /* Transition is handled via JS for better control during infinite jump */
     }
 
@@ -32,16 +37,10 @@
     }
 
     &__controls {
-        position: absolute;
-        top: 0.5rem;
-        right: 1.5rem;
-        /* Match section padding */
+        margin-right: var(--space-x4);
         display: flex;
-        justify-content: center;
-        gap: 0.42rem;
-        margin-top: 0;
-        // z-index: 10;
-        /* Ensure it's above items if they overlap, though here it's fine */
+        justify-content: flex-end;
+        gap: var(--space-s1);
     }
 
     &__dot {
@@ -58,6 +57,12 @@
             opacity: 1;
             transform: scale(1);
         }
+
+        @media (min-width: 768px) {
+            &:hover {
+                background: var(--blue);
+            }
+        }
     }
 
 
@@ -71,6 +76,8 @@
 @media (min-width: 768px) {
     .carousel.carousel--disabled {
         padding: 0;
+        overflow: unset;
+
 
         .carousel__viewport {
             width: auto;

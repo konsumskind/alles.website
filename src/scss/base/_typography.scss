@@ -23,16 +23,19 @@ h1 {
 }
 
 h3 {
-    font-size: var(--font-size-xl);
+    font-size: calc(var(--font-size-m) * 1.5);
+    font-size: var(--font-size-xxl);
     font-weight: 700;
     color: var(--text-main);
-    margin-bottom: 1rem;
+    // margin-bottom: 1rem;
 }
 
 h4 {
-    font-size: var(--font-size-large);
+    font-size: calc(var(--font-size-xl) + 1.5);
     font-weight: 700;
     color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    // text-transform: uppercase;
 }
 
 p {
@@ -52,11 +55,12 @@ p {
 }
 
 .ui-label {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-s);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--orange);
+    font-size: var(--font-size-s);
 }
 
 // Text Alignment Utilities
@@ -70,4 +74,11 @@ p {
 
 .text-left {
     text-align: left;
+}
+
+.block-text {
+    font-size: var(--font-size-m);
+    color: var(--text-dark);
+    hyphens: auto;
+    text-align: justify;
 }

@@ -70,7 +70,7 @@
     height: 1.5rem;
     display: flex;
     align-items: center;
-    font-size: var(--font-size-large);
+    font-size: var(--font-size-xl);
     color: var(--text-lighter);
     text-shadow: var(--text-pressed);
     pointer-events: none;
@@ -89,7 +89,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-m);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -102,11 +102,11 @@
 }
 
 .swipe-label--left {
-    left: 55px;
+    left: 50px;
 }
 
 .swipe-label--right {
-    right: 55px;
+    right: 50px;
 }
 
 .swipe-knob {
@@ -200,6 +200,10 @@
     .swipe-container.swipe-step-2 {
         width: 300px;
         max-width: 90%;
+
+        // @media (min-width: 900px) {
+        //     width: 500px;
+        // }
     }
 
     .swipe-cta-label {

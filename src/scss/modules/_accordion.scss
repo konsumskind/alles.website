@@ -1,13 +1,9 @@
 .accordion {
-    width: 100%;
-    // max-width: 800px; // Match standard text width
-    margin: 0 auto;
-    // padding: 0 1.5rem;
-
-    &--spaced {
-        margin-top: 1.3125rem;
-        margin-bottom: 1.3125rem;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-x1);
+    transition: gap 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .accordion__item {
@@ -15,7 +11,7 @@
 
     // Smooth transition for the "Focus Mode" disappearance
     transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    max-height: 20rem; // Arbitrary "Closed" height (header only needs ~3rem, but this allows buffer)
+    // max-height: 20rem; // Arbitrary "Closed" height (header only needs ~3rem, but this allows buffer)
     opacity: 1;
     overflow: hidden; // Needed for max-height animation
 
@@ -39,6 +35,8 @@
 
 // "Focus Mode": Hide all non-active items
 .accordion.has-focus {
+    gap: 0;
+
     .accordion__item:not(.active) {
         max-height: 0;
         opacity: 0;
@@ -52,29 +50,29 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 0;
+    // padding: var(--space-x1) 0;
     cursor: pointer;
     transition: color 0.3s ease;
     user-select: none;
 
-    &:hover {
-        .accordion__title {
+    @media (min-width: 768px) {
+        &:hover {
             color: var(--orange);
         }
     }
 }
 
 .accordion__title {
-    font-weight: 700;
-    font-size: var(--font-size-small);
-    color: var(--text-main);
+    // font-weight: 700;
+    font-size: var(--font-size-m);
+    // color: var(--text-main);
     transition: color 0.3s ease;
 }
 
 .accordion__icon {
     color: var(--orange);
     transition: transform 0.3s ease;
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-s);
 }
 
 .accordion__content {
@@ -85,12 +83,13 @@
 
 .accordion__body {
     color: var(--text-light);
-    line-height: 1.6;
-    font-size: var(--font-size-small);
+    // line-height: 1.6;
+    font-size: var(--font-size-m);
     hyphens: auto;
     text-align: justify;
 
     p {
-        margin: 0;
+        // margin: 0;
+        margin-top: var(--space-x1);
     }
 }

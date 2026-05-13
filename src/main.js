@@ -53,7 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initCarousel();
     initSwipeButtons();
     new OfferConfigurator();
-    new ProcessAnimation();
+    document.querySelectorAll('.profile-process').forEach(el => {
+        new ProcessAnimation(el);
+    });
 
     // Feature Modules
     initBreathing();

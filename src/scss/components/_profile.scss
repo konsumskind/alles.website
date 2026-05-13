@@ -1,5 +1,11 @@
 @use '../variables' as *;
 
+.profile-wrapper {
+    @media (min-width: 900px) {
+        display: block;
+    }
+}
+
 .profile-container {
     // Grow with height available (40vh), but constrained by width (100vw - 3rem margins)
     // and a maximum pixel size to avoid getting too huge.
@@ -13,7 +19,22 @@
     padding: 10px;
     background: var(--bg-color);
     box-shadow: var(--hero-profile-shadow-outer);
-    margin: 2.5rem auto 2.5rem auto; // mb-8
+    margin: 2.5rem auto; // Default centered for mobile
+
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+
+    @media (min-width: 900px) {
+        float: right;
+        margin: 0.5rem 0 2rem 4rem; // Offset from text
+        shape-outside: circle(50%);
+        margin-right: -10%; // Keep layout static to prevent text reflow
+        transform: scale(0.85) translateX(-25%) translateY(20px); // Visually squeeze inside
+        transform-origin: center right;
+
+        &.in-view {
+            transform: scale(0.85) translateX(-25%) translateY(20px); // Visually squeeze inside
+        }
+    }
 
     position: relative; // Needed for absolute positioning of pseudo-elements
 

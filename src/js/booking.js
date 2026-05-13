@@ -33,6 +33,9 @@ export class BookingForm {
         // Slots direkt im Hintergrund laden, sobald die Seite initialisiert wird
         this.picker.loadSlots();
 
+
+
+
         const urlParams = new URLSearchParams(window.location.search);
         this.inviteToken = urlParams.get('invite');
         this.inviteMode = urlParams.get('mode');
@@ -81,7 +84,12 @@ export class BookingForm {
             }
         });
         this.timeSelect.addEventListener('blur', () => selectIcon?.classList.remove('select-wrapper__icon--open'));
+
+        // Dev Helper: Sofort Overlay öffnen über Konsole
+        window.__openBooking = () => this.overlay.open();
     }
+
+
 
     async handleSubmit(e) {
         e.preventDefault();

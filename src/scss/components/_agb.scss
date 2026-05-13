@@ -11,8 +11,10 @@
     }
 
     p {
+        margin-bottom: 1rem;
+        font-size: var(--font-size-m);
+        color: var(--text-main);
         hyphens: auto;
         text-align: justify;
-        margin-bottom: 1rem;
     }
 }
