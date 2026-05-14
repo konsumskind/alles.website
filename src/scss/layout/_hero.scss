@@ -195,7 +195,7 @@
 
         &__brand {
             position: absolute;
-            top: 9rem;
+            top: 7.6rem;
             left: var(--space-x4);
             text-align: left;
             z-index: $z-content;
@@ -242,11 +242,15 @@
         &__video-background {
             height: 60% !important;
             z-index: 1;
-            margin-top: 55px;
+            margin-top: 22px;
 
             // video {
             //     object-fit: cover;
             // }
+        }
+
+        .hero__video-background video {
+            object-position: 0% 50%;
         }
     }
 
