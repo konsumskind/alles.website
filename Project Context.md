@@ -84,7 +84,6 @@ alles.website_v01/
 │   │       ├── _nav.scss         # .bottom-nav, Nav-Items, Overlay, Show/Hide-Transitions
 │   │       ├── _preloader.scss   # .preloader, Spinner, FadeOut
 │   │       ├── _process.scss     # profile-process (Stepper, Icons, Progress-Line, Labels)
-│   │       ├── _process-overlay.scss # .process-overlay (Desktop-Overlay für Prozess-Schritte)
 │   │       ├── _swipe.scss       # .swipe-container, Knob, Arrows, Step-Animations
 │   │       └── _toast.scss       # #toast, Show/Hide-Animation
 │   │
@@ -273,7 +272,7 @@ Die SPA besteht aus 5 Content-Sections innerhalb `<main>`:
 | Text Light | `#8d97a5` | `#b0b3b8` |
 | Accent Orange | `#FF7E21` | `#FF7E21` |
 | Accent Blue | `#00b3ff` | `#00b3ff` |
-| Accent Purple | `#a855f7` | `#a855f7` |
+| Accent Purple | `#a855f7" | `#a855f7" |
 | Shadow Light | `#ffffff` | `#1f252c` |
 | Shadow Dark | `#d3d3d3` | `#0b0c0e` |
 
@@ -332,7 +331,7 @@ Die SPA besteht aus 5 Content-Sections innerhalb `<main>`:
 
 ### SVG-Logos (src/assets/)
 - `logo.svg` — Favicon (Dark)
-- `logo_light.svg` — Toast-Icon
+- `logo_light.svg" — Toast-Icon
 - `logo_animated_draft.svg` — (Konzept)
 
 ---
@@ -342,12 +341,12 @@ Die SPA besteht aus 5 Content-Sections innerhalb `<main>`:
 > [!WARNING]
 > Vor Änderungen in diesen Bereichen besonders sorgfältig vorgehen.
 
-1. ~~**Inline-Styles in HTML:**~~ ✅ Behoben (2026-04-28). Alle `style=""` durch BEM-Klassen ersetzt.
-2. ~~**Inline-Event-Handler:**~~ ✅ Behoben (2026-04-28). `onclick` durch `<a>`-Tags mit `href` ersetzt.
+1. ~~**Inline-Styles in HTML:**~~ ✅ Behoben (v0.0.2). Alle `style=""` durch BEM-Klassen ersetzt.
+2. ~~**Inline-Event-Handler:**~~ ✅ Behoben (v0.0.2). `onclick` durch `<a>`-Tags mit `href` ersetzt.
 3. **Hardcoded Pricing-Data:** `OfferConfigurator` enthält Angebotsdaten als JavaScript-Objekt statt externer Datenquelle. `src/data/` ist leer/reserviert.
 4. **Video-Source-Mismatch:** `index.html` referenziert `bg-start_intro_v08.mp4`, aber `theme.js` importiert `bg-start_intro_v09.mp4` — das JS überschreibt die HTML-Source beim Init.
 5. **Leere Verzeichnisse:** `src/js/modules/` und `src/data/` sind leer und für zukünftige Nutzung reserviert.
-6. ~~**`showToast`-Exposure:**~~ ✅ Behoben (2026-04-28). `ThemeManager` importiert `showToast` direkt aus `utils.js`.
+6. ~~**`showToast`-Exposure:**~~ ✅ Behoben (v0.0.2). `ThemeManager` importiert `showToast` direkt aus `utils.js`.
 7. **ScrollManager-Naming:** Klassen `.neu-btn` und `.neu-icon-btn` werden im Touch-Feedback referenziert, existieren aber nicht im aktuellen HTML/CSS.
 8. **Copyright-Jahr:** `2025` in Footer – sollte aktualisiert werden.
 
