@@ -70,6 +70,10 @@
     justify-content: space-between;
     max-width: 420px;
 
+    @media (min-width: 900px) {
+        gap: var(--space-x1);
+    }
+
     &__header {
         display: flex;
         justify-content: space-between;
@@ -287,6 +291,7 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin: auto 0;
     // padding-bottom: 0; // custom spacing
 
     .socials {

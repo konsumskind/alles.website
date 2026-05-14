@@ -178,7 +178,7 @@
 
 .breath-visuals-wrapper {
     $size: min(35vh, calc(100vw - 6rem), 450px);
-    width: 58%;
+    width: 62%;
     max-width: 100%;
     max-height: 100%;
     aspect-ratio: 1 / 1;
@@ -189,8 +189,16 @@
 /* --- Immersive Mode --- */
 body.mode-immersive {
     overflow: hidden;
-    /* Hide Navigation - Handled via JS toggle of .nav-visible for smooth reverse animation */
-    /* .bottom-nav { ... } removed */
+
+    @media (min-width: 900px) {
+
+        .nav-item,
+        .footer-links {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+    }
 }
 
 /* Status Area (Hint & Dots) */
