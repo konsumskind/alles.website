@@ -5,7 +5,7 @@
     max-width: 900px;
     position: relative;
     padding: var(--space-x4) var(--space-x2); // section-spacer
-    // overflow: hidden;
+    overflow: hidden;
     box-shadow: var(--engraved);
     background: linear-gradient(38deg, var(--bg-color) 30%, var(--shadow-light) 60%, var(--bg-color) 100%);
     display: flex;
@@ -27,11 +27,16 @@
         flex-wrap: nowrap;
         justify-content: space-between;
         gap: var(--space-x2);
+        margin: auto 0;
     }
 
     @media (min-width: 900px) {
         padding: var(--space-x6) var(--space-x4);
         padding-bottom: 15vh;
+        overflow: unset;
+        gap: unset;
+        min-height: 100vh;
+        // padding-top: 10vh;
     }
 
     // &__title,
@@ -40,6 +45,7 @@
     // }
 
     &__grid {
+        margin: auto 0;
         display: grid;
         grid-template-columns: 1fr;
         gap: var(--space-x2);
@@ -114,7 +120,7 @@
 }
 
 #atmung .block-text {
-    min-height: 8rem;
+    // min-height: 8rem;
     // margin-bottom: 0.5rem;
     transition: opacity 0.5s ease;
     opacity: 1;
@@ -141,9 +147,11 @@
     }
 
     .carousel__track {
-        margin: 0 var(--space-x2);
+        width: unset;
+        // overflow: hidden;
 
         @media (min-width: 900px) {
+            margin: 0 var(--space-x4);
             margin: 0;
             width: 100vw !important;
             max-width: 1080px;
@@ -183,6 +191,8 @@
 
 #atmung {
     border-radius: var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius);
+    max-height: 100vh;
+    min-height: 100vh;
 }
 
 #angebote {
@@ -191,7 +201,7 @@
 
 // Override Section Style for "Über mich" to allow floating icons
 #ueber-mich {
-    overflow: unset;
+    // overflow: unset;
     border-radius: var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius);
     background: transparent;
     box-shadow: none;
@@ -208,9 +218,11 @@
         flex-wrap: nowrap;
         justify-content: space-between;
         gap: var(--space-x2);
+        min-height: 100vh;
 
         @media (min-width: 900px) {
             padding: var(--space-x6) var(--space-x4) var(--space-x6) var(--space-x4);
+            gap: unset;
         }
     }
 }
@@ -224,6 +236,7 @@
 
     @media (min-width: 900px) {
         padding-bottom: 15vh;
+        // padding-top: 10vh;
     }
 }
 

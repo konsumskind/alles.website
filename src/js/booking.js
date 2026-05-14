@@ -2,7 +2,7 @@
 import { showToast } from './utils.js';
 import { DraggableOverlay } from './modules/DraggableOverlay.js';
 
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwivI94m_a2ep-4UkIpJu__twJJ7imtQQfZMZzw0Zus_IE0mY7kBMU0qAjVpZnJjDEdnA/exec';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwQhjrPukUAIDxgu9ua3ss899SlVKoFw921mHe_icV_XEPUmW9M8ZnKe7mKlUthdclgvQ/exec';
 
 export class BookingForm {
     constructor() {

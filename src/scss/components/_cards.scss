@@ -129,14 +129,14 @@
             width: 1.5rem;
             text-align: center;
             color: var(--orange);
-            margin-right: var(--space-x);
+            margin-right: var(--space-x1);
         }
     }
 
     &__config-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: var(--space-x1);
+        gap: var(--font-size-m);
         /* Row gap, Col gap */
         // margin-bottom: 1rem;
         align-items: center;
