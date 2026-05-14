@@ -105,7 +105,7 @@
     &__text {
         font-size: var(--font-size-m);
         color: var(--text-light);
-        margin-top: 0.5rem;
+        // margin-top: 0.5rem;
     }
 
 
@@ -189,7 +189,7 @@
             position: absolute;
             align-items: flex-start;
             text-align: left;
-            margin: 0 0 132px 0;
+            // margin: 0 0 132px 0;
             max-width: 340px;
         }
 
@@ -227,12 +227,12 @@
         &__desktop-cta {
             display: block !important;
             position: absolute;
-            bottom: 34px;
-            right: 85px;
-            margin: 0 !important;
+            // bottom: 34px;
+            // right: 85px;
+            margin: var(--space-x2) 0 !important;
             z-index: 1;
-            width: auto;
-            transform: scale(0.8);
+            width: unset;
+            // transform: scale(0.8);
 
             .swipe-container {
                 // border-bottom-left-radius: 20px;
