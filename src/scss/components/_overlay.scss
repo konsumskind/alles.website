@@ -179,11 +179,30 @@ body.overlay-active {
         width: 100%;
         height: 100%;
         z-index: 999;
-        background-color: rgba(0, 0, 0, 0.25);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
+        background-color: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
         pointer-events: none;
-        animation: backdrop-in 0.4s ease forwards;
+        transition: backdrop-filter 0.4s ease, background-color 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+    }
+
+    // On mobile, always blur AND darken
+    @media (max-width: 499px) {
+        &::before {
+            background-color: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            animation: backdrop-in 0.4s ease forwards;
+        }
+    }
+
+    // On desktop, only blur + darken if class is present
+    &.has-backdrop-blur::before {
+        @media (min-width: 500px) {
+            background-color: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+        }
     }
 
     .overlay.is-open {
@@ -206,12 +225,9 @@ body.overlay-active {
 @keyframes backdrop-in {
     from {
         background-color: rgba(0, 0, 0, 0);
-        backdrop-filter: blur(0px);
-        -webkit-backdrop-filter: blur(0px);
     }
+
     to {
         background-color: rgba(0, 0, 0, 0.25);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
     }
 }

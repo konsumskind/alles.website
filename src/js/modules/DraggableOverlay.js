@@ -193,6 +193,8 @@ export class DraggableOverlay {
             this.content.style.left = `${this.winX + dx}px`;
             this.content.style.top = `${this.winY + dy}px`;
 
+            this.checkOverlap();
+
             if (e.cancelable) e.preventDefault();
             return;
         }
@@ -349,6 +351,42 @@ export class DraggableOverlay {
                 this.content.style.transform = `translateY(${this.currentScrollY}px)`;
             }
         }
+
+        this.checkOverlap();
+    }
+
+    checkOverlap() {
+        if (window.innerWidth < 500) return;
+
+        const main = document.querySelector('main');
+        if (!main) return;
+
+        const mainRect = main.getBoundingClientRect();
+
+        // We check all open overlays
+        const openOverlays = document.querySelectorAll('.overlay.is-open');
+        let anyOverlaps = false;
+
+        openOverlays.forEach(overlay => {
+            const content = overlay.querySelector('.overlay__content');
+            if (content) {
+                const rect = content.getBoundingClientRect();
+
+                // Check if rects overlap (AABB intersection)
+                const overlaps = !(rect.right < mainRect.left ||
+                    rect.left > mainRect.right ||
+                    rect.bottom < mainRect.top ||
+                    rect.top > mainRect.bottom);
+
+                if (overlaps) anyOverlaps = true;
+            }
+        });
+
+        if (anyOverlaps) {
+            document.body.classList.add('has-backdrop-blur');
+        } else {
+            document.body.classList.remove('has-backdrop-blur');
+        }
     }
 
     open() {
@@ -419,6 +457,7 @@ export class DraggableOverlay {
         }
 
         this.bringToFront();
+        this.checkOverlap();
     }
 
     close(popHistory = true) {
@@ -438,6 +477,8 @@ export class DraggableOverlay {
         if (openOverlays.length === 0) {
             document.body.classList.remove('overlay-active');
         }
+
+        this.checkOverlap();
 
         if (popHistory) {
             const currentState = history.state || {};
