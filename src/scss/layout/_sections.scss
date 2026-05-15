@@ -70,7 +70,7 @@
                 &> :nth-child(1) {
                     transform: translateX(40%);
                     z-index: 1;
-                    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+                    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
                 }
 
                 &> :nth-child(2) {
@@ -162,7 +162,7 @@
             &> :nth-child(1) {
                 transform: translateX(40%);
                 z-index: 1;
-                transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+                transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             }
 
             &> :nth-child(2) {
@@ -198,6 +198,18 @@
 
 #angebote {
     border-radius: var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius);
+
+    // @media (min-width: 768px) {
+    //     .section__header {
+    //         display: none !important;
+    //     }
+    // }
+
+    // @media (min-width: 1080px) {
+    //     .section__header {
+    //         display: flex !important;
+    //     }
+    // }
 }
 
 // Override Section Style for "Über mich" to allow floating icons
@@ -246,13 +258,19 @@
 
 
 // Contact Section
-.contact-card__header {
+.contact-card__title {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-x1);
 }
 
 .contact-intro-text {
     font-size: var(--font-size-m);
     color: var(--text-light);
+    // text-align: center !important;
     // margin: 0 auto 2rem auto;
     max-width: 20rem;
     // margin-bottom: 2rem;

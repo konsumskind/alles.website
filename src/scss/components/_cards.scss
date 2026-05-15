@@ -14,6 +14,25 @@
     &--hover:hover {
         transform: scale(1.02);
     }
+
+    // &__pressed {
+    //     display: none !important;
+    //     box-shadow: var(--pressed-medium);
+    //     background: unset;
+    //     gap: var(--space-x1);
+    // }
+}
+
+// @media (min-width: 768px) {
+//     .card__pressed {
+//         display: flex !important;
+//     }
+// }
+
+@media (min-width: 1080px) {
+    .card__pressed {
+        display: none !important;
+    }
 }
 
 // Feature Card (Haltung Section)
@@ -72,6 +91,7 @@
 
     @media (min-width: 900px) {
         gap: var(--space-x1);
+
     }
 
     &__header {

@@ -203,8 +203,8 @@ export class ScrollManager {
                 }
             });
         }, {
-            rootMargin: '-20% 0px -20% 0px', // Shrink trigger area by 20% top/bottom
-            threshold: 0.7 // Trigger when 80% is visible within that shrunk area
+            rootMargin: '-100px 0px -100px 0px', // Shrink trigger area by 10% top/bottom
+            threshold: 1 // Trigger when 40% is visible within that shrunk area
         });
 
         document.querySelectorAll('.observe-view').forEach(el => observer.observe(el));

@@ -181,16 +181,21 @@
 
 .breath-visuals-wrapper {
     aspect-ratio: 1 / 1;
-    padding-top: var(--space-x2);
+    // padding-top: var(--space-x2);
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1 1 0%;
     position: relative;
     container-type: size;
-
+    margin: var(--space-x2) var(--space-x2) 0;
 }
 
+// @media (min-width: 768px) {
+//     .breath-visuals-wrapper {
+//         margin: var(--space-x4) var(--space-x4) 0;
+//     }
+// }
 
 /* --- Immersive Mode --- */
 body.mode-immersive {

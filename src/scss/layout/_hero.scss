@@ -2,7 +2,7 @@
 @use '../base/typography';
 
 .hero {
-    min-height: 85vh;
+    // min-height: 85vh;
     max-width: 1080px;
     display: flex;
     flex-direction: column;
@@ -11,21 +11,23 @@
     padding: 0; // py-10 px-something
     text-align: center;
     position: relative;
+    max-height: 800px;
 
     // border-radius removed per new design
     // box-shadow removed per new design
     &__wrapper {
-        padding: 0 1.5rem; // section-spacer
+        padding: 0 1.5rem;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        gap: var(--space-x2);
+        justify-content: flex-end;
         align-items: center;
         width: 100%;
-        min-height: 72vh;
-        // margin: 0 -1.5rem 0 -1.5rem;
+        height: 72vh;
         border-radius: 0 0 var(--border-radius) var(--border-radius);
         background: var(--bg-color);
         box-shadow: var(--engraved);
+        min-height: 560px;
     }
 
     &__brand {
@@ -89,7 +91,7 @@
     &__content {
         z-index: $z-content;
         display: flex;
-        margin: 38vh 0 1rem;
+        // margin: 38vh 0 1rem;
         flex-direction: column;
         align-items: center;
     }
@@ -105,6 +107,7 @@
     &__text {
         font-size: var(--font-size-m);
         color: var(--text-light);
+        margin-top: var(--space-s2);
         // margin-top: 0.5rem;
     }
 
@@ -169,6 +172,7 @@
     .hero {
         // height: 901px;
         min-height: unset;
+        max-height: unset;
         display: block;
         // margin-top: 55px;
         margin-bottom: -80px;
@@ -183,9 +187,12 @@
             justify-content: end;
             border-bottom-left-radius: 26px;
             padding: 0 var(--space-x2);
+            height: 72vh;
 
             @media (min-width: 768px) {
                 padding: 0 var(--space-x4);
+                height: unset;
+                // min-height: 72vh;
             }
         }
 
@@ -234,7 +241,7 @@
             position: absolute;
             // bottom: 34px;
             // right: 85px;
-            margin: var(--space-x2) 0 !important;
+            margin: var(--space-x1) 0 var(--space-x4) !important;
             z-index: 1;
             width: unset;
             // transform: scale(0.8);
@@ -247,7 +254,7 @@
         &__video-background {
             height: 60% !important;
             z-index: 1;
-            margin-top: 22px;
+            // margin-top: 22px;
 
             // video {
             //     object-fit: cover;

@@ -43,7 +43,9 @@ export class BreathExercise {
             press: this.handlePress.bind(this),
             release: this.handleRelease.bind(this),
             pressTouch: (e) => { e.preventDefault(); this.handlePress(e); },
-            releaseTouch: (e) => { e.preventDefault(); this.handleRelease(e); }
+            releaseTouch: (e) => { e.preventDefault(); this.handleRelease(e); },
+            popstate: this.handlePopState.bind(this),
+            keydown: this.handleKeydown.bind(this)
         };
 
         this.restartHandler = null;
@@ -59,6 +61,8 @@ export class BreathExercise {
         if (this.elements.shareBtn) {
             this.elements.shareBtn.addEventListener('click', () => this.shareApp());
         }
+        window.addEventListener('popstate', this.boundHandlers.popstate);
+        document.addEventListener('keydown', this.boundHandlers.keydown);
     }
 
     shareApp() {
@@ -83,7 +87,9 @@ export class BreathExercise {
         if (this.state === 'IDLE') {
             this.startCalibration();
         } else {
-            this.reset();
+            // Instead of calling reset() directly, we go back in history.
+            // This will trigger the popstate listener which then calls reset().
+            history.back();
         }
     }
 
@@ -243,6 +249,11 @@ export class BreathExercise {
             this.elements.circle.style.cursor = 'pointer';
 
             this.addCalibrationListeners();
+
+            // Push state for browser back button support
+            if (history.state?.immersive !== true) {
+                history.pushState({ immersive: true }, '');
+            }
         }, 800);
     }
 
@@ -444,6 +455,24 @@ export class BreathExercise {
             this.elements.circle.innerHTML = '<i class="fas fa-lungs breath-circle-inner__icon"></i>';
         } else {
             this.elements.circle.innerText = 'Start';
+        }
+    }
+
+    handlePopState(e) {
+        // If we are in immersive mode but the state no longer says so, reset
+        if (this.state !== 'IDLE' && (!e.state || !e.state.immersive)) {
+            this.reset();
+        }
+    }
+
+    handleKeydown(e) {
+        if (this.state !== 'IDLE') {
+            if (e.key === 'Escape' || e.key === 'Backspace') {
+                // Prevent backspace from navigating away if browsers still do that
+                // and stop exercise by going back in history
+                e.preventDefault();
+                history.back();
+            }
         }
     }
 }

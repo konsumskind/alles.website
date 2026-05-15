@@ -20,6 +20,7 @@ h1 {
     font-size: var(--font-size-xxl); // text-3xl
     font-weight: 700;
     color: var(--text-main);
+    line-height: 1.33;
 }
 
 h3 {
@@ -27,6 +28,7 @@ h3 {
     font-size: var(--font-size-xxl);
     font-weight: 700;
     color: var(--text-main);
+    line-height: 1.33;
     // margin-bottom: 1rem;
 }
 
@@ -35,6 +37,7 @@ h4 {
     font-weight: 700;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
+    line-height: 1.33;
     // text-transform: uppercase;
 }
 

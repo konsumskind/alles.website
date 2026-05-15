@@ -1,6 +1,7 @@
 // src/js/modules/DraggableOverlay.js
 
 let globalOverlayStack = [];
+const allInstances = [];
 
 const DISMISS_THRESHOLD = 120;
 
@@ -31,6 +32,7 @@ export class DraggableOverlay {
         this.velocity = 0;
         this.inertiaRaf = null;
 
+        allInstances.push(this);
         this.init();
     }
 
@@ -69,6 +71,7 @@ export class DraggableOverlay {
             this.content.addEventListener('mousedown', (e) => {
                 if (window.innerWidth >= 500) {
                     this.bringToFront();
+                    this.checkOverlap();
                     // Don't stop propagation here to allow buttons/inputs to work,
                     // but we ensure only THIS instance reacts by being scoped to this.content
                 }
@@ -109,6 +112,25 @@ export class DraggableOverlay {
         if (window.visualViewport) {
             window.visualViewport.addEventListener('resize', () => this.handleResize());
         }
+
+        // Click outside to close all
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                if (window.innerWidth >= 900 && window.innerHeight >= 900) {
+                    document.body.classList.remove('has-backdrop-blur');
+                } else {
+                    DraggableOverlay.closeAll();
+                }
+            }
+        });
+    }
+
+    static closeAll() {
+        allInstances.forEach(instance => {
+            if (instance.isOpen) {
+                instance.close();
+            }
+        });
     }
 
     bringToFront() {
@@ -498,3 +520,28 @@ export class DraggableOverlay {
         }
     }
 }
+
+// Global Key Listeners for Escape & Backspace
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Backspace') {
+        if (globalOverlayStack.length === 0) return;
+
+        // Don't close on Backspace if user is typing in an input/form
+        if (e.key === 'Backspace') {
+            const active = document.activeElement;
+            const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(active.tagName) || 
+                            active.isContentEditable;
+            if (isInput) return;
+        }
+
+        // Find and close the top-most overlay
+        const topKey = globalOverlayStack[globalOverlayStack.length - 1];
+        const instance = allInstances.find(inst => inst.historyKey === topKey);
+        
+        if (instance && instance.isOpen) {
+            instance.close();
+            // Prevent browser back on backspace if we handled it
+            if (e.key === 'Backspace') e.preventDefault();
+        }
+    }
+});
