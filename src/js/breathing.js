@@ -232,7 +232,7 @@ export class BreathExercise {
 
             if (this.elements.intro) {
                 if (!isRestart) {
-                    this.updateIntroText("Die ersten drei Atemzyklen dienen der Kalibrierung, ab dem vierten Klick begleitet dich der <i>Breath Core</i> visuell in deinem Rhythmus. Atme durch die Nase ein und mindestens doppelt so lang, mit Lippenbremse, durch den Mund wieder aus.");
+                    this.updateIntroText("Die ersten drei Atemzyklen dienen der Kalibrierung, ab dem vierten Klick begleitet dich der <i>Breath Core</i> visuell in deinem Rhythmus. Atme durch die Nase ein und mindestens doppelt so lang, mit Lippenbremse, durch den Mund aus.");
                 } else {
                     this.updateIntroText("");
                 }

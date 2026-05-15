@@ -165,7 +165,7 @@
 }
 
 // Layout Adjustments for Desktop
-@media (min-width: 900px) {
+@media (min-width: 768px) {
     .hero {
         // height: 901px;
         min-height: unset;
@@ -182,7 +182,11 @@
             min-height: 760px;
             justify-content: end;
             border-bottom-left-radius: 26px;
-            padding: 0 var(--space-x4);
+            padding: 0 var(--space-x2);
+
+            @media (min-width: 768px) {
+                padding: 0 var(--space-x4);
+            }
         }
 
         &__content {
@@ -194,11 +198,12 @@
         }
 
         &__brand {
-            position: absolute;
-            top: 7.6rem;
-            left: var(--space-x4);
+            position: relative;
+            top: -600px;
+            // left: var(--space-x4);
             text-align: left;
             z-index: $z-content;
+            margin: 0;
             // opacity: .2;
 
             .name {
@@ -258,12 +263,17 @@
         display: flex !important;
         padding: 0 !important;
         bottom: 1rem;
-        left: 450px;
+        margin-right: var(--space-x2);
+        margin-left: auto;
         flex-direction: column;
         gap: calc(var(--font-size-m)*2);
         width: fit-content;
         height: 260px;
         z-index: 10;
+
+        @media (min-width: 768px) {
+            margin-right: var(--space-x4);
+        }
 
         .profile-process__labels-container {
             position: unset;

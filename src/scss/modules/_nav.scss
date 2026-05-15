@@ -38,6 +38,7 @@
 
     &::before {
         left: 0;
+        top: 0;
         background-image: radial-gradient(circle at 100% 0, transparent var(--border-radius), var(--bg-color) 41px);
     }
 
@@ -60,10 +61,10 @@
         -webkit-mask-image: linear-gradient(to top, black 50%, transparent 50%);
         mask-image: linear-gradient(to top, black 20%, transparent 90%);
 
-        @media (min-width: 900px) {
+        @media (min-width: 590px) {
             left: 50%;
             transform: translateX(-50%) !important;
-            width: 908px;
+            max-width: 908px;
         }
     }
 
@@ -104,7 +105,7 @@
         }
     }
 
-    @media (min-width: 900px) {
+    @media (min-width: 590px) {
         top: -6px;
         bottom: auto;
         transform: translateX(-50%) translateY(0) scale(1);
@@ -121,7 +122,7 @@
         &::before,
         &::after {
             top: auto;
-            bottom: calc(-1 * var(--border-radius));
+            bottom: calc(-1 * var(--border-radius) + 1px);
         }
 
         &::before {
@@ -133,8 +134,9 @@
         }
 
         .nav-overlay {
+            width: 100.1%;
             top: auto;
-            bottom: -60px;
+            bottom: -59px;
             border-radius: var(--border-radius) var(--border-radius) 0 0;
             -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
             mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
@@ -176,7 +178,7 @@
         }
     }
 
-    @media (min-width: 900px) {
+    @media (min-width: 590px) {
         transform-origin: top center;
         flex-direction: row;
         width: auto;

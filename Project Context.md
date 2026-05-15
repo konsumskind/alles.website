@@ -1,7 +1,7 @@
 # alles.website — Projektkontextdatei
 
 > **Zweck:** Kontextoptimiertes Referenzdokument für KI-Agenten, um kohärent und strukturtreu an diesem Projekt weiterzuarbeiten.
-> **Stand:** 2026-04-28 · **Version:** 0.0.2
+> **Stand:** 2026-05-15 · **Version:** 0.0.3
 
 ---
 
@@ -348,7 +348,7 @@ Die SPA besteht aus 5 Content-Sections innerhalb `<main>`:
 5. **Leere Verzeichnisse:** `src/js/modules/` und `src/data/` sind leer und für zukünftige Nutzung reserviert.
 6. ~~**`showToast`-Exposure:**~~ ✅ Behoben (v0.0.2). `ThemeManager` importiert `showToast` direkt aus `utils.js`.
 7. **ScrollManager-Naming:** Klassen `.neu-btn` und `.neu-icon-btn` werden im Touch-Feedback referenziert, existieren aber nicht im aktuellen HTML/CSS.
-8. **Copyright-Jahr:** `2025` in Footer – sollte aktualisiert werden.
+8. ~~**Copyright-Jahr:**~~ ✅ Behoben (v0.0.3). Auf 2026 aktualisiert.
 
 ---
 

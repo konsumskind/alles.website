@@ -8,7 +8,7 @@
         display: none;
     }
 
-    @media (min-width: 900px) {
+    @media (min-width: 590px) {
         position: fixed;
         bottom: -6px;
         left: 50%;
@@ -38,7 +38,7 @@
             left: 0;
             background-image: radial-gradient(circle at 100% 0, transparent var(--border-radius), var(--bg-color) 41px);
 
-            @media (min-width: 900px) {
+            @media (min-width: 590px) {
                 background-image: radial-gradient(circle at 100% 0, transparent var(--border-radius), var(--bg-color) 21px);
             }
         }
@@ -47,7 +47,7 @@
             right: 0;
             background-image: radial-gradient(circle at 0 0, transparent var(--border-radius), var(--bg-color) 41px);
 
-            @media (min-width: 900px) {
+            @media (min-width: 590px) {
                 background-image: radial-gradient(circle at 0 0, transparent var(--border-radius), var(--bg-color) 21px);
             }
         }
@@ -79,7 +79,7 @@
     position: relative;
     z-index: 2;
 
-    @media (min-width: 900px) {
+    @media (min-width: 590px) {
         margin-top: 0;
         padding-bottom: 0;
         width: 100%;
@@ -99,7 +99,7 @@
         text-decoration: none;
         color: inherit;
 
-        @media (min-width: 768px) {
+        @media (min-width: 590px) {
             &:hover {
                 color: var(--orange);
             }
