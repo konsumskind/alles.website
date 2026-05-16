@@ -19,3 +19,13 @@ export const showToast = (message) => {
         toast.classList.remove('show');
     }, 3000); // Slightly longer duration to read and see logo
 };
+
+/**
+ * Responsive check for mobile/compact layout
+ * Matches the logic previously handled by SCSS media queries
+ * @returns {boolean}
+ */
+export const isMobileDevice = () => {
+    // Current project breakpoint for "Desktop" layout is 768x768
+    return window.matchMedia("(pointer: coarse) and (hover: none)").matches;
+};

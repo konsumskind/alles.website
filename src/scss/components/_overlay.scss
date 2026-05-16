@@ -17,19 +17,20 @@
     // font-size: var(--font-size-small);
     background-color: var(--bg-color);
     // box-shadow: var(--floating);
-    top: 100px;
+    left: 50%;
+    bottom: 0;
     width: 100%;
     max-width: 500px;
     height: fit-content;
-    min-height: calc(100% - 100px);
+    // min-height: calc(100% - 100px);
     margin: 0 auto;
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    border-radius: var(--border-radius);
     padding: var(--space-x2);
     // padding-top: 0.5rem; // Keep grab handle close to top edge
     pointer-events: auto;
-    position: relative;
+    position: absolute;
     flex-shrink: 0;
-    transform: translateY(100%);
+    transform: translate(-50%, 100%);
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     will-change: transform, top, left;
     display: flex;
@@ -40,10 +41,10 @@
     box-shadow: var(--floating),
         0 -10px 30px rgba(0, 0, 0, 0.33);
 
-    @media (min-width: 500px) {
+    @media (min-width: 768px) and (min-height: 768px) {
         min-height: fit-content;
         position: absolute;
-        top: 15%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, 20px); // Start slightly lower for entry effect
         margin: 0;
@@ -114,7 +115,7 @@
     flex-shrink: 0;
     cursor: grab;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     left: 50%;
     transform: translateX(-50%);
@@ -142,10 +143,19 @@
     height: 35px;
     display: none;
 
-    @media (min-width: 500px) {
+    @media (min-width: 768px) and (min-height: 768px) {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    // Specific rule for Booking: Always show close button on desktop, even if height is low
+    &#bookingCloseBtn {
+        body.is-desktop & {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }
 
@@ -154,13 +164,13 @@
     z-index: 1100;
 
     .overlay__content {
-        // top: 140px; // Offset from the first overlay (which is at 100px)
+        top: 140px; // Offset from the first overlay (which is at 100px)
 
         @media (max-width: 499px) {
             min-height: calc(100% - 140px);
         }
 
-        @media (min-width: 500px) {
+        @media (min-width: 768px) and (min-height: 768px) {
             // top: auto; // Keep centered on desktop
             height: 783px !important;
         }
@@ -169,7 +179,7 @@
 
 // Body State Styles
 body.overlay-active {
-    @media (max-width: 499px) {
+    @media (max-width: 767px) or (max-height: 767px) {
         overflow: hidden;
     }
 
@@ -190,7 +200,7 @@ body.overlay-active {
     }
 
     // On mobile, always blur AND darken
-    @media (max-width: 499px) {
+    @media (max-width: 767px) or (max-height: 767px) {
         &::before {
             background-color: rgba(0, 0, 0, 0.25);
             backdrop-filter: blur(3px);
@@ -201,7 +211,7 @@ body.overlay-active {
 
     // On desktop, only blur + darken if class is present
     &.has-backdrop-blur::before {
-        @media (min-width: 500px) {
+        @media (min-width: 768px) and (min-height: 768px) {
             background-color: rgba(0, 0, 0, 0.25);
             backdrop-filter: blur(3px);
             -webkit-backdrop-filter: blur(3px);
@@ -213,12 +223,16 @@ body.overlay-active {
         transition-delay: 0s;
         pointer-events: auto;
 
-        .overlay__content {
-            transform: translateY(0);
+        @media (min-width: 768px) and (min-height: 768px) {
+            pointer-events: none;
+        }
 
-            @media (min-width: 500px) {
+        .overlay__content {
+            transform: translate(-50%, 0);
+
+            @media (min-width: 768px) and (min-height: 768px) {
                 // We keep the -50% here to maintain centering if no left/top is set
-                transform: translate(-50%, 0);
+                transform: translate(-50%, -50%);
                 opacity: 1;
                 pointer-events: auto;
             }

@@ -2,6 +2,8 @@
 export class ScrollManager {
     constructor() {
         this.nav = document.querySelector('.bottom-nav');
+        this.footer = document.querySelector('.desktop-footer-bar');
+        this.themeSwitcher = document.querySelector('.theme-toggle-round');
         this.lastScrollY = window.scrollY;
         this.isIntroScrollLock = window.scrollY <= 50;
         this.scrollTimeout = null;
@@ -13,10 +15,17 @@ export class ScrollManager {
         this.scrollDownStartY = null;
         this.lastDownStrokeDistance = 0;
         this.STANDARD_SCROLL_THRESHOLD = 80;
+        this.HIDE_SCROLL_THRESHOLD = 150; // New threshold for hiding on scroll down
+        this.scrollDownShowStartY = null; // Track where it was last shown
+        this.lastWidth = window.innerWidth;
+        this.lastHeight = window.innerHeight;
+        this.wasDesktop = document.body.classList.contains('is-desktop');
+        this.isLayoutTransitioning = false;
 
         // Auto-scroll state
         this.isAutoScrolling = false;
         this.autoScrollTimeout = null;
+        this.resizeTimer = null;
 
         this.init();
         this.setupViewObserver();
@@ -30,6 +39,7 @@ export class ScrollManager {
         window.addEventListener('touchend', () => this.handleTouchEnd());
         window.addEventListener('touchcancel', () => this.handleTouchEnd());
         window.addEventListener('scroll', () => this.handleScroll());
+        window.addEventListener('resize', () => this.handleResize()); // Specialized resize handler
         window.addEventListener('wheel', () => {
             this.isAutoScrolling = false;
         }, { passive: true });
@@ -77,6 +87,46 @@ export class ScrollManager {
         this.lastDownStrokeDistance = 0;
     }
 
+    handleResize() {
+        // Prevent animations during resize
+        document.body.classList.add('resize-animation-stopper');
+        clearTimeout(this.resizeTimer);
+        this.resizeTimer = setTimeout(() => {
+            document.body.classList.remove('resize-animation-stopper');
+        }, 400);
+
+        const currentWidth = window.innerWidth;
+        const currentHeight = window.innerHeight;
+        const isDesktop = document.body.classList.contains('is-desktop');
+
+        // Force out-in animation ONLY when crossing the mobile/desktop state
+        // because this causes a jump from top to bottom (position change).
+        const positionJumps = this.wasDesktop !== isDesktop;
+        this.wasDesktop = isDesktop; // Update for next resize
+
+        if (positionJumps && !this.isLayoutTransitioning) {
+            this.isLayoutTransitioning = true;
+
+            // 1. Hide everything immediately to animate "out"
+            this.nav.classList.remove('nav-visible');
+            if (this.footer) this.footer.classList.remove('footer-visible');
+            if (this.themeSwitcher) this.themeSwitcher.classList.remove('theme-switcher--visible');
+
+            // 2. Wait for layout shift and "out" animation, then show again
+            setTimeout(() => {
+                this.isLayoutTransitioning = false;
+                this.handleScroll();
+            }, 600);
+        } else if (!this.isLayoutTransitioning) {
+            // For other resizes (e.g. height changes), just handle normally.
+            // CSS transitions will handle visibility changes smoothly if they occur.
+            this.handleScroll();
+        }
+
+        this.lastWidth = currentWidth;
+        this.lastHeight = currentHeight;
+    }
+
     handleScroll() {
         const currentScrollY = window.scrollY;
 
@@ -105,8 +155,8 @@ export class ScrollManager {
             return;
         }
 
-        // Nav Visibility
-        this.updateNavVisibility(currentScrollY);
+        // Nav & Footer Visibility
+        this.updateBarVisibility(currentScrollY);
 
         this.lastScrollY = currentScrollY;
 
@@ -114,42 +164,66 @@ export class ScrollManager {
         this.updateActiveSection();
     }
 
-    updateNavVisibility(currentScrollY) {
+    updateBarVisibility(currentScrollY) {
         if (!this.nav) return;
 
         const isImmersive = document.body.classList.contains('mode-immersive');
+        const isSmallHeight = window.innerHeight < 768;
 
         if (isImmersive) {
             this.nav.classList.remove('nav-visible');
+            if (this.footer) this.footer.classList.remove('footer-visible');
+            if (this.themeSwitcher) this.themeSwitcher.classList.remove('theme-switcher--visible');
             this.scrollUpStartY = null;
+            this.scrollDownShowStartY = null;
             return;
         }
 
-        if (window.innerWidth >= 900) {
+        const isDesktop = document.body.classList.contains('is-desktop');
+
+        // On desktop with enough height, always show
+        if (isDesktop && !isSmallHeight) {
             this.nav.classList.add('nav-visible');
+            if (this.footer) this.footer.classList.add('footer-visible');
+            if (this.themeSwitcher) this.themeSwitcher.classList.add('theme-switcher--visible');
+            this.scrollDownShowStartY = currentScrollY; // Always considered "just shown" here
             return;
         }
+
+        // Mobile logic or Small Height Desktop logic
+        const setVisible = (visible) => {
+            if (visible) {
+                this.nav.classList.add('nav-visible');
+                if (this.footer) this.footer.classList.add('footer-visible');
+                if (this.themeSwitcher) this.themeSwitcher.classList.add('theme-switcher--visible');
+                if (this.scrollDownShowStartY === null) {
+                    this.scrollDownShowStartY = window.scrollY;
+                }
+            } else {
+                this.nav.classList.remove('nav-visible');
+                if (this.footer) this.footer.classList.remove('footer-visible');
+                if (this.themeSwitcher) this.themeSwitcher.classList.remove('theme-switcher--visible');
+                this.scrollDownShowStartY = null;
+            }
+        };
 
         if (currentScrollY <= 50) {
-            this.nav.classList.remove('nav-visible');
+            setVisible(false);
             this.scrollUpStartY = null;
         } else {
             if (currentScrollY < 150 || this.isIntroScrollLock) {
-                this.nav.classList.add('nav-visible');
+                setVisible(true);
                 this.scrollUpStartY = null;
             } else {
                 if (currentScrollY > this.lastScrollY) {
                     // Scrolling Down
-                    this.nav.classList.remove('nav-visible');
-                    this.scrollUpStartY = null;
+                    const distanceSinceShow = this.scrollDownShowStartY !== null ? currentScrollY - this.scrollDownShowStartY : 0;
 
-                    if (this.isTouching) {
-                        this.hasScrolledDownInThisTouch = true;
-                        if (this.scrollDownStartY === null) {
-                            this.scrollDownStartY = this.lastScrollY;
-                        }
-                        this.lastDownStrokeDistance = currentScrollY - this.scrollDownStartY;
+                    if (distanceSinceShow > this.HIDE_SCROLL_THRESHOLD) {
+                        setVisible(false);
+                        this.scrollUpStartY = null;
                     }
+                    // ... (lines 203-209 handled by context matching or just replacing block)
                 } else if (currentScrollY < this.lastScrollY) {
                     // Scrolling Up
                     this.scrollDownStartY = null;
@@ -162,10 +236,10 @@ export class ScrollManager {
                         const dynamicThreshold = Math.max(this.STANDARD_SCROLL_THRESHOLD, this.lastDownStrokeDistance);
 
                         if ((this.scrollUpStartY - currentScrollY) > dynamicThreshold) {
-                            this.nav.classList.add('nav-visible');
+                            setVisible(true);
                         }
                     } else {
-                        this.nav.classList.add('nav-visible');
+                        setVisible(true);
                     }
                 }
             }

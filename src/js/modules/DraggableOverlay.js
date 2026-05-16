@@ -2,6 +2,7 @@
 
 let globalOverlayStack = [];
 const allInstances = [];
+let isBlurManuallyDisabled = false;
 
 const DISMISS_THRESHOLD = 120;
 
@@ -69,7 +70,8 @@ export class DraggableOverlay {
         if (this.content) {
             // Bring to front on ANY interaction within the content area on desktop
             this.content.addEventListener('mousedown', (e) => {
-                if (window.innerWidth >= 500) {
+                if (window.innerWidth >= 768 && window.innerHeight >= 768) {
+                    isBlurManuallyDisabled = false;
                     this.bringToFront();
                     this.checkOverlap();
                     // Don't stop propagation here to allow buttons/inputs to work,
@@ -83,7 +85,7 @@ export class DraggableOverlay {
 
             // Desktop Window Dragging
             const handleWindowDragStart = (e) => {
-                if (window.innerWidth >= 500) {
+                if (window.innerWidth >= 768 && window.innerHeight >= 768) {
                     this.bringToFront();
                     this.isWindowDragging = true;
                     this.dragStartX = this.getX(e);
@@ -107,22 +109,17 @@ export class DraggableOverlay {
 
             window.addEventListener('touchend', () => this.onDragEnd());
             window.addEventListener('mouseup', () => this.onDragEnd());
+
+            // Mouse Wheel Support for Mobile Overlay
+            this.content.addEventListener('wheel', (e) => this.onWheel(e), { passive: false });
         }
 
         if (window.visualViewport) {
             window.visualViewport.addEventListener('resize', () => this.handleResize());
         }
 
-        // Click outside to close all
-        this.overlay.addEventListener('click', (e) => {
-            if (e.target === this.overlay) {
-                if (window.innerWidth >= 900 && window.innerHeight >= 900) {
-                    document.body.classList.remove('has-backdrop-blur');
-                } else {
-                    DraggableOverlay.closeAll();
-                }
-            }
-        });
+        // Removed local click listener to handle it globally at the end of the file
+        // This allows clicking through the overlay wrapper on desktop while still detecting background clicks
     }
 
     static closeAll() {
@@ -164,7 +161,7 @@ export class DraggableOverlay {
 
     onDragStart(e) {
         if (!this.isOpen || this.isWindowDragging) return;
-        if (window.innerWidth >= 500) return;
+        if (window.innerWidth >= 768 && window.innerHeight >= 768) return;
 
         // Don't start a drag if we're touching the thumbwheel or elements marked with .no-drag
         if (e.target.closest('.thumbwheel, .no-drag')) {
@@ -203,7 +200,8 @@ export class DraggableOverlay {
         const limitByContent = viewportHeight - contentHeight - initialTop;
 
         // We use the stricter of the two limits (the more negative one)
-        return Math.min(limitByBuffer, limitByContent);
+        // We cap it at 0 to ensure we never force the overlay downwards from its CSS position
+        return Math.min(0, Math.min(limitByBuffer, limitByContent));
     }
 
     onDragMove(e) {
@@ -277,7 +275,7 @@ export class DraggableOverlay {
             this.currentDragY = Math.max(maxScrollUp, totalY);
         }
 
-        this.content.style.transform = `translateY(${this.currentDragY}px)`;
+        this.content.style.transform = `translate(-50%, ${this.currentDragY}px)`;
         this.lastY = y;
         this.lastTime = now;
 
@@ -314,6 +312,53 @@ export class DraggableOverlay {
         }
     }
 
+    onWheel(e) {
+        // Only for mobile/portrait view
+        if (window.innerWidth >= 768 && window.innerHeight >= 768) return;
+        if (!this.isOpen || this.isDragging) return;
+
+        const body = this.overlay.querySelector('.overlay__body');
+        const isScrollable = this.overlay.classList.contains('overlay--scrollable');
+        const deltaY = e.deltaY;
+
+        if (isScrollable && body && body.scrollHeight > body.clientHeight) {
+            const isAtTop = body.scrollTop <= 0;
+            const isAtBottom = Math.ceil(body.scrollTop + body.clientHeight) >= body.scrollHeight - 1;
+
+            const scrollingUp = deltaY < 0; // Content moves down
+            const scrollingDown = deltaY > 0; // Content moves up
+
+            const shouldDragOverlay = (isAtTop && scrollingUp) || (isAtBottom && scrollingDown);
+
+            if (!shouldDragOverlay) {
+                // Let native scroll handle it within the body
+                return;
+            }
+        }
+
+        // Drag overlay with wheel
+        e.preventDefault();
+
+        // Reduce sensitivity for a smoother experience
+        const sensitivity = 0.6;
+        const newY = this.currentScrollY - (deltaY * sensitivity);
+        const maxScrollUp = this.getMaxScrollUp();
+
+        // Apply boundaries
+        if (newY > 0) {
+            this.currentScrollY = newY;
+        } else {
+            this.currentScrollY = Math.max(maxScrollUp, newY);
+        }
+
+        this.content.style.transform = `translate(-50%, ${this.currentDragY}px)`;
+
+        // If we wheel far down, dismiss it (matches drag behavior)
+        if (this.currentScrollY > DISMISS_THRESHOLD) {
+            this.close();
+        }
+    }
+
     applyInertia() {
         const friction = 0.85;
         this.velocity *= friction;
@@ -329,7 +374,7 @@ export class DraggableOverlay {
             this.velocity = 0;
         }
 
-        this.content.style.transform = `translateY(${this.currentScrollY}px)`;
+        this.content.style.transform = `translate(-50%, ${this.currentDragY}px)`;
 
         if (Math.abs(this.velocity) > 0.01) {
             this.inertiaRaf = requestAnimationFrame(() => this.applyInertia());
@@ -339,7 +384,7 @@ export class DraggableOverlay {
     snapToBoundaries() {
         const maxScrollUp = this.getMaxScrollUp();
         this.currentScrollY = Math.max(maxScrollUp, Math.min(0, this.currentScrollY));
-        this.content.style.transform = `translateY(${this.currentScrollY}px)`;
+        this.content.style.transform = `translate(-50%, ${this.currentDragY}px)`;
     }
 
     handleResize() {
@@ -348,7 +393,7 @@ export class DraggableOverlay {
         const openOverlays = Array.from(document.querySelectorAll('.overlay.is-open'));
         const isFirstOverlay = openOverlays[0] === this.overlay;
 
-        if (window.innerWidth >= 500) {
+        if (window.innerWidth >= 768 && window.innerHeight >= 768) {
             // Desktop
             this.content.style.minHeight = '';
             this.content.style.transform = '';
@@ -360,17 +405,14 @@ export class DraggableOverlay {
             }
         } else {
             // Mobile
+            this.content.style.top = '';
             this.content.style.left = '';
-
-            if (isFirstOverlay) {
-                this.content.style.top = '';
-                this.content.style.minHeight = '';
-            }
+            this.content.style.minHeight = '';
 
             const maxScrollUp = this.getMaxScrollUp();
             if (this.currentScrollY < maxScrollUp) {
                 this.currentScrollY = maxScrollUp;
-                this.content.style.transform = `translateY(${this.currentScrollY}px)`;
+                this.content.style.transform = `translate(-50%, ${this.currentDragY}px)`;
             }
         }
 
@@ -378,12 +420,15 @@ export class DraggableOverlay {
     }
 
     checkOverlap() {
-        if (window.innerWidth < 500) return;
+        if (window.innerWidth < 768 || window.innerHeight < 768) return;
+        if (isBlurManuallyDisabled && window.innerWidth >= 900 && window.innerHeight >= 900) return;
 
         const main = document.querySelector('main');
         if (!main) return;
 
         const mainRect = main.getBoundingClientRect();
+        const style = getComputedStyle(document.documentElement);
+        const threshold = 56;
 
         // We check all open overlays
         const openOverlays = document.querySelectorAll('.overlay.is-open');
@@ -394,11 +439,12 @@ export class DraggableOverlay {
             if (content) {
                 const rect = content.getBoundingClientRect();
 
-                // Check if rects overlap (AABB intersection)
-                const overlaps = !(rect.right < mainRect.left ||
-                    rect.left > mainRect.right ||
-                    rect.bottom < mainRect.top ||
-                    rect.top > mainRect.bottom);
+                // Check if rects overlap (AABB intersection) with threshold
+                // The overlay must penetrate the main area by at least 'threshold' pixels
+                const overlaps = !(rect.right < mainRect.left + threshold ||
+                    rect.left > mainRect.right - threshold ||
+                    rect.bottom < mainRect.top + threshold ||
+                    rect.top > mainRect.bottom - threshold);
 
                 if (overlaps) anyOverlaps = true;
             }
@@ -418,7 +464,7 @@ export class DraggableOverlay {
         this.currentDragY = 0;
         cancelAnimationFrame(this.inertiaRaf);
 
-        if (window.innerWidth >= 500) {
+        if (window.innerWidth >= 768 && window.innerHeight >= 768) {
             const openOverlays = Array.from(document.querySelectorAll('.overlay.is-open:not(#' + this.id + ')'));
 
             if (openOverlays.length > 0) {
@@ -436,24 +482,11 @@ export class DraggableOverlay {
                 this.content.style.transform = '';
             }
         } else {
-            // Mobile: Stack overlays with a vertical offset relative to the current top of the existing one
-            const openOverlays = Array.from(document.querySelectorAll('.overlay.is-open:not(#' + this.id + ')'));
-            if (openOverlays.length > 0) {
-                const lastOverlay = openOverlays[openOverlays.length - 1];
-                const lastContent = lastOverlay.querySelector('.overlay__content');
-                if (lastContent) {
-                    const rect = lastContent.getBoundingClientRect();
-                    // Offset by 40px relative to the CURRENT screen position of the last overlay
-                    const newTop = rect.top + 40;
-                    this.content.style.top = `${newTop}px`;
-                    this.content.style.minHeight = `calc(100% - ${newTop}px)`;
-                }
-            } else {
-                this.content.style.top = ''; // Fallback to CSS default (100px or 140px)
-                this.content.style.minHeight = '';
-            }
+            // Mobile: Let CSS handle the positioning
+            this.content.style.top = '';
             this.content.style.left = '';
             this.content.style.transform = '';
+            this.content.style.minHeight = '';
         }
 
         const body = this.overlay.querySelector('.overlay__body');
@@ -489,7 +522,7 @@ export class DraggableOverlay {
         // this.overlay.classList.remove('has-blur');
 
         // Reset transform and desktop positioning on mobile only to allow CSS transitions to take over
-        if (window.innerWidth < 500) {
+        if (window.innerWidth < 768 || window.innerHeight < 768) {
             this.content.style.transform = '';
             // We do NOT reset top/left here to prevent a visual jump during the close transition
             // if the overlay was stacked. open() handles resetting them when necessary.
@@ -529,19 +562,51 @@ window.addEventListener('keydown', (e) => {
         // Don't close on Backspace if user is typing in an input/form
         if (e.key === 'Backspace') {
             const active = document.activeElement;
-            const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(active.tagName) || 
-                            active.isContentEditable;
+            const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(active.tagName) ||
+                active.isContentEditable;
             if (isInput) return;
         }
 
         // Find and close the top-most overlay
         const topKey = globalOverlayStack[globalOverlayStack.length - 1];
         const instance = allInstances.find(inst => inst.historyKey === topKey);
-        
+
         if (instance && instance.isOpen) {
             instance.close();
             // Prevent browser back on backspace if we handled it
             if (e.key === 'Backspace') e.preventDefault();
         }
+    }
+});
+
+// Global Click Listener for "Click Outside"
+// We use mousedown to catch the click as soon as possible
+window.addEventListener('mousedown', (e) => {
+    // 1. Check if any overlay is active
+    if (!document.body.classList.contains('overlay-active')) return;
+
+    // 2. Check if the click was inside any overlay content
+    const clickedContent = e.target.closest('.overlay__content');
+
+    if (clickedContent) {
+        // If we click an overlay again, we restore the blur effect
+        if (isBlurManuallyDisabled) {
+            isBlurManuallyDisabled = false;
+            // Trigger checkOverlap on any instance (it checks global state)
+            const openInstance = allInstances.find(inst => inst.isOpen);
+            if (openInstance) openInstance.checkOverlap();
+        }
+        return;
+    }
+
+    // 3. We are clicking "outside" all overlays (on the background)
+
+    // On Desktop >= 900, we only remove the blur and let the user interact with the page
+    if (window.innerWidth >= 900 && window.innerHeight >= 900) {
+        isBlurManuallyDisabled = true;
+        document.body.classList.remove('has-backdrop-blur');
+    } else {
+        // On Mobile or smaller screens, clicking the background closes everything
+        DraggableOverlay.closeAll();
     }
 });

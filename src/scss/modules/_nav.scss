@@ -19,7 +19,7 @@
 
     padding: 0 10px;
     // Exit Transition: Fast & Smooth
-    transition: transform 0.3s ease-in;
+    // transition: transform 0.3s ease-in;
     opacity: 1;
     pointer-events: none;
 
@@ -51,7 +51,7 @@
         position: absolute;
         top: -60px;
         left: 0;
-        width: 100%;
+        width: calc(100% + 2px);
         max-width: 908px;
         height: 100%;
         pointer-events: none;
@@ -60,7 +60,7 @@
         -webkit-mask-image: linear-gradient(to top, black 50%, transparent 50%);
         mask-image: linear-gradient(to top, black 20%, transparent 90%);
 
-        @media (min-width: 590px) {
+        @media (min-width: 900px) and (min-height: 768px) {
             left: 50%;
             transform: translateX(-50%) !important;
             max-width: 908px;
@@ -104,26 +104,41 @@
         }
     }
 
-    @media (min-width: 590px) {
+    body.is-desktop & {
         width: 100.1%;
 
         top: -6px;
         bottom: auto;
-        transform: translateX(-50%) translateY(0) scale(1);
+        transform: translateX(-50%) translateY(-100px); // Default hidden (upwards)
         justify-content: flex-end;
         align-items: center;
         padding-right: var(--space-x4);
         gap: var(--space-x1);
-        pointer-events: all;
+
+        @media (max-width: 590px) {
+            justify-content: center;
+            padding-right: 0;
+        }
+
+        pointer-events: none;
+
+        // Transition for desktop
+        transition: transform 0.4s ease-in;
 
         &.nav-visible {
-            transform: translateX(-50%) translateY(0) scale(1);
+            transform: translateX(-50%) translateY(0);
+            pointer-events: all;
+            transition: transform 0.6s cubic-bezier(0.34, 1.38, 0.64, 1);
         }
+
+        /* If height is large enough, we could force it visible via media query if needed, 
+           but the JS already handles the class addition for large heights. 
+           So we just define how the class behaves here. */
 
         &::before,
         &::after {
             top: auto;
-            bottom: calc(-1 * var(--border-radius) + 1px);
+            bottom: calc(-1 * var(--border-radius));
         }
 
         &::before {
@@ -135,9 +150,10 @@
         }
 
         .nav-overlay {
+            transform: translateX(-1px);
             margin: 0 auto;
             top: auto;
-            bottom: -59px;
+            bottom: -61px;
             border-radius: var(--border-radius) var(--border-radius) 0 0;
             -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
             mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
@@ -179,7 +195,11 @@
         }
     }
 
-    @media (min-width: 590px) {
+    &:active {
+        color: var(--orange);
+    }
+
+    body.is-desktop & {
         transform-origin: top center;
         flex-direction: row;
         width: auto;
@@ -188,17 +208,25 @@
         transform: scale(1);
 
         i {
-            margin-bottom: 0;
+            // margin-bottom: 0;
             font-size: var(--font-size-m);
         }
 
         span {
-            font-size: var(--font-size-m);
+            font-size: var(--font-size-s);
             font-weight: 600;
         }
 
-        &:hover {
+        &.active {
             color: var(--text-main);
+
+            i {
+                color: var(--orange);
+            }
+        }
+
+        &:hover {
+            color: var(--orange);
 
             i {
                 color: var(--orange);

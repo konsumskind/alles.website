@@ -19,6 +19,20 @@
         display: flex;
         flex-direction: column;
         gap: var(--space-x1);
+
+        &__grid {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-s1);
+
+            @media (min-width: 1080px) and (min-height: 700px) {
+                display: none !important;
+            }
+
+            @media (max-width: 768px) and (max-height: 700px) {
+                display: none !important;
+            }
+        }
     }
 
     &__references {
@@ -32,11 +46,15 @@
 
     @media (min-width: 900px) {
         padding: var(--space-x6) var(--space-x4);
-        padding-bottom: 15vh;
+        // padding-bottom: 15vh;
         overflow: unset;
         // gap: unset;
         // min-height: 100vh;
         // padding-top: 10vh;
+    }
+
+    @media (max-height: 600px) {
+        padding: var(--space-x4) var(--space-x2);
     }
 
     // &__title,
@@ -56,29 +74,31 @@
         }
 
         &--offers {
-            @media (max-width: 1080px) {
+
+            @media (max-width: 1080px),
+            (max-height: 700px) {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            @media (min-width: 1080px) {
+            @media (min-width: 1080px) and (min-height: 700px) {
                 width: 100vw;
                 max-width: 1080px;
                 position: relative;
                 left: 50%;
                 transform: translateX(-50%);
 
-                &> :nth-child(1) {
+                &> :nth-child(2) {
                     transform: translateX(40%);
                     z-index: 1;
                     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
                 }
 
-                &> :nth-child(2) {
+                &> :nth-child(3) {
                     z-index: 2;
                     position: relative;
                 }
 
-                &> :nth-child(3) {
+                &> :nth-child(4) {
                     transform: translateX(-40%);
                     z-index: 1;
                     transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
@@ -86,10 +106,10 @@
             }
 
             &.in-view {
-                @media (min-width: 1080px) {
+                @media (min-width: 1080px) and (min-height: 700px) {
 
-                    &> :nth-child(1),
-                    &> :nth-child(3) {
+                    &> :nth-child(2),
+                    &> :nth-child(4) {
                         transform: translateX(0);
                     }
                 }
@@ -199,17 +219,17 @@
 #angebote {
     border-radius: var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius);
 
-    // @media (min-width: 768px) {
-    //     .section__header {
-    //         display: none !important;
-    //     }
-    // }
+    @media (min-width: 768px) and (max-height: 700px) {
+        .section__header {
+            display: none !important;
+        }
+    }
 
-    // @media (min-width: 1080px) {
-    //     .section__header {
-    //         display: flex !important;
-    //     }
-    // }
+    @media (min-width: 1080px) and (min-height: 700px) {
+        .section__header {
+            display: flex !important;
+        }
+    }
 }
 
 // Override Section Style for "Über mich" to allow floating icons
@@ -236,6 +256,10 @@
         @media (min-width: 900px) {
             padding: var(--space-x6) var(--space-x4) var(--space-x6) var(--space-x4);
             // gap: unset;
+        }
+
+        @media (max-height: 600px) {
+            padding: var(--space-x4) var(--space-x2);
         }
     }
 }

@@ -72,6 +72,12 @@
     }
 }
 
+@media (max-height: 768px) {
+    .carousel {
+        width: calc(100% + (var(--space-x1) * 8));
+    }
+}
+
 // Media Query for switching back to Grid on desktop for specific carousels
 @media (min-width: 768px) {
     .carousel.carousel--disabled {

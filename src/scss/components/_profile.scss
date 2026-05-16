@@ -14,6 +14,9 @@
     width: $size;
     height: $size;
 
+    min-height: 268px;
+    min-width: 268px;
+
     flex-shrink: 0; // Prevent squashing
     border-radius: 50%; // Frame shape
     padding: 10px;
@@ -23,16 +26,19 @@
 
     transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 
-    @media (min-width: 900px) {
+    @media (min-width: 900px),
+    (max-height: 768px) and (min-width: 590px) {
+        max-height: 430px;
         float: right;
         margin: 0.5rem 0 2rem 4rem; // Offset from text
         shape-outside: circle(50%);
-        margin-right: -10%; // Keep layout static to prevent text reflow
-        transform: scale(0.85) translateX(-25%) translateY(20px); // Visually squeeze inside
-        transform-origin: center right;
+        transform: translateY(15px);
+        // margin-right: -10%; // Keep layout static to prevent text reflow
+        // transform: scale(0.85) translateX(-25%) translateY(20px); // Visually squeeze inside
+        // transform-origin: center right;
 
         &.in-view {
-            transform: scale(0.85) translateX(-25%) translateY(20px); // Visually squeeze inside
+            // transform: scale(0.85) translateX(-25%) translateY(20px); // Visually squeeze inside
         }
     }
 
