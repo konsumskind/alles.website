@@ -3,7 +3,7 @@
 .btn {
     box-shadow: var(--engraved), var(--raised);
     color: var(--orange);
-    border-radius: var(--border-radius);
+    border-radius: 99px;
     border: none;
     transition: all 0.2s ease;
     font-weight: 700;
@@ -44,8 +44,55 @@
         }
     }
 
+    &--pulse-blue {
+        position: relative;
+        z-index: 1;
+        width: 18rem;
+
+        &::after {
+            display: none;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 99px;
+            box-shadow: 0 0 10px 10px #ffffffd6, 0 0 25px var(--blue);
+            animation: pulse-blue-glow 3s infinite ease-in-out;
+            pointer-events: none;
+            z-index: -1;
+            transition: box-shadow 0.8s ease, opacity 0.5s ease;
+            opacity: .75;
+            // mix-blend-mode: plus-lighter;
+        }
+
+
+        &:active::after {
+            opacity: 0.5;
+            box-shadow: 0 0 15px var(--blue), 0 0 5px white;
+        }
+    }
+
     &--full {
         width: 100%;
+    }
+}
+
+@keyframes pulse-blue-glow {
+    0% {
+        box-shadow: 0 0 5px 5px #ffffffd6, 0 0 10px var(--blue);
+        // opacity: 0.42;
+    }
+
+    50% {
+        box-shadow: 0 0 10px 10px #ffffffd6, 0 0 20px var(--blue);
+        opacity: .9;
+    }
+
+    100% {
+        box-shadow: 0 0 5px 5px #ffffffd6, 0 0 10px var(--blue);
+        // opacity: 0.42;
     }
 }
 

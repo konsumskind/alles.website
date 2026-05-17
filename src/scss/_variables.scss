@@ -26,10 +26,10 @@
   /* Fonts */
   --font-family-title: 'Inter', sans-serif;
   --font-family-text: 'Merriweather', serif;
-  --font-size-s: 0.625rem;
-  --font-size-m: 0.813rem;
+  --font-size-s: 0.7rem;
+  --font-size-m: 0.833rem;
   --font-size-l: 1rem;
-  --font-size-xl: 1.25rem;
+  --font-size-xl: 1.313rem;
   --font-size-xxl: 1.5rem;
 
   // @media (min-width: 768px) {
@@ -56,10 +56,9 @@
   --border-radius: 38px;
   --border-radius-small: 15px;
 
-  @media (min-width: 768px),
-  (min-height: 768px) {
-    --font-size-s: 0.688rem;
-    --font-size-m: 0.875rem;
+  @media (min-width: 768px) and (min-height: 768px) {
+    --font-size-s: 0.775rem;
+    --font-size-m: 0.9rem;
     --font-size-l: 1.125rem;
     --font-size-xl: 1.5rem;
     --font-size-xxl: 1.875rem;
@@ -150,7 +149,7 @@
   @include apply-theme-switch-colors($theme-switch-base-mobile);
 
   // Desktop Override
-  @media (min-width: 590px) {
+  @media (min-width: 625px) {
     @include apply-theme-switch-colors($theme-switch-base-desktop);
   }
 

@@ -8,7 +8,7 @@
         display: none;
     }
 
-    body.is-desktop & {
+    .is-desktop & {
         position: fixed;
         bottom: -6px;
         left: 50%;
@@ -25,6 +25,18 @@
 
         // Transition for footer
         transition: transform 0.4s ease-in;
+
+        @media (max-width: 625px) and (min-height: 768px) {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+
+            .nav-item {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        }
 
         &.footer-visible {
             transform: translateX(-50%) translateY(0) !important;
@@ -79,7 +91,7 @@
     position: relative;
     z-index: 2;
 
-    body.is-desktop & {
+    @media (min-width: 590px) {
         margin-top: 0;
         padding-bottom: 0;
         width: 100%;
@@ -99,7 +111,7 @@
         text-decoration: none;
         color: inherit;
 
-        body.is-desktop & {
+        @media (min-width: 590px) {
             &:hover {
                 color: var(--orange);
             }

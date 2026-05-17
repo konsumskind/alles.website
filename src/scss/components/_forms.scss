@@ -6,7 +6,7 @@
     height: 50px;
     background-color: var(--bg-color);
     box-shadow: var(--pressed-small), var(--engraved);
-    border-radius: var(--border-radius);
+    border-radius: 99px;
     border: none;
     padding: 16px 20px;
     outline: none;
@@ -121,7 +121,7 @@
     font-size: var(--font-size-m);
     color: var(--text-main);
     font-weight: 500;
-    cursor: pointer;
+    // cursor: pointer;
     margin: 0;
 
     &:invalid,

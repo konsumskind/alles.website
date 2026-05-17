@@ -19,7 +19,7 @@
 
     padding: 0 10px;
     // Exit Transition: Fast & Smooth
-    // transition: transform 0.3s ease-in;
+    transition: transform 0.3s ease-in;
     opacity: 1;
     pointer-events: none;
 
@@ -104,7 +104,7 @@
         }
     }
 
-    body.is-desktop & {
+    .is-desktop & {
         width: 100.1%;
 
         top: -6px;
@@ -112,18 +112,49 @@
         transform: translateX(-50%) translateY(-100px); // Default hidden (upwards)
         justify-content: flex-end;
         align-items: center;
-        padding-right: var(--space-x4);
+        padding-right: var(--space-x2);
         gap: var(--space-x1);
-
-        @media (max-width: 590px) {
-            justify-content: center;
-            padding-right: 0;
-        }
+        // padding: 0;
 
         pointer-events: none;
 
+        .nav-item {
+            &.active {
+                color: var(--text-main);
+
+                i {
+                    color: var(--orange);
+                }
+            }
+
+            &:hover {
+                color: var(--orange);
+
+                i {
+                    color: var(--orange);
+                }
+            }
+        }
+
         // Transition for desktop
-        transition: transform 0.4s ease-in;
+        // transition: transform 0.4s ease-in;
+        @media (max-width:625px) {
+            padding: 0 10px;
+            justify-content: center;
+
+        }
+
+        @media (max-width: 625px) and (min-height: 768px) {
+            transform: translateX(-50%) translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: all;
+
+            .nav-item {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        }
 
         &.nav-visible {
             transform: translateX(-50%) translateY(0);
@@ -161,6 +192,8 @@
     }
 }
 
+
+
 .nav-item {
     display: flex;
     flex-direction: column;
@@ -188,24 +221,22 @@
     }
 
     &.active {
-        color: var(--orange);
+        color: var(--text-main);
 
         i {
-            // text-shadow: var(--text-pressed);
+            color: var(--orange);
         }
     }
 
-    &:active {
-        color: var(--orange);
-    }
 
-    body.is-desktop & {
+    @media (min-width: 625px) {
         transform-origin: top center;
         flex-direction: row;
         width: auto;
         gap: var(--space-s1);
         opacity: 1;
         transform: scale(1);
+        padding: 0;
 
         i {
             // margin-bottom: 0;
@@ -213,24 +244,14 @@
         }
 
         span {
-            font-size: var(--font-size-s);
+            font-size: var(--font-size-m);
             font-weight: 600;
         }
+    }
 
-        &.active {
-            color: var(--text-main);
-
-            i {
-                color: var(--orange);
-            }
-        }
-
-        &:hover {
-            color: var(--orange);
-
-            i {
-                color: var(--orange);
-            }
+    @media (min-width: 768px) and (min-height: 768px) {
+        span {
+            font-size: var(--font-size-s);
         }
     }
 }

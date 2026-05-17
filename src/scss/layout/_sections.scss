@@ -4,7 +4,7 @@
     width: 100vw;
     max-width: 900px;
     position: relative;
-    padding: var(--space-x4) var(--space-x2); // section-spacer
+    padding: var(--space-x5) var(--space-x2) var(--space-x6); // section-spacer
     overflow: hidden;
     box-shadow: var(--engraved);
     background: linear-gradient(38deg, var(--bg-color) 30%, var(--shadow-light) 60%, var(--bg-color) 100%);
@@ -12,20 +12,20 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-between;
-    gap: var(--space-x2);
+    gap: var(--space-x3);
     // border-radius: var(--border-radius); // Defined individually below per User request
 
     &__header {
         display: flex;
         flex-direction: column;
-        gap: var(--space-x1);
+        gap: var(--font-size-l);
 
         &__grid {
             display: flex;
             flex-direction: column;
             gap: var(--space-s1);
 
-            @media (min-width: 1080px) and (min-height: 700px) {
+            @media (min-width: 1024px) and (min-height: 700px) {
                 display: none !important;
             }
 
@@ -40,7 +40,7 @@
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: space-between;
-        gap: var(--space-x2);
+        gap: var(--space-x3);
         margin: auto 0;
     }
 
@@ -66,7 +66,7 @@
         margin: auto 0;
         display: grid;
         grid-template-columns: 1fr;
-        gap: var(--space-x2);
+        gap: var(--space-x3);
         transition: grid-template-columns 0.5s ease;
 
         @media (min-width: 768px) {
@@ -75,12 +75,12 @@
 
         &--offers {
 
-            @media (max-width: 1080px),
+            @media (max-width: 1023px),
             (max-height: 700px) {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            @media (min-width: 1080px) and (min-height: 700px) {
+            @media (min-width: 1024px) and (min-height: 700px) {
                 width: 100vw;
                 max-width: 1080px;
                 position: relative;
@@ -106,7 +106,7 @@
             }
 
             &.in-view {
-                @media (min-width: 1080px) and (min-height: 700px) {
+                @media (min-width: 1024px) and (min-height: 700px) {
 
                     &> :nth-child(2),
                     &> :nth-child(4) {
@@ -116,6 +116,7 @@
             }
 
             @media (max-width: 768px) {
+                place-items: center;
                 grid-template-columns: 1fr;
                 margin: 0 auto;
             }
@@ -219,14 +220,14 @@
 #angebote {
     border-radius: var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius);
 
-    @media (min-width: 768px) and (max-height: 700px) {
-        .section__header {
-            display: none !important;
-        }
-    }
+    .section__header {
+        display: none !important;
 
-    @media (min-width: 1080px) and (min-height: 700px) {
-        .section__header {
+        @media (min-width: 1024px) and (min-height: 700px) {
+            display: flex !important;
+        }
+
+        @media (max-width: 768px) and (max-height: 700px) {
             display: flex !important;
         }
     }
@@ -240,26 +241,30 @@
     box-shadow: none;
     padding: 0;
 
+    .section__header {
+        gap: 0;
+
+        @media (min-width: 700px) {
+            gap: var(--font-size-l);
+        }
+    }
+
     .section-card {
         background: linear-gradient(38deg, var(--bg-color) 30%, var(--shadow-light) 60%, var(--bg-color) 100%);
         box-shadow: var(--engraved);
         border-radius: var(--border-radius);
-        padding: var(--space-x4) var(--space-x2); // section-spacer
+        padding: var(--space-x5) var(--space-x2) var(--space-x6); // section-spacer
         position: relative;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: space-between;
-        gap: var(--space-x2);
+        gap: var(--space-x3);
         min-height: 100vh;
 
         @media (min-width: 900px) {
             padding: var(--space-x6) var(--space-x4) var(--space-x6) var(--space-x4);
             // gap: unset;
-        }
-
-        @media (max-height: 600px) {
-            padding: var(--space-x4) var(--space-x2);
         }
     }
 }

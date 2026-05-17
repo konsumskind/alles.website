@@ -15,20 +15,18 @@ export class ScrollManager {
         this.scrollDownStartY = null;
         this.lastDownStrokeDistance = 0;
         this.STANDARD_SCROLL_THRESHOLD = 80;
-        this.HIDE_SCROLL_THRESHOLD = 150; // New threshold for hiding on scroll down
-        this.scrollDownShowStartY = null; // Track where it was last shown
         this.lastWidth = window.innerWidth;
         this.lastHeight = window.innerHeight;
-        this.wasDesktop = document.body.classList.contains('is-desktop');
         this.isLayoutTransitioning = false;
+        this.resizeTimer = null;
 
         // Auto-scroll state
         this.isAutoScrolling = false;
         this.autoScrollTimeout = null;
-        this.resizeTimer = null;
 
         this.init();
         this.setupViewObserver();
+        this.handleScroll(); // Initial status check on page load (shows nav/footer on desktop, highlights active section)
     }
 
     init() {
@@ -97,31 +95,30 @@ export class ScrollManager {
 
         const currentWidth = window.innerWidth;
         const currentHeight = window.innerHeight;
-        const isDesktop = document.body.classList.contains('is-desktop');
+        const wasDesktopWidth = this.lastWidth >= 590;
+        const isDesktopWidth = currentWidth >= 590;
+        const wasSmallHeight = this.lastHeight < 768;
+        const isSmallHeight = currentHeight < 768;
 
-        // Force out-in animation ONLY when crossing the mobile/desktop state
-        // because this causes a jump from top to bottom (position change).
-        const positionJumps = this.wasDesktop !== isDesktop;
-        this.wasDesktop = isDesktop; // Update for next resize
+        // Detect major layout changes (mobile/desktop or always-on/scroll-sync)
+        // const layoutCrossed = (wasDesktopWidth !== isDesktopWidth) || (wasSmallHeight !== isSmallHeight);
 
-        if (positionJumps && !this.isLayoutTransitioning) {
-            this.isLayoutTransitioning = true;
+        // if (layoutCrossed && !this.isLayoutTransitioning) {
+        //     this.isLayoutTransitioning = true;
 
-            // 1. Hide everything immediately to animate "out"
-            this.nav.classList.remove('nav-visible');
-            if (this.footer) this.footer.classList.remove('footer-visible');
-            if (this.themeSwitcher) this.themeSwitcher.classList.remove('theme-switcher--visible');
+        //     // 1. Hide everything immediately to animate "out"
+        //     this.nav.classList.remove('nav-visible');
+        //     if (this.footer) this.footer.classList.remove('footer-visible');
+        //     if (this.themeSwitcher) this.themeSwitcher.classList.remove('theme-switcher--visible');
 
-            // 2. Wait for layout shift and "out" animation, then show again
-            setTimeout(() => {
-                this.isLayoutTransitioning = false;
-                this.handleScroll();
-            }, 600);
-        } else if (!this.isLayoutTransitioning) {
-            // For other resizes (e.g. height changes), just handle normally.
-            // CSS transitions will handle visibility changes smoothly if they occur.
-            this.handleScroll();
-        }
+        //     // 2. Wait for layout shift and "out" animation, then show again
+        //     setTimeout(() => {
+        //         this.isLayoutTransitioning = false;
+        //         this.handleScroll();
+        //     }, 600); // Wait for the transition duration
+        // } else if (!this.isLayoutTransitioning) {
+        //     this.handleScroll();
+        // }
 
         this.lastWidth = currentWidth;
         this.lastHeight = currentHeight;
@@ -175,18 +172,14 @@ export class ScrollManager {
             if (this.footer) this.footer.classList.remove('footer-visible');
             if (this.themeSwitcher) this.themeSwitcher.classList.remove('theme-switcher--visible');
             this.scrollUpStartY = null;
-            this.scrollDownShowStartY = null;
             return;
         }
 
-        const isDesktop = document.body.classList.contains('is-desktop');
-
         // On desktop with enough height, always show
-        if (isDesktop && !isSmallHeight) {
+        if (window.innerWidth >= 590 && !isSmallHeight) {
             this.nav.classList.add('nav-visible');
             if (this.footer) this.footer.classList.add('footer-visible');
             if (this.themeSwitcher) this.themeSwitcher.classList.add('theme-switcher--visible');
-            this.scrollDownShowStartY = currentScrollY; // Always considered "just shown" here
             return;
         }
 
@@ -196,14 +189,10 @@ export class ScrollManager {
                 this.nav.classList.add('nav-visible');
                 if (this.footer) this.footer.classList.add('footer-visible');
                 if (this.themeSwitcher) this.themeSwitcher.classList.add('theme-switcher--visible');
-                if (this.scrollDownShowStartY === null) {
-                    this.scrollDownShowStartY = window.scrollY;
-                }
             } else {
                 this.nav.classList.remove('nav-visible');
                 if (this.footer) this.footer.classList.remove('footer-visible');
                 if (this.themeSwitcher) this.themeSwitcher.classList.remove('theme-switcher--visible');
-                this.scrollDownShowStartY = null;
             }
         };
 
@@ -217,13 +206,16 @@ export class ScrollManager {
             } else {
                 if (currentScrollY > this.lastScrollY) {
                     // Scrolling Down
-                    const distanceSinceShow = this.scrollDownShowStartY !== null ? currentScrollY - this.scrollDownShowStartY : 0;
+                    setVisible(false);
+                    this.scrollUpStartY = null;
 
-                    if (distanceSinceShow > this.HIDE_SCROLL_THRESHOLD) {
-                        setVisible(false);
-                        this.scrollUpStartY = null;
+                    if (this.isTouching) {
+                        this.hasScrolledDownInThisTouch = true;
+                        if (this.scrollDownStartY === null) {
+                            this.scrollDownStartY = this.lastScrollY;
+                        }
+                        this.lastDownStrokeDistance = currentScrollY - this.scrollDownStartY;
                     }
-                    // ... (lines 203-209 handled by context matching or just replacing block)
                 } else if (currentScrollY < this.lastScrollY) {
                     // Scrolling Up
                     this.scrollDownStartY = null;

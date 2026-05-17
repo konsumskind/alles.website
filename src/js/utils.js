@@ -25,7 +25,7 @@ export const showToast = (message) => {
  * Matches the logic previously handled by SCSS media queries
  * @returns {boolean}
  */
-export const isMobileDevice = () => {
+export const isDesktopDevice = () => {
     // Current project breakpoint for "Desktop" layout is 768x768
     return window.matchMedia("(pointer: coarse) and (hover: none)").matches;
 };

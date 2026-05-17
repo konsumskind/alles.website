@@ -33,7 +33,7 @@
         border-radius: 0 0 var(--border-radius) var(--border-radius);
         background: var(--bg-color);
         box-shadow: var(--engraved);
-        min-height: 560px;
+        min-height: 512px;
     }
 
     &__brand {
@@ -64,7 +64,7 @@
         width: 99.9%;
         height: 50%; // End state
         overflow: hidden;
-        transition: height 1.5s cubic-bezier(0.11, 0, 0, 1); // Smooth easing
+        // transition: height 1.5s cubic-bezier(0.11, 0, 0, 1); // Smooth easing
         z-index: $z-base;
 
         &--full {
@@ -146,7 +146,7 @@
 }
 
 .animate-in {
-    animation: blur-in-scale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    // animation: blur-in-scale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes blur-in-scale {
@@ -249,15 +249,26 @@
         &__desktop-cta {
             display: block !important;
             position: absolute;
-            // bottom: 34px;
-            // right: 85px;
             margin: var(--space-x1) 0 var(--space-x4) !important;
             z-index: 1;
             width: unset;
-            // transform: scale(0.8);
 
-            .swipe-container {
-                // border-bottom-left-radius: 20px;
+            .highlight-badge {
+                left: 300px;
+                top: -35px;
+                transform: translateX(0) scale(0);
+                transform-origin: bottom left;
+
+                &.show {
+                    transform: translateX(0) scale(1);
+                    opacity: 1;
+                }
+
+                &::after {
+                    bottom: -3px;
+                    left: -8px;
+                    transform: rotate(79deg);
+                }
             }
         }
 

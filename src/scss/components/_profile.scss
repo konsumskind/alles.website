@@ -26,8 +26,7 @@
 
     transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 
-    @media (min-width: 900px),
-    (max-height: 768px) and (min-width: 590px) {
+    @media (min-width: 700px) {
         max-height: 430px;
         float: right;
         margin: 0.5rem 0 2rem 4rem; // Offset from text

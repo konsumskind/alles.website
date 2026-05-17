@@ -52,10 +52,10 @@
     }
 
     // Desktop: Move into nav bar area, icon-btn styling
-    @media (min-width: 590px) {
+    @media (min-width: 625px) {
         position: fixed;
         top: 11px;
-        left: var(--space-x4);
+        left: var(--space-x2);
         right: auto;
         width: 30px;
         height: 30px;
@@ -117,7 +117,7 @@
 }
 
 .pop-in {
-    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    // animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 // Global Immersive Mode override
@@ -132,7 +132,7 @@ body.dark-mode {
     .theme-toggle-round {
         .theme-toggle__logo {
             g[mask="url(#logo-mask)"] {
-                @media (min-width: 590px) {
+                @media (min-width: 625px) {
                     fill: #ffffff !important;
                     stroke: #ffffff !important;
                 }

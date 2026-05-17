@@ -6,7 +6,7 @@ export class HeroAnimation {
         this.text = document.querySelector('.hero__text');
         this.name = document.querySelector('.hero__brand .name');
         this.tagline = document.querySelector('.hero__brand .tagline');
-        this.badge = document.getElementById('heroBadge');
+        this.badges = document.querySelectorAll('.hero .highlight-badge');
         this.uiElements = [];
     }
 
@@ -148,18 +148,18 @@ export class HeroAnimation {
     }
 
     initBadgeObserver() {
-        if (!this.badge || !this.hero) return;
+        if (this.badges.length === 0 || !this.hero) return;
 
         let visibilityTimeout;
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     visibilityTimeout = setTimeout(() => {
-                        this.badge.classList.add('show');
+                        this.badges.forEach(badge => badge.classList.add('show'));
                     }, 500); // kurze Zeit warten
                 } else {
                     clearTimeout(visibilityTimeout);
-                    this.badge.classList.remove('show');
+                    this.badges.forEach(badge => badge.classList.remove('show'));
                 }
             });
         }, { threshold: 0.6 });

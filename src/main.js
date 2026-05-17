@@ -10,7 +10,7 @@ import { initContactForm } from './js/contact.js';
 import { ProcessAnimation } from './js/process.js';
 import { initPreloader } from './js/preloader.js';
 import { HeroAnimation } from './js/hero.js';
-import { showToast, isMobileDevice } from './js/utils.js';
+import { showToast, isDesktopDevice } from './js/utils.js';
 import { BookingForm } from './js/booking.js';
 import { PrivacyOverlay } from './js/privacy.js';
 import { ImprintOverlay } from './js/imprint.js';
@@ -21,9 +21,9 @@ import { AgbOverlay } from './js/agb.js';
  * This allows JS to control CSS variables like border-radius.
  */
 const updateDeviceStatus = () => {
-    const isLargeScreen = window.innerWidth >= 768;
+    const isLargeScreen = window.innerWidth >= 590;
 
-    if (!isMobileDevice() || isLargeScreen) {
+    if (!isDesktopDevice() || isLargeScreen) {
         document.body.classList.add('is-desktop');
     } else {
         document.body.classList.remove('is-desktop');
@@ -82,6 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
     initWorkshopToast();
     initPreloader();
     new BookingForm();
+
+    // Desktop CTA click listener
+    const desktopCtaBtn = document.getElementById('desktopCtaBtn');
+    if (desktopCtaBtn) {
+        desktopCtaBtn.addEventListener('click', () => {
+            document.dispatchEvent(new CustomEvent('openBookingForm'));
+        });
+    }
     new PrivacyOverlay();
     new ImprintOverlay();
     new AgbOverlay();

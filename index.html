@@ -163,14 +163,12 @@
                         lösen.</p>
 
                     <div class="swipe-wrapper hero__desktop-cta">
-                        <div class="highlight-badge">Kostenlos!</div>
-                        <div class="swipe-container swipe-container--right-only" data-action="mail">
-                            <div class="swipe-label">Termin</div>
-                            <div class="swipe-icon-right"><i class="fas fa-calendar-days"></i></div>
-                            <div class="swipe-knob">
-                                <i class="fas fa-chevron-right swipe-arrow"></i>
-                            </div>
-                        </div>
+                        <div class="highlight-badge">Kostenlos Termin vereinbaren, <br> oder direkt <a
+                                href="#kontakt">anrufen!</a></div>
+                        <button class="btn btn--large btn--pulse-blue" id="desktopCtaBtn">
+                            <i class="fas fa-calendar-days"></i>
+                            <span>Termin</span>
+                        </button>
                     </div>
                 </div>
 
@@ -215,15 +213,6 @@
                 </div>
                 <div class="profile-process__description">
                     <p class="process-text">Chemie ist alles...</p>
-                    <div class="swipe-wrapper" style="width: 162px; margin: 1rem auto 0;">
-                        <div class="swipe-container swipe-container--right-only">
-                            <div class="swipe-label">Anrufen</div>
-                            <div class="swipe-icon-right"><i class="fas fa-phone-alt"></i></div>
-                            <div class="swipe-knob">
-                                <i class="fas fa-chevron-right swipe-arrow"></i>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="profile-process__track">
                     <div class="profile-process__line">
@@ -233,7 +222,6 @@
                     <!-- 1. Kennenlernen -->
                     <div class="icon-btn profile-process__step" data-step="1" data-label="Kennenlernen"
                         data-text="In einem unverbindlichen Telefonat klären wir dein Anliegen und prüfen, ob wir zueinander passen.">
-                        <div class="highlight-badge">Kostenlos!</div>
                         <div class="profile-process__icon" aria-label="Kennenlernen">
                             <svg viewBox="0 0 62 62">
                                 <circle cx="31" cy="31" r="30"></circle>
@@ -298,115 +286,131 @@
                         Prozess sind wirksame Methoden, um auch in komplexen Situationen oder bei persönlichen
                         Verstrickungen Orientierung zu finden. Wähle den Bereich, der dich aktuell beschäftigt:</p>
                 </div>
+                <!-- Accordion Container -->
+                <div id="haltungAccordion" class="accordion accordion--spaced">
+                    <!-- Item 1 -->
+                    <div class="accordion__item">
+                        <div class="accordion__header">
+                            <strong class="accordion__title">Führung & Identität</strong>
+                            <i class="fas fa-chevron-down accordion__icon"></i>
+                        </div>
+                        <div class="accordion__content">
+                            <div class="accordion__body">
+                                <p>Führung ist heute weniger eine Frage der Technik, sondern der inneren Haltung. Oft
+                                    entstehen Spannungen genau dort, wo alte hierarchische Vorstellungen auf den Wunsch
+                                    nach
+                                    Augenhöhe und Selbstverantwortung treffen.<br>Wir arbeiten daran, deine
+                                    Führungsrolle
+                                    klar zu definieren: Wie füllst du sie aus, ohne dich zu verbiegen? Wie grenzt du
+                                    dich
+                                    ab, ohne die Verbindung zu verlieren? Es geht um deine Autorität, die nicht aus
+                                    Macht,
+                                    sondern aus Klarheit entsteht.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="accordion__item">
+                        <div class="accordion__header">
+                            <strong class="accordion__title">Teams & Konfliktkultur</strong>
+                            <i class="fas fa-chevron-down accordion__icon"></i>
+                        </div>
+                        <div class="accordion__content">
+                            <div class="accordion__body">
+                                <p>Wenn es im Team knirscht, suchen wir oft nach dem „Schuldigen“. Systemisch betrachtet
+                                    sind Konflikte jedoch selten Charakterfehler einzelner Personen, sondern Symptome
+                                    unklarer Strukturen oder verdeckter Aufträge.<br>Wir schauen uns die Muster an, die
+                                    euer
+                                    Miteinander steuern. Statt übereinander zu reden, schaffen wir einen Raum, in dem
+                                    Konflikte besprechbar werden. Das Ziel ist eine Arbeitskultur, in der Reibung nicht
+                                    blockiert, sondern Energie für Innovation freisetzt.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="accordion__item">
+                        <div class="accordion__header">
+                            <strong class="accordion__title">Berufung & Veränderung</strong>
+                            <i class="fas fa-chevron-down accordion__icon"></i>
+                        </div>
+                        <div class="accordion__content">
+                            <div class="accordion__body">
+                                <p>Stehst du an einem Wendepunkt? Veränderungsprozesse – ob selbstgewählt oder von außen
+                                    angestoßen – erzeugen oft Unsicherheit. Die Frage nach dem „Wohin“ lässt sich selten
+                                    nur
+                                    mit dem Kopf beantworten.<br>Wir nutzen systemische Methoden, um Zugang zu deinen
+                                    eigentlichen Ressourcen und Zielen zu finden. Es geht um Resilienz in stürmischen
+                                    Zeiten
+                                    und darum, eine berufliche Heimat zu finden, die nicht nur im Lebenslauf gut
+                                    aussieht,
+                                    sondern sich auch innerlich stimmig anfühlt.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="accordion__item">
+                        <div class="accordion__header">
+                            <strong class="accordion__title">Partnerschaft & Beziehung</strong>
+                            <i class="fas fa-chevron-down accordion__icon"></i>
+                        </div>
+                        <div class="accordion__content">
+                            <div class="accordion__body">
+                                <p>In Beziehungen prallen oft unterschiedliche Welten und Erwartungen aufeinander. Wer
+                                    bin
+                                    ich, wer bist du – und was ist das „Wir“? Häufig wiederholen wir unbewusst Muster
+                                    aus
+                                    unserer Herkunftsfamilie oder früheren Bindungen.<br>Wir entwirren diese
+                                    Rollenkonflikte. Es geht um die Balance zwischen Nähe und Autonomie und darum, wie
+                                    Kommunikation wieder gelingen kann, wenn das Schweigen oder der Streit
+                                    überhandgenommen
+                                    haben. Sexualität ist oft der sensibelste Spiegel einer Beziehung und mit Themen wie
+                                    Vertrauen, Machtdynamiken oder Hingabe verknüpft und wenn das Begehren schwindet,
+                                    Bedürfnisse auseinanderklaffen oder Scham den Austausch blockiert, entsteht oft ein
+                                    stummes Leiden.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="accordion__item">
+                        <div class="accordion__header">
+                            <strong class="accordion__title">Familie, Nachfolge & Generationen</strong>
+                            <i class="fas fa-chevron-down accordion__icon"></i>
+                        </div>
+                        <div class="accordion__content">
+                            <div class="accordion__body">
+                                <p>Besonders in Familienunternehmen oder bei Erbangelegenheiten vermischen sich
+                                    emotionale
+                                    und geschäftliche Ebenen oft untrennbar. Loyalitätskonflikte und unausgesprochene
+                                    Erwartungen können Jahre später noch wirken.<br>Hier sorgt der systemische Blick für
+                                    eine saubere Trennung der Kontexte: Was gehört zur Familie, was gehört zum
+                                    Unternehmen?
+                                    Wir klären Nachfolgen und Übergänge so, dass der Frieden in der Familie gewahrt
+                                    bleibt
+                                    und das Unternehmen handlungsfähig.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="accordion__item">
+                        <div class="accordion__header">
+                            <strong class="accordion__title">Trennung & Neubeginn</strong>
+                            <i class="fas fa-chevron-down accordion__icon"></i>
+                        </div>
+                        <div class="accordion__content">
+                            <div class="accordion__body">
+                                <p>Manchmal ist die Lösung nicht das „Zusammenbleiben“, sondern das „Gehen“. Trennungen
+                                    – ob
+                                    beruflich oder privat – sind schmerzhaft und komplex. Doch sie bieten die Chance auf
+                                    Klärung.<br>Wir gestalten diesen Prozess so, dass er fair und ohne Rosenkrieg
+                                    verläuft.
+                                    Ziel ist es, das Vergangene zu würdigen und so abzuschließen, dass du frei und ohne
+                                    Altlasten in den neuen Lebensabschnitt starten kannst.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Accordion Container -->
-            <div id="haltungAccordion" class="accordion accordion--spaced">
-                <!-- Item 1 -->
-                <div class="accordion__item">
-                    <div class="accordion__header">
-                        <strong class="accordion__title">Führung & Identität</strong>
-                        <i class="fas fa-chevron-down accordion__icon"></i>
-                    </div>
-                    <div class="accordion__content">
-                        <div class="accordion__body">
-                            <p>Führung ist heute weniger eine Frage der Technik, sondern der inneren Haltung. Oft
-                                entstehen Spannungen genau dort, wo alte hierarchische Vorstellungen auf den Wunsch nach
-                                Augenhöhe und Selbstverantwortung treffen.<br>Wir arbeiten daran, deine Führungsrolle
-                                klar zu definieren: Wie füllst du sie aus, ohne dich zu verbiegen? Wie grenzt du dich
-                                ab, ohne die Verbindung zu verlieren? Es geht um deine Autorität, die nicht aus Macht,
-                                sondern aus Klarheit entsteht.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Item 2 -->
-                <div class="accordion__item">
-                    <div class="accordion__header">
-                        <strong class="accordion__title">Teams & Konfliktkultur</strong>
-                        <i class="fas fa-chevron-down accordion__icon"></i>
-                    </div>
-                    <div class="accordion__content">
-                        <div class="accordion__body">
-                            <p>Wenn es im Team knirscht, suchen wir oft nach dem „Schuldigen“. Systemisch betrachtet
-                                sind Konflikte jedoch selten Charakterfehler einzelner Personen, sondern Symptome
-                                unklarer Strukturen oder verdeckter Aufträge.<br>Wir schauen uns die Muster an, die euer
-                                Miteinander steuern. Statt übereinander zu reden, schaffen wir einen Raum, in dem
-                                Konflikte besprechbar werden. Das Ziel ist eine Arbeitskultur, in der Reibung nicht
-                                blockiert, sondern Energie für Innovation freisetzt.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Item 3 -->
-                <div class="accordion__item">
-                    <div class="accordion__header">
-                        <strong class="accordion__title">Berufung & Veränderung</strong>
-                        <i class="fas fa-chevron-down accordion__icon"></i>
-                    </div>
-                    <div class="accordion__content">
-                        <div class="accordion__body">
-                            <p>Stehst du an einem Wendepunkt? Veränderungsprozesse – ob selbstgewählt oder von außen
-                                angestoßen – erzeugen oft Unsicherheit. Die Frage nach dem „Wohin“ lässt sich selten nur
-                                mit dem Kopf beantworten.<br>Wir nutzen systemische Methoden, um Zugang zu deinen
-                                eigentlichen Ressourcen und Zielen zu finden. Es geht um Resilienz in stürmischen Zeiten
-                                und darum, eine berufliche Heimat zu finden, die nicht nur im Lebenslauf gut aussieht,
-                                sondern sich auch innerlich stimmig anfühlt.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Item 4 -->
-                <div class="accordion__item">
-                    <div class="accordion__header">
-                        <strong class="accordion__title">Partnerschaft & Beziehung</strong>
-                        <i class="fas fa-chevron-down accordion__icon"></i>
-                    </div>
-                    <div class="accordion__content">
-                        <div class="accordion__body">
-                            <p>In Beziehungen prallen oft unterschiedliche Welten und Erwartungen aufeinander. Wer bin
-                                ich, wer bist du – und was ist das „Wir“? Häufig wiederholen wir unbewusst Muster aus
-                                unserer Herkunftsfamilie oder früheren Bindungen.<br>Wir entwirren diese
-                                Rollenkonflikte. Es geht um die Balance zwischen Nähe und Autonomie und darum, wie
-                                Kommunikation wieder gelingen kann, wenn das Schweigen oder der Streit überhandgenommen
-                                haben. Sexualität ist oft der sensibelste Spiegel einer Beziehung und mit Themen wie
-                                Vertrauen, Machtdynamiken oder Hingabe verknüpft und wenn das Begehren schwindet,
-                                Bedürfnisse auseinanderklaffen oder Scham den Austausch blockiert, entsteht oft ein
-                                stummes Leiden.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Item 5 -->
-                <div class="accordion__item">
-                    <div class="accordion__header">
-                        <strong class="accordion__title">Familie, Nachfolge & Generationen</strong>
-                        <i class="fas fa-chevron-down accordion__icon"></i>
-                    </div>
-                    <div class="accordion__content">
-                        <div class="accordion__body">
-                            <p>Besonders in Familienunternehmen oder bei Erbangelegenheiten vermischen sich emotionale
-                                und geschäftliche Ebenen oft untrennbar. Loyalitätskonflikte und unausgesprochene
-                                Erwartungen können Jahre später noch wirken.<br>Hier sorgt der systemische Blick für
-                                eine saubere Trennung der Kontexte: Was gehört zur Familie, was gehört zum Unternehmen?
-                                Wir klären Nachfolgen und Übergänge so, dass der Frieden in der Familie gewahrt bleibt
-                                und das Unternehmen handlungsfähig.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Item 6 -->
-                <div class="accordion__item">
-                    <div class="accordion__header">
-                        <strong class="accordion__title">Trennung & Neubeginn</strong>
-                        <i class="fas fa-chevron-down accordion__icon"></i>
-                    </div>
-                    <div class="accordion__content">
-                        <div class="accordion__body">
-                            <p>Manchmal ist die Lösung nicht das „Zusammenbleiben“, sondern das „Gehen“. Trennungen – ob
-                                beruflich oder privat – sind schmerzhaft und komplex. Doch sie bieten die Chance auf
-                                Klärung.<br>Wir gestalten diesen Prozess so, dass er fair und ohne Rosenkrieg verläuft.
-                                Ziel ist es, das Vergangene zu würdigen und so abzuschließen, dass du frei und ohne
-                                Altlasten in den neuen Lebensabschnitt starten kannst.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="carousel" id="featureCarousel" data-mobile-only>
                 <div class="carousel__viewport">
@@ -836,6 +840,9 @@
                         <h3>Investiere in dich</h3>
                     </div>
 
+                    <div class="offer-card__body">
+                    </div>
+
                     <div class="block-text" style="max-width: 640px;">
                         <p>Wähle dein Setting, finde herraus, wie sich dein Investment im laufe unserer Zusammenarbeit
                             entwickelt und welche Pakete es für den Anfang gibt. Die Taktung
@@ -1158,12 +1165,15 @@
                     <!-- <div class="form-divider"></div> -->
 
                     <h4>Termin wählen</h4>
+                    <!-- Screen-Reader Ankündigungs-Bereich (Visuell ausgeblendet) -->
+                    <div id="booking-picker-status" class="sr-only" aria-live="polite"></div>
+
                     <div class="booking-picker" id="bookingPicker">
                         <div class="picker-main-row">
 
                             <div class="thumbwheel">
                                 <div class="thumbwheel__mask thumbwheel__mask--left"></div>
-                                <div class="thumbwheel__track" id="daysTrack">
+                                <div class="thumbwheel__track" id="daysTrack" tabindex="0">
                                     <!-- Days will be injected here -->
                                 </div>
                                 <div class="thumbwheel__mask thumbwheel__mask--right"></div>
@@ -1171,7 +1181,8 @@
                             </div>
                         </div>
 
-                        <div class="month-selector no-drag" id="monthSelector">
+                        <div class="month-selector no-drag" id="monthSelector" role="button" tabindex="0"
+                            aria-label="Nächsten Monat anzeigen">
                             <!-- Month labels injected by JS -->
                         </div>
                         <div class="select-wrapper select-wrapper--time">

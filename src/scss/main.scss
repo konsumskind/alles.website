@@ -22,7 +22,6 @@
 @use 'layout/viewport-mask';
 
 // Modules (Functionality specific)
-@use 'modules/animations';
 @use 'modules/breathing';
 @use 'modules/swipe';
 @use 'modules/nav';
@@ -31,11 +30,6 @@
 @use 'modules/accordion';
 @use 'modules/preloader';
 @use 'modules/process';
-
-
-
-// Imports
-
 
 // --- Global Styles that don't fit components yet ---
 body {

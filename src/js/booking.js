@@ -1,8 +1,8 @@
 // src/js/booking.js
 import { showToast } from './utils.js';
-import { DraggableOverlay } from './modules/DraggableOverlay.js';
+import { DraggableOverlay, updateOverlayHeights } from './modules/DraggableOverlay.js';
 
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyIWn9byQQeMFxuxCwgE0AYCY6xFZibjvXFkbgaIRAg237fgUr6abBGsJwXAlB_r0Bf2g/exec';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxDRlrVlJLIk7rZjduRgtJZ2wpNF0WwOOAv8V2EYl9EDk1Jo5n32uLvNKMeOLMLyN5EXQ/exec';
 
 export class BookingForm {
     constructor() {
@@ -157,12 +157,16 @@ class BookingPicker {
         this.scrollLeftStart = 0;
         this.isSnapping = false;
         this.snapCooldown = false;
+        this.statusEl = document.getElementById('booking-picker-status');
 
         this.init();
     }
 
     init() {
         if (this.monthSelector) {
+            this.monthSelector.setAttribute('role', 'button');
+            this.monthSelector.setAttribute('tabindex', '0');
+            this.monthSelector.setAttribute('aria-label', 'Nächsten Monat anzeigen');
 
             // We treat any "drag attempt" (mousedown followed by mouseup) as a click
             // to simulate a vertical scroll interaction without full physics.
@@ -177,10 +181,29 @@ class BookingPicker {
 
             // Block standard click to prevent double execution with mouseup
             this.monthSelector.addEventListener('click', (e) => e.preventDefault());
+
+            // Add Enter / Space key support for month selection
+            this.monthSelector.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.toggleMonth();
+                }
+            });
         }
 
         // Native CSS Snap DAUERHAFT deaktivieren, da wir nun 100% JS Magnet-LERP nutzen!
         this.daysTrack.style.scrollSnapType = 'none';
+
+        // Keyboard navigation for the thumbwheel track
+        this.daysTrack.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                this.navigateDays(-1);
+            } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                this.navigateDays(1);
+            }
+        });
 
         let scrollEndTimeout = null;
 
@@ -254,6 +277,33 @@ class BookingPicker {
         });
     }
 
+    navigateDays(direction) {
+        const items = Array.from(this.daysTrack.querySelectorAll('.thumbwheel-item:not(.disabled)'));
+        if (items.length === 0) return;
+
+        const currentActive = this.daysTrack.querySelector('.thumbwheel-item.active');
+        let index = items.indexOf(currentActive);
+
+        if (index === -1) {
+            index = 0;
+        } else {
+            index = Math.max(0, Math.min(items.length - 1, index + direction));
+        }
+
+        const targetItem = items[index];
+        if (targetItem) {
+            this.scrollToItem(targetItem);
+        }
+    }
+
+    announceSelection(dateStr) {
+        if (!this.statusEl || !dateStr) return;
+        const [y, m, d] = dateStr.split('-').map(Number);
+        const dateObj = new Date(y, m - 1, d);
+        const readableDate = dateObj.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        this.statusEl.textContent = `Ausgewähltes Datum: ${readableDate}`;
+    }
+
     async loadSlots() {
         this.timeSelect.disabled = true;
         this.timeSelect.innerHTML = '<option value="">Lade...</option>';
@@ -291,6 +341,9 @@ class BookingPicker {
 
     renderDays() {
         this.daysTrack.innerHTML = '';
+        this.daysTrack.setAttribute('role', 'listbox');
+        this.daysTrack.setAttribute('aria-label', 'Datum auswählen');
+
         this.timeSelect.disabled = true;
         this.timeSelect.innerHTML = '<option value="" disabled selected>Uhrzeit...</option>';
         this.onSelect(null);
@@ -345,15 +398,23 @@ class BookingPicker {
 
             if (item.isDummy) {
                 dayEl.classList.add('disabled');
+                dayEl.setAttribute('aria-hidden', 'true');
             } else {
                 dayEl.dataset.date = item.dateStr;
                 dayEl.dataset.month = item.dateStr.substring(0, 7);
                 dayEl.addEventListener('click', () => this.scrollToItem(dayEl));
+                dayEl.setAttribute('role', 'option');
+                dayEl.setAttribute('tabindex', '-1');
+                dayEl.setAttribute('aria-selected', 'false');
+
+                // Readably formatted date for screen reader, e.g. "Montag, 18. Mai"
+                const readable = item.date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+                dayEl.setAttribute('aria-label', readable);
             }
 
             dayEl.innerHTML = `
-                <span class="day-name">${item.date.toLocaleDateString('de-DE', { weekday: 'short' })}</span>
-                <span class="day-num">${item.date.getDate()}</span>
+                <span class="day-name" aria-hidden="true">${item.date.toLocaleDateString('de-DE', { weekday: 'short' })}</span>
+                <span class="day-num" aria-hidden="true">${item.date.getDate()}</span>
             `;
 
             this.daysTrack.appendChild(dayEl);
@@ -372,6 +433,7 @@ class BookingPicker {
             }
             this.updateWheelRotation();
             this.detectCenterDay();
+            updateOverlayHeights();
         }, 100);
     }
 
@@ -429,12 +491,17 @@ class BookingPicker {
 
         // Optimistic UI update for immediate feedback
         const items = this.daysTrack.querySelectorAll('.thumbwheel-item:not(.disabled)');
-        items.forEach(i => i.classList.remove('active'));
+        items.forEach(i => {
+            i.classList.remove('active');
+            i.setAttribute('aria-selected', 'false');
+        });
         item.classList.add('active');
+        item.setAttribute('aria-selected', 'true');
 
         const dateStr = item.dataset.date;
         if (this.selectedDateStr !== dateStr) {
             this.selectedDateStr = dateStr;
+            this.announceSelection(dateStr);
             this.updateTimes(dateStr);
 
             const monthYear = item.dataset.month;
@@ -545,6 +612,7 @@ class BookingPicker {
             const distance = Math.abs(scrollCenter - itemCenter);
 
             item.classList.remove('active');
+            item.setAttribute('aria-selected', 'false');
             if (distance < minDistance) {
                 minDistance = distance;
                 closestItem = item;
@@ -553,9 +621,11 @@ class BookingPicker {
 
         if (closestItem) {
             closestItem.classList.add('active');
+            closestItem.setAttribute('aria-selected', 'true');
             const dateStr = closestItem.dataset.date;
             if (this.selectedDateStr !== dateStr) {
                 this.selectedDateStr = dateStr;
+                this.announceSelection(dateStr);
                 this.updateTimes(dateStr);
 
                 // Update month selector

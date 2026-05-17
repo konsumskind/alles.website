@@ -59,10 +59,20 @@
     transition: all 0.2s ease;
     width: 50px;
     flex-shrink: 0;
-    user-select: none;
     position: relative;
     overflow: hidden;
     perspective: 400px; // Added for 3D illusion
+
+    // Completely disable text selection
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    &:focus-visible {
+        outline: 2px solid var(--orange);
+        outline-offset: 2px;
+    }
 
     // Subtle gradient to emphasize the "hole" or "slot" look
     &::before {
@@ -153,9 +163,18 @@
     align-items: center;
     border-radius: 50px;
     cursor: grab;
+    z-index: 1; // Eigener Z-Context für den ::after Schatten
+    transition: box-shadow 0.2s ease;
+
+    // Completely disable text selection
     user-select: none;
     -webkit-user-select: none;
-    z-index: 1; // Eigener Z-Context für den ::after Schatten
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    &:has(.thumbwheel__track:focus-visible) {
+        box-shadow: 0 0 0 2px var(--orange);
+    }
     // background-image: radial-gradient(circle, var(--bg-color) 70%, var(--shadow-dark) 100%);
 
     // Custom 3D Drop Shadow (Zylinder-Schatten nach unten rechts)
@@ -199,6 +218,10 @@
 
     &::-webkit-scrollbar {
         display: none;
+    }
+
+    &:focus-visible {
+        outline: none;
     }
 }
 
@@ -256,6 +279,12 @@
     // Nur Farbe/Opacity animieren, NICHT transform (sonst laggt das 3D-Tracking!)
     transition: color 0.3s, opacity 0.3s, text-shadow 0.3s;
     opacity: 0.4;
+
+    // Completely disable text selection on item contents
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 
     // Dynamische Größe & Rotation gebunden an exakte Scroll-Position!
     transform: scale(var(--wheel-scale, 0.8)) rotate3d(0, 1, 0, var(--wheel-rotate, 0deg));

@@ -24,8 +24,8 @@
     height: fit-content;
     // min-height: calc(100% - 100px);
     margin: 0 auto;
-    border-radius: var(--border-radius);
-    padding: var(--space-x2);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    padding: var(--space-x2) var(--space-x2) var(--space-x4) var(--space-x2);
     // padding-top: 0.5rem; // Keep grab handle close to top edge
     pointer-events: auto;
     position: absolute;
@@ -40,13 +40,18 @@
     // Neumorphic internal style
     box-shadow: var(--floating),
         0 -10px 30px rgba(0, 0, 0, 0.33);
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
 
     @media (min-width: 768px) and (min-height: 768px) {
         min-height: fit-content;
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, 20px); // Start slightly lower for entry effect
+        transform: translate(-50%, 0); // Start slightly lower for entry effect
         margin: 0;
         border-radius: var(--border-radius);
         box-shadow: var(--floating);
@@ -72,7 +77,7 @@
 // Scrollable Variant (for long legal texts)
 .overlay--scrollable {
     .overlay__content {
-        max-height: calc(100% - 100px);
+        // max-height: calc(100% - 100px);
 
         // @media (min-width: 768px) {
         //     height: 750px;
@@ -80,9 +85,9 @@
         // }
     }
 
-    &.overlay--high .overlay__content {
-        max-height: 100%;
-    }
+    // &.overlay--high .overlay__content {
+    //     max-height: 100%;
+    // }
 
     .overlay__body {
         flex: 1;
@@ -143,7 +148,7 @@
     height: 35px;
     display: none;
 
-    @media (min-width: 768px) and (min-height: 768px) {
+    @media (min-width: 590px) and (min-height: 768px) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -164,16 +169,7 @@
     z-index: 1100;
 
     .overlay__content {
-        top: 140px; // Offset from the first overlay (which is at 100px)
-
-        @media (max-width: 499px) {
-            min-height: calc(100% - 140px);
-        }
-
-        @media (min-width: 768px) and (min-height: 768px) {
-            // top: auto; // Keep centered on desktop
-            height: 783px !important;
-        }
+        height: var(--booking-overlay-height, 783px) !important;
     }
 }
 
@@ -228,10 +224,9 @@ body.overlay-active {
         }
 
         .overlay__content {
-            transform: translate(-50%, 0);
+            // transform: translate(-50%, 0);
 
-            @media (min-width: 768px) and (min-height: 768px) {
-                // We keep the -50% here to maintain centering if no left/top is set
+            @media (min-width: 590px) and (min-height: 768px) {
                 transform: translate(-50%, -50%);
                 opacity: 1;
                 pointer-events: auto;

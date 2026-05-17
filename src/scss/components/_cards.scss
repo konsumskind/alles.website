@@ -93,19 +93,25 @@
     overflow: hidden;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 420px;
+    max-width: 340px;
+    gap: var(--space-x1);
 
-    @media (min-width: 900px) {
-        gap: var(--space-x1);
+    // @media (min-width: 900px) {
+    //     gap: var(--space-x1);
 
-    }
+    // }
 
     &__header {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        gap: var(--space-x1);
+        gap: var(--space-s1);
 
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
     }
 
     &__badge {
@@ -206,7 +212,7 @@
         justify-content: space-between;
         align-items: flex-end;
         border-top: 1px solid var(--shadow-dark);
-        padding-top: var(--space-x2);
+        padding-top: var(--space-x1);
 
         .swipe-wrapper {
             width: 200px;
