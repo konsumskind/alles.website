@@ -301,12 +301,6 @@ $z-preloader: 9999; // Preloader (always on top)
 @mixin icon-circle($size: 50px, $color: var(--text-light), $active-color: var(--orange)) {
   width: $size;
   height: $size;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-gradient);
-  box-shadow: var(--engraved), var(--raised);
   color: $color;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -322,4 +316,32 @@ $z-preloader: 9999; // Preloader (always on top)
 body.is-desktop {
   --border-radius: 20px;
   --border-radius-small: 10px;
+}
+
+// Uninterrupted hover effects on desktop (either hover capable device or JS is-desktop class)
+@mixin hover-desktop {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+
+  .is-desktop &:hover {
+    @content;
+  }
+}
+
+// Uninterrupted desktop-specific layout and styles (either large screen, hover capable device, or JS is-desktop class)
+@mixin desktop-only {
+  @media (min-width: 768px) {
+    @content;
+  }
+
+  @media (hover: hover) {
+    @content;
+  }
+
+  .is-desktop & {
+    @content;
+  }
 }

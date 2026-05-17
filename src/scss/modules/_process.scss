@@ -157,11 +157,9 @@
         background: var(--bg-color);
         z-index: 1; // Internal: default label
 
-        @media (min-width: 768px) {
-            &:hover {
-                color: var(--orange);
-                cursor: pointer;
-            }
+        @include hover-desktop {
+            color: var(--orange);
+            cursor: pointer;
         }
 
         &.active {

@@ -1,3 +1,5 @@
+@use '../variables' as *;
+
 .accordion {
     display: flex;
     flex-direction: column;
@@ -55,10 +57,8 @@
     transition: color 0.3s ease;
     user-select: none;
 
-    @media (min-width: 768px) {
-        &:hover {
-            color: var(--orange);
-        }
+    @include hover-desktop {
+        color: var(--orange);
     }
 }
 

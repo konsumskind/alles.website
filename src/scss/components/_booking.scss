@@ -175,6 +175,7 @@
     &:has(.thumbwheel__track:focus-visible) {
         box-shadow: 0 0 0 2px var(--orange);
     }
+
     // background-image: radial-gradient(circle, var(--bg-color) 70%, var(--shadow-dark) 100%);
 
     // Custom 3D Drop Shadow (Zylinder-Schatten nach unten rechts)
@@ -458,6 +459,8 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        transition: box-shadow 0.2s ease;
+
 
         &:checked {
             box-shadow: var(--pressed-small), var(--engraved),

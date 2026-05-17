@@ -111,10 +111,8 @@
         text-decoration: none;
         color: inherit;
 
-        @media (min-width: 590px) {
-            &:hover {
-                color: var(--orange);
-            }
+        @include hover-desktop {
+            color: var(--orange);
         }
     }
 }

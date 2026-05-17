@@ -30,12 +30,43 @@
         opacity: 1;
     }
 
-    &:active {
-        box-shadow:
-            inset 2px 2px 4px var(--theme-switch-shadow-dark),
-            inset -2px -2px 4px var(--theme-switch-shadow-light);
+    &::before {
+        content: '';
+        position: absolute;
+        box-shadow: var(--engraved-blue), var(--raised-blue);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: var(--theme-switch-bg);
+        z-index: -1;
+        transition: opacity 0.2s ease;
+        opacity: 0; // Auf Mobilgeräten standardmäßig transparent (Gradient sichtbar)
+    }
 
-        transform: scale(0.95);
+    &:active,
+    &.active {
+        box-shadow: var(--pressed-small), var(--engraved);
+        color: var(--orange);
+        // transform: scale(0.98);
+    }
+
+    @include desktop-only {
+        &::before {
+            opacity: 1; // Auf Desktop standardmäßig deckend (einfarbiger Hintergrund sichtbar)
+        }
+
+        &:hover {
+            i {
+                // filter: drop-shadow(0px 0px 2px var(--orange));
+                color: var(--orange);
+            }
+
+            &::before {
+                opacity: 0; // Blendet das einfarbige Overlay aus und enthüllt den Gradienten fließend in 0.8s
+            }
+        }
     }
 
     // Logo inside the button

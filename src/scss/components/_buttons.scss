@@ -13,6 +13,8 @@
     cursor: pointer;
     padding: 12px 24px;
     font-family: inherit;
+    text-shadow: var(--text-pressed);
+
 
     &:active,
     &.active {
@@ -33,13 +35,9 @@
             var(--raised);
 
 
-        @media (min-width: 768px) {
-            &:hover {
-                // box-shadow: var(--engraved), 1px 1px 0px var(--orange), var(--raised);
-
-                i {
-                    animation: iconBounce 0.4s ease-in-out;
-                }
+        @include hover-desktop {
+            i {
+                animation: iconBounce 0.4s ease-in-out;
             }
         }
     }
@@ -120,23 +118,58 @@
 
 
 .icon-btn {
+    position: relative;
+    z-index: 1;
+    width: 50px;
+    height: 50px;
     box-shadow: var(--engraved), var(--raised);
-    @include icon-circle(50px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-gradient);
     font-size: var(--font-size-large);
     text-shadow: var(--text-pressed);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, box-shadow 0.8s ease;
+    color: var(--text-light);
 
+    &::before {
+        content: '';
+        position: absolute;
+        box-shadow: var(--engraved), var(--raised);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: var(--bg-color);
+        z-index: -1;
+        transition: opacity 0.2s ease;
+        opacity: 0; // Auf Mobilgeräten standardmäßig transparent (Gradient sichtbar)
+    }
 
     &:active,
     &.active {
         box-shadow: var(--pressed-small), var(--engraved);
+        color: var(--orange);
         // transform: scale(0.98);
     }
 
-    @media (min-width: 768px) {
+    @include desktop-only {
+        &::before {
+            opacity: 1; // Auf Desktop standardmäßig deckend (einfarbiger Hintergrund sichtbar)
+        }
+
         &:hover {
-            color: var(--orange);
+            i {
+                // filter: drop-shadow(0px 0px 2px var(--orange));
+                color: var(--orange);
+            }
+
+            &::before {
+                opacity: 0; // Blendet das einfarbige Overlay aus und enthüllt den Gradienten fließend in 0.8s
+            }
         }
     }
 }

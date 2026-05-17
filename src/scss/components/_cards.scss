@@ -11,8 +11,10 @@
     flex-direction: column;
     gap: var(--space-x2);
 
-    &--hover:hover {
-        transform: scale(1.02);
+    &--hover {
+        @include hover-desktop {
+            transform: scale(1.02);
+        }
     }
 
     &__pressed {
@@ -64,7 +66,7 @@
         align-items: center;
         box-shadow: var(--engraving);
         padding: 1rem;
-        border-radius: var(--border-radius);
+        border-radius: 99px;
         border: 1px solid var(--orange);
     }
 

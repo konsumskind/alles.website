@@ -40,11 +40,12 @@
     // Neumorphic internal style
     box-shadow: var(--floating),
         0 -10px 30px rgba(0, 0, 0, 0.33);
-    cursor: grab;
+    // cursor: grab;
 
-    &:active {
-        cursor: grabbing;
-    }
+    // &:active {
+    //     cursor: grabbing;
+
+    // }
 
     @media (min-width: 768px) and (min-height: 768px) {
         min-height: fit-content;
@@ -116,7 +117,7 @@
 .overlay__grab {
     position: absolute;
     width: 100%;
-    height: var(--space-x2);
+    height: var(--space-x3);
     flex-shrink: 0;
     cursor: grab;
     display: flex;
