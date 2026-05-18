@@ -8,18 +8,18 @@ export class AgbOverlay {
             topBuffer: 140 
         });
         
-        this.links = document.querySelectorAll('.js-open-agb');
         if (!this.overlay.overlay) return;
 
         this.init();
     }
 
     init() {
-        this.links.forEach(link => {
-            link.addEventListener('click', (e) => {
+        document.body.addEventListener('click', (e) => {
+            const link = e.target.closest('.js-open-agb');
+            if (link) {
                 e.preventDefault();
                 this.overlay.open();
-            });
+            }
         });
     }
 }

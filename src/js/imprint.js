@@ -8,18 +8,18 @@ export class ImprintOverlay {
             topBuffer: 140 
         });
         
-        this.links = document.querySelectorAll('.js-open-imprint');
         if (!this.overlay.overlay) return;
 
         this.init();
     }
 
     init() {
-        this.links.forEach(link => {
-            link.addEventListener('click', (e) => {
+        document.body.addEventListener('click', (e) => {
+            const link = e.target.closest('.js-open-imprint');
+            if (link) {
                 e.preventDefault();
                 this.overlay.open();
-            });
+            }
         });
     }
 }
