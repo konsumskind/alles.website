@@ -116,9 +116,12 @@
             }
 
             @media (max-width: 768px) {
-                place-items: center;
                 grid-template-columns: 1fr;
                 margin: 0 auto;
+            }
+
+            @media (min-width: 400px) and (max-width: 768px) {
+                place-items: center;
             }
         }
 

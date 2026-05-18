@@ -29,7 +29,17 @@
 
     .in-view &__step.active .highlight-badge {
         transform: translateX(-50%) scale(1);
+        left: -51px;
+        top: -5px;
         opacity: 1;
+        font-weight: 900;
+
+        &::after {
+            bottom: -9px;
+            left: 95%;
+            transform: rotate(325deg);
+        }
+
     }
 
     &__line {
@@ -229,6 +239,21 @@
         i {
             font-size: 1.25rem;
             text-shadow: var(--text-pressed);
+        }
+
+    }
+
+    .process__desktop-cta {
+        display: none;
+
+        .is-desktop & {
+            display: flex;
+        }
+    }
+
+    .swipe-wrapper {
+        .is-desktop & {
+            display: none;
         }
     }
 }

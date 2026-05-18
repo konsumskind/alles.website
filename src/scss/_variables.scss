@@ -6,8 +6,8 @@
   --text-light: #8d97a5;
   --text-lighter: #9ca3af;
   --orange: #FF7E21;
-  --orange-dark: #e4660d;
-  --orange-light: #ffd8ba;
+  --orange-dark: #c25304;
+  --orange-light: #fff1cc;
 
   --logo-cube-color: #ebebeb; // Light Logo on Light Theme (User Request)
   --blue: #00b3ff;
@@ -22,6 +22,7 @@
   --shadow-dark: #d3d3d3;
   --shadow-orange: rgba(255, 94, 0, 0.5);
   --light-orange: rgba(255, 225, 168, 0.6);
+  --drop-shadow: rgba(0, 0, 0, 0.267);
 
   /* Fonts */
   --font-family-title: 'Inter', sans-serif;
@@ -102,6 +103,23 @@
   -1px -1px 2px var(--shadow-dark),
   1px 1px 2px var(--shadow-light);
 
+  --raised-orange: 2px 2px 4px var(--shadow-dark),
+  -2px -2px 4px var(--shadow-light),
+  6px 6px 16px #3b15008f,
+  -6px -6px 6px rgb(255, 255, 255),
+  inset -4px -4px 6px var(--orange-dark),
+  inset 4px 4px 6px var(--orange-light);
+
+  --engraved-orange: inset -1px -1px 2px var(--orange-dark),
+  inset 1px 1px 2px var(--orange-light),
+  -1px -1px 2px var(--shadow-dark),
+  1px 1px 2px var(--shadow-light);
+
+  --pressed-orange: inset 6px 6px 8px var(--orange-dark),
+  inset -6px -6px 8px var(--orange-light),
+  -1px -1px 2px var(--shadow-dark),
+  1px 1px 2px var(--shadow-light);
+
   --pressed-small-orange: inset 2px 2px 4px var(--orange-dark),
   inset -2px -2px 4px var(--orange-light),
   -1px -1px 2px var(--shadow-dark),
@@ -117,6 +135,8 @@
   1px 1px 2px var(--shadow-dark);
   --text-pressed: 1px 1px 2px var(--shadow-light),
   -1px -1px 2px var(--shadow-dark);
+  --text-pressed-orange: 1px 1px 2px var(--orange-light),
+  -1px -1px 2px var(--orange-dark);
 
   /* HERO SPECIFIC */
   --hero-profile-shadow-outer: 16px 16px 24px var(--shadow-dark),
@@ -158,6 +178,12 @@
   inset -1px -1px 2px var(--theme-switch-shadow-dark),
   inset 1px 1px 2px var(--theme-switch-shadow-light);
 
+  --pressed-blue: inset 2px 2px 4px var(--theme-switch-shadow-dark),
+  inset -2px -2px 4px var(--theme-switch-shadow-light),
+  -1px -1px 2px var(--theme-switch-shadow-dark),
+  1px 1px 2px var(--theme-switch-shadow-light);
+
+
   --engraved-blue: inset -1px -1px 2px var(--theme-switch-shadow-dark),
   inset 1px 1px 2px var(--theme-switch-shadow-light),
   -1px -1px 2px var(--theme-switch-shadow-dark),
@@ -174,7 +200,7 @@
 
   body.dark-mode {
     --bg-color: #16181b;
-    --text-main: #f4f4f4;
+    --text-main: #f1eeec;
     --text-light: #b0b3b8;
 
     // Logo adaptation: Dark Cube on Dark Background (User Request)
@@ -187,7 +213,7 @@
     --text-lighter: #6b7280;
     --blue-light: #0c1a30;
     --orange-dark: #963e00;
-    --orange-light: #ffe6d3;
+    // --orange-light: #ffe6d3;
     /* Darker orange back */
 
     --shadow-light: #1f252c;
@@ -195,6 +221,7 @@
     --shadow-dark: #0b0c0e;
     --shadow-orange: rgba(255, 94, 0, 0.5);
     --light-orange: rgba(67, 20, 7, 0.6);
+    --drop-shadow: rgba(0, 0, 0, 0.733);
 
     /* Recalibrate Neumorphism for Dark Mode */
     --raised:
@@ -229,8 +256,24 @@
       -1px -1px 2px var(--shadow-dark),
       1px 1px 2px var(--shadow-light);
 
-    --pressed-small-orange:
-      inset 2px 2px 4px var(--orange-dark),
+    --raised-orange: 2px 2px 4px var(--shadow-dark),
+      -2px -2px 4px var(--shadow-light),
+      6px 6px 16px #000000,
+      -6px -6px 6px rgba(255, 255, 255, 0.192),
+      inset -4px -4px 6px var(--orange-dark),
+      inset 4px 4px 6px var(--orange-light);
+
+    --engraved-orange: inset -1px -1px 2px var(--orange-dark),
+      inset 1px 1px 2px var(--orange-light),
+      -1px -1px 2px var(--shadow-dark),
+      1px 1px 2px rgba(255, 255, 255, 0.507);
+
+    --pressed-orange: inset 6px 6px 8px var(--orange-dark),
+      inset -6px -6px 8px var(--orange-light),
+      -1px -1px 2px var(--shadow-dark),
+      1px 1px 2px var(--shadow-light);
+
+    --pressed-small-orange: inset 2px 2px 4px var(--orange-dark),
       inset -2px -2px 4px var(--orange-light),
       -1px -1px 2px var(--shadow-dark),
       1px 1px 2px var(--shadow-light);
@@ -313,12 +356,12 @@ $z-preloader: 9999; // Preloader (always on top)
 }
 
 // JS-Controlled Border Radius (isMobileDevice)
-body.is-desktop {
+body.high-width {
   --border-radius: 20px;
   --border-radius-small: 10px;
 }
 
-// Uninterrupted hover effects on desktop (either hover capable device or JS is-desktop class)
+// Uninterrupted hover effects on desktop (either hover capable device or JS high-width class)
 @mixin hover-desktop {
   @media (hover: hover) {
     &:hover {
@@ -326,12 +369,12 @@ body.is-desktop {
     }
   }
 
-  .is-desktop &:hover {
+  .high-width &:hover {
     @content;
   }
 }
 
-// Uninterrupted desktop-specific layout and styles (either large screen, hover capable device, or JS is-desktop class)
+// Uninterrupted desktop-specific layout and styles (either large screen, hover capable device, or JS high-width class)
 @mixin desktop-only {
   @media (min-width: 768px) {
     @content;
@@ -341,7 +384,46 @@ body.is-desktop {
     @content;
   }
 
-  .is-desktop & {
+  .high-width & {
     @content;
+  }
+}
+
+@mixin hero-cta-desktop {
+
+  // Hide the Swipe CTA container & label
+  .swipe-wrapper:not(.hero__desktop-cta) {
+    display: none !important;
+  }
+
+  .swipe-cta-label {
+    display: none !important;
+  }
+
+  // Show and position the Desktop CTA button
+  .hero__desktop-cta {
+    display: block !important;
+    position: absolute;
+    margin: var(--space-x1) 0 var(--space-x4) !important;
+    z-index: 1;
+    width: unset;
+
+    .highlight-badge {
+      left: 300px;
+      top: -35px;
+      transform: translateX(0) scale(0);
+      transform-origin: bottom left;
+
+      &.show {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+      }
+
+      &::after {
+        bottom: -3px;
+        left: -8px;
+        transform: rotate(79deg);
+      }
+    }
   }
 }

@@ -13,7 +13,7 @@
     position: relative;
     max-height: 800px;
 
-    body.is-desktop & {
+    body.high-width & {
         @media (min-height: 768px) {
             margin-top: 50px;
         }
@@ -130,6 +130,38 @@
 
 
 
+    .cta-wrapper {
+        // display: none !important;
+        // margin: var(--space-x1) 0 var(--space-x4) !important;
+
+
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+
+    &__desktop-cta {
+        display: none;
+
+        .highlight-badge {
+            left: 200px;
+            top: -26px;
+            transform: translateX(0) scale(0);
+            transform-origin: bottom left;
+
+            &.show {
+                transform: translateX(0) scale(1);
+                opacity: 1;
+            }
+
+            &::after {
+                bottom: -3px;
+                left: -8px;
+                transform: rotate(79deg);
+            }
+        }
+    }
+
 }
 
 // Animation Styles
@@ -169,9 +201,8 @@
     white-space: pre; // Respect spaces in spans
 }
 
-.hero__desktop-cta {
-    display: none !important;
-}
+
+
 
 // Layout Adjustments for Desktop
 @media (min-width: 768px) {
@@ -238,7 +269,7 @@
             }
         }
 
-        .swipe-wrapper:not(.hero__desktop-cta) {
+        .swipe-wrapper {
             display: none !important;
         }
 
@@ -247,15 +278,15 @@
         }
 
         &__desktop-cta {
-            display: block !important;
-            position: absolute;
+            display: block;
+            // position: absolute;
             margin: var(--space-x1) 0 var(--space-x4) !important;
             z-index: 1;
             width: unset;
 
             .highlight-badge {
                 left: 300px;
-                top: -35px;
+                top: 125px;
                 transform: translateX(0) scale(0);
                 transform-origin: bottom left;
 
@@ -268,6 +299,10 @@
                     bottom: -3px;
                     left: -8px;
                     transform: rotate(79deg);
+                }
+
+                @media (max-height: 767px) {
+                    top: 88px;
                 }
             }
         }
@@ -347,4 +382,22 @@
 
 .process-mobile-only {
     display: block;
+}
+
+#heroBadge {
+    left: 110px;
+    top: -30px;
+    transform: translateX(0) scale(0);
+    transform-origin: bottom left;
+
+    &.show {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+
+    &::after {
+        bottom: -5px;
+        left: -7px;
+        transform: rotate(66deg);
+    }
 }

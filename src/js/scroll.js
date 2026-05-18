@@ -95,30 +95,9 @@ export class ScrollManager {
 
         const currentWidth = window.innerWidth;
         const currentHeight = window.innerHeight;
-        const wasDesktopWidth = this.lastWidth >= 590;
-        const isDesktopWidth = currentWidth >= 590;
-        const wasSmallHeight = this.lastHeight < 768;
-        const isSmallHeight = currentHeight < 768;
 
-        // Detect major layout changes (mobile/desktop or always-on/scroll-sync)
-        // const layoutCrossed = (wasDesktopWidth !== isDesktopWidth) || (wasSmallHeight !== isSmallHeight);
-
-        // if (layoutCrossed && !this.isLayoutTransitioning) {
-        //     this.isLayoutTransitioning = true;
-
-        //     // 1. Hide everything immediately to animate "out"
-        //     this.nav.classList.remove('nav-visible');
-        //     if (this.footer) this.footer.classList.remove('footer-visible');
-        //     if (this.themeSwitcher) this.themeSwitcher.classList.remove('theme-switcher--visible');
-
-        //     // 2. Wait for layout shift and "out" animation, then show again
-        //     setTimeout(() => {
-        //         this.isLayoutTransitioning = false;
-        //         this.handleScroll();
-        //     }, 600); // Wait for the transition duration
-        // } else if (!this.isLayoutTransitioning) {
-        //     this.handleScroll();
-        // }
+        // Make sure we update bar visibility and active section on resize
+        this.handleScroll();
 
         this.lastWidth = currentWidth;
         this.lastHeight = currentHeight;

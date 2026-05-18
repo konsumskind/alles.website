@@ -118,7 +118,7 @@
     <script type="module" src="/src/main.js"></script>
 </head>
 
-<body>
+<body ontouchstart="">
     <!-- Preloader -->
     <div id="preloader" class="preloader">
         <div class="preloader__content">
@@ -162,9 +162,9 @@
                     <p class="hero__text">Beziehungen gestalten, eigenmächtig Ziele erreichen und Konflikte strukturiert
                         lösen.</p>
 
-                    <div class="swipe-wrapper hero__desktop-cta">
-                        <div class="highlight-badge">Kostenlos Termin vereinbaren, <br> oder direkt <a
-                                href="#kontakt">anrufen!</a></div>
+                    <div class="cta-wrapper hero__desktop-cta">
+                        <div class="highlight-badge">Kostenlos Termin vereinbaren, <br>
+                            oder direkt <a href="">anrufen!</a></div>
                         <button class="btn btn--large btn--pulse-blue" id="desktopCtaBtn">
                             <i class="fas fa-calendar-days"></i>
                             <span>Termin</span>
@@ -196,6 +196,16 @@
                         <i class="fas fa-chevron-right swipe-arrow swipe-arrow-right"></i>
                     </div>
                 </div>
+
+                <div class="hero__desktop-cta">
+                    <div class="highlight-badge">Kostenlos Termin vereinbaren, <br> oder direkt <a href="">anrufen!</a>
+                    </div>
+                    <button class="btn btn--large btn--pulse-blue" id="desktopCtaBtn">
+                        <i class="fas fa-calendar-days"></i>
+                        <span>Termin</span>
+                    </button>
+                </div>
+
                 <a href="#haltung" class="hero__scroll-down animate-bounce">
                     <i class="fas fa-chevron-down"></i>
                 </a>
@@ -703,7 +713,17 @@
                             <div class="swipe-knob">
                                 <i class="fas fa-chevron-right swipe-arrow"></i>
                             </div>
+
+
                         </div>
+                    </div>
+                    <div class="cta-wrapper process__desktop-cta">
+                        <div class="highlight-badge">Kostenlos Termin vereinbaren, <br>
+                            oder direkt <a href="#kontakt">anrufen!</a></div>
+                        <button class="btn btn--large btn--pulse-blue" id="desktopCtaBtn">
+                            <i class="fas fa-calendar-days"></i>
+                            <span>Termin</span>
+                        </button>
                     </div>
                 </div>
                 <div class="profile-process__track" id="processTrack">
@@ -1148,8 +1168,8 @@
                     <span class="ui-label">Auftragsklärung</span>
                     <h3>Termin buchen</h3>
                 </div>
-                <p class="block-text">Hinterlasse deine Kontaktdaten und wähle einen Termin. Ich rufe zum vereinbarten
-                    Termin zurück und wir klähren in einem unverbindlichen Gespräch die Details.</p>
+                <p class="block-text">Hinterlasse deine Kontaktdaten und wähle einen Termin. Ich rufe dich zum
+                    vereinbarten Zeitpunkt an und wir klähren in einem unverbindlichen Gespräch die Details.</p>
             </div>
 
             <div class="overlay__body">
@@ -1214,6 +1234,117 @@
         </div>
     </div>
 
+    <div id="contact-overlay" class="overlay overlay--high overlay--scrollable">
+        <div class="overlay__content">
+            <div class="overlay__grab"></div>
+            <button class="icon-btn overlay__close" id="contactCloseBtn" aria-label="Schließen">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="section__title">
+                <div class="ui-label">
+                    <span class="text-orange">Kontakt</span>
+                </div>
+                <h3>Lass uns sprechen!</h3>
+            </div>
+            <div class="overlay__body">
+                <div class="contact-overlay-content">
+                    <p class="contact-intro-text">Vorgespräche sind unverbindlich und kostenlos.</p>
+
+                    <div class="contact-overlay-details">
+                        <!-- Adresse mit externem Map-Link (ALS ERSTES GANZ OBEN) -->
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-item__icon">
+                                <i class="fas fa-map-marker-alt text-orange"></i>
+                            </div>
+                            <div class="contact-detail-item__content">
+                                <span class="contact-detail-item__label">Atelier</span>
+                                <div class="contact-detail-flex-row contact-detail-flex-row--align-start">
+                                    <a href="https://maps.app.goo.gl/RvA4JSvsy3GjJLup9" target="_blank"
+                                        rel="noopener noreferrer" class="contact-detail-address__text-link"
+                                        aria-label="Auf Google Maps anzeigen">
+                                        <p class="contact-detail-address__text">Hedwigstraße 6<br>80636 München</p>
+                                    </a>
+                                    <a href="https://maps.app.goo.gl/RvA4JSvsy3GjJLup9" target="_blank"
+                                        rel="noopener noreferrer" class="icon-btn contact-detail-inline-btn"
+                                        aria-label="Auf Google Maps anzeigen">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-divider"></div>
+
+
+                        <!-- Telefonnummer (Scrape-Safe!) -->
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-item__icon">
+                                <i class="fas fa-phone-alt text-orange"></i>
+                            </div>
+                            <div class="contact-detail-item__content">
+                                <span class="contact-detail-item__label">Telefon</span>
+                                <div class="contact-detail-flex-row">
+                                    <a href="#" class="contact-detail-item__value js-safe-phone" data-tel-a="+49"
+                                        data-tel-b="157" data-tel-c="72998248" aria-label="Telefonnummer anrufen">
+                                        <span class="js-phone-text">Telefon wird geladen...</span>
+                                    </a>
+                                    <a href="#" class="icon-btn contact-detail-inline-btn js-safe-phone"
+                                        data-tel-a="+49" data-tel-b="157" data-tel-c="72998248"
+                                        aria-label="Telefonnummer anrufen">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-divider"></div>
+
+
+                        <!-- E-Mail Adresse (Scrape-Safe!) -->
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-item__icon">
+                                <i class="fas fa-envelope text-orange"></i>
+                            </div>
+                            <div class="contact-detail-item__content">
+                                <span class="contact-detail-item__label">E-Mail</span>
+                                <div class="contact-detail-flex-row">
+                                    <a href="#" class="contact-detail-item__value js-safe-email"
+                                        data-mail-u="janoschkartschall" data-mail-d="gmail.com"
+                                        aria-label="E-Mail senden">
+                                        <span class="js-email-text">E-Mail wird geladen...</span>
+                                    </a>
+                                    <a href="#" class="icon-btn contact-detail-inline-btn js-safe-email"
+                                        data-mail-u="janoschkartschall" data-mail-d="gmail.com"
+                                        aria-label="E-Mail senden">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trennlinie zwischen Kontaktdaten und Buttons -->
+                    <!-- Die beschrifteten runden Buttons (wie in der Section, ebenfalls Scrape-Safe!) -->
+                    <div class="contact-labeled-buttons">
+                        <div class="contact-labeled-button">
+                            <button class="icon-btn" id="contactOverlayBookingBtn" aria-label="Termin online buchen">
+                                <i class="fas fa-calendar-days"></i>
+                            </button>
+                            <span class="button-label">Termin</span>
+                        </div>
+                        <div class="contact-labeled-button">
+                            <a href="https://wa.me/4915772998248" target="_blank" rel="noopener noreferrer"
+                                class="icon-btn" id="contactOverlayWhatsappLink" aria-label="WhatsApp Nachricht senden">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <span class="button-label">WhatsApp</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="toast"></div>
 
     <div id="imprint-overlay" class="overlay overlay--high overlay--scrollable">
@@ -1222,10 +1353,12 @@
             <button class="icon-btn overlay__close" aria-label="Schließen">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="ui-label">
-                <span class="text-orange">Rechtliches</span>
+            <div class="section__title">
+                <div class="ui-label">
+                    <span class="text-orange">Rechtliches</span>
+                </div>
+                <h3>Impressum</h3>
             </div>
-            <h3>Impressum</h3>
             <div class="overlay__body">
                 <div class="imprint-text text-light">
                     <h4>Angaben gemäß § 5 TMG</h4>
@@ -1262,10 +1395,12 @@
             <button class="icon-btn overlay__close" id="privacyCloseBtn" aria-label="Schließen">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="ui-label">
-                <span class="text-orange">Rechtliches</span>
+            <div class="section__title">
+                <div class="ui-label">
+                    <span class="text-orange">Rechtliches</span>
+                </div>
+                <h3>Datenschutzbestimmungen</h3>
             </div>
-            <h3>Datenschutzbestimmungen</h3>
             <div class="overlay__body">
                 <div class="privacy-text text-light">
 
@@ -1357,10 +1492,12 @@
             <button class="icon-btn overlay__close" id="agbCloseBtn" aria-label="Schließen">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="ui-label">
-                <span class="text-orange">Rechtliches</span>
+            <div class="section__title">
+                <div class="ui-label">
+                    <span class="text-orange">Rechtliches</span>
+                </div>
+                <h3>Allgemeine Geschäftsbedingungen</h3>
             </div>
-            <h3>Allgemeine Geschäftsbedingungen</h3>
             <div class="overlay__body">
                 <div class="agb-text text-light">
                     <h4>1. Geltungsbereich</h4>

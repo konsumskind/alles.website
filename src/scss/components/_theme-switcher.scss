@@ -43,12 +43,22 @@
         z-index: -1;
         transition: opacity 0.2s ease;
         opacity: 0; // Auf Mobilgeräten standardmäßig transparent (Gradient sichtbar)
+
+        @media (min-width: 625px) and (max-width: 767px) {
+            background: var(--bg-color);
+            box-shadow: var(--engraved), var(--raised);
+        }
     }
 
     &:active,
     &.active {
-        box-shadow: var(--pressed-small), var(--engraved);
+        box-shadow: var(--pressed-blue), var(--engraved-blue);
         color: var(--orange);
+
+        @media (min-width: 625px) and (max-width: 767px) {
+            box-shadow: var(--pressed-small), var(--engraved);
+        }
+
         // transform: scale(0.98);
     }
 

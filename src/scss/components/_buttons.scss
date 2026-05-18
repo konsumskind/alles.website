@@ -14,7 +14,7 @@
     padding: 12px 24px;
     font-family: inherit;
     text-shadow: var(--text-pressed);
-
+    touch-action: manipulation;
 
     &:active,
     &.active {
@@ -46,6 +46,21 @@
         position: relative;
         z-index: 1;
         width: 18rem;
+        background: var(--orange);
+        box-shadow: var(--engraved-orange), var(--raised-orange);
+        text-shadow: var(--text-pressed-orange);
+        color: white;
+
+        &:active,
+        &.active {
+            box-shadow: var(--pressed-orange), var(--engraved-orange);
+
+            span,
+            i {
+                scale: .96;
+            }
+        }
+
 
         &::after {
             display: none;
@@ -56,13 +71,14 @@
             right: 0;
             bottom: 0;
             border-radius: 99px;
-            box-shadow: 0 0 10px 10px #ffffffd6, 0 0 25px var(--blue);
-            animation: pulse-blue-glow 3s infinite ease-in-out;
+            box-shadow: inset 1px 1px 0px 1px #ffffffd0;
+            // animation: pulse-blue-glow 3s infinite ease-in-out;
             pointer-events: none;
             z-index: -1;
             transition: box-shadow 0.8s ease, opacity 0.5s ease;
-            opacity: .75;
-            // mix-blend-mode: plus-lighter;
+            scale: .95;
+            filter: blur(1px);
+            transform: translate(1px, 2px);
         }
 
 
@@ -133,6 +149,7 @@
     cursor: pointer;
     transition: color 0.2s ease, box-shadow 0.8s ease;
     color: var(--text-light);
+    touch-action: manipulation;
 
     &::before {
         content: '';

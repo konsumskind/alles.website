@@ -16,6 +16,7 @@
 @use 'components/privacy';
 @use 'components/imprint';
 @use 'components/agb';
+@use 'components/contact-overlay';
 @use 'layout/hero';
 @use 'layout/sections';
 @use 'layout/footer';
@@ -33,7 +34,7 @@
 
 // --- Global Styles that don't fit components yet ---
 body {
-
+    // ontouchstart="";
     display: flex;
     flex-direction: column;
     align-items: center;

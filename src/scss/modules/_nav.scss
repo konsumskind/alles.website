@@ -22,6 +22,7 @@
     transition: transform 0.3s ease-in;
     opacity: 1;
     pointer-events: none;
+    white-space: nowrap;
 
     // will-change: transform, opacity;
     &::before,
@@ -104,7 +105,7 @@
         }
     }
 
-    .is-desktop & {
+    .high-width & {
         width: 100.1%;
 
         top: -6px;
@@ -138,7 +139,7 @@
 
         // Transition for desktop
         // transition: transform 0.4s ease-in;
-        @media (max-width:625px) {
+        @media (max-width:624px) {
             padding: 0 10px;
             justify-content: center;
 
@@ -246,12 +247,6 @@
         span {
             font-size: var(--font-size-m);
             font-weight: 600;
-        }
-    }
-
-    @media (min-width: 768px) and (min-height: 768px) {
-        span {
-            font-size: var(--font-size-s);
         }
     }
 }

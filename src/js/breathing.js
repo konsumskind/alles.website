@@ -138,7 +138,10 @@ export class BreathExercise {
         });
 
         const nav = document.querySelector('.bottom-nav');
-        if (nav && window.scrollY > 50) nav.classList.add('nav-visible');
+        if (nav && window.scrollY > 50) {
+            nav.classList.add('nav-visible');
+            document.querySelector('.desktop-footer-bar')?.classList.add('footer-visible');
+        }
 
         this.elements.circle.style.transition = '';
         this.elements.circle.classList.remove('inhale');
@@ -208,6 +211,7 @@ export class BreathExercise {
             });
 
             document.querySelector('.bottom-nav')?.classList.remove('nav-visible');
+            document.querySelector('.desktop-footer-bar')?.classList.remove('footer-visible');
 
             const dotsContainer = document.getElementById('breathDots');
             if (dotsContainer) {

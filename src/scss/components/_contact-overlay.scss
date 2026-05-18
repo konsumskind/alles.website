@@ -1,0 +1,209 @@
+// src/scss/components/_contact-overlay.scss
+@use '../variables' as *;
+
+.contact-overlay-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-x2);
+    padding-bottom: var(--space-x1);
+
+    .contact-intro-text {
+        text-align: center;
+        margin: 0 auto;
+        font-family: var(--font-family-title);
+        max-width: 24rem;
+        line-height: 1.5;
+    }
+
+    .form-divider {
+        // margin: var(--space-x1) 0;
+    }
+}
+
+.contact-overlay-details {
+    display: flex;
+    flex-direction: column;
+    // gap: var(--space-x1);
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    margin: var(--space-x1) 0;
+}
+
+.contact-detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-x1);
+    padding-bottom: var(--space-s1);
+    // border-bottom: 1px solid var(--shadow-dark);
+
+    &:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    &__icon {
+        font-size: var(--font-size-l);
+        width: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1;
+    }
+
+    &__label {
+        font-size: var(--font-size-s);
+        color: var(--text-light);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__value {
+        font-size: var(--font-size-m);
+        color: var(--text-main);
+        font-weight: 700;
+        font-family: var(--font-family-title);
+        text-decoration: none;
+        transition: color 0.2s ease;
+        word-break: break-all;
+
+        @include hover-desktop {
+            color: var(--orange);
+        }
+    }
+}
+
+// Inline flex layout for details
+.contact-detail-flex-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    &--align-start {
+        align-items: flex-start;
+    }
+}
+
+// Labeled circular buttons row (bottom)
+.contact-labeled-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-self: center;
+    width: 80%;
+    margin: var(--space-x1) 0;
+}
+
+.contact-labeled-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-s1);
+    flex: 1;
+
+    .button-label {
+        font-size: var(--font-size-s);
+        color: var(--text-light);
+        font-weight: 600;
+        font-family: var(--font-family-title);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-shadow: var(--text-raised);
+        transition: color 0.2s ease;
+    }
+
+    &:hover {
+        .button-label {
+            color: var(--text-main);
+        }
+    }
+
+    .icon-btn {
+        &#contactOverlayBookingBtn {
+            @include hover-desktop {
+                &::before {
+                    opacity: 0;
+                }
+
+                i {
+                    color: var(--blue);
+                }
+            }
+        }
+
+        &[href*="wa.me"] {
+            @include hover-desktop {
+                &::before {
+                    opacity: 0;
+                }
+
+                i {
+                    color: #25d366;
+                }
+            }
+        }
+    }
+}
+
+// Address styling inside link
+.contact-detail-address__text-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+
+    &:hover {
+        .contact-detail-address__text {
+            color: var(--orange);
+        }
+    }
+}
+
+.contact-detail-address__text {
+    font-size: var(--font-size-m);
+    color: var(--text-main);
+    font-weight: 700;
+    font-family: var(--font-family-title);
+    line-height: 1.4;
+    transition: color 0.2s ease;
+}
+
+// Small inline circular buttons next to detail items
+.contact-detail-inline-btn {
+    width: 2.2rem !important;
+    height: 2.2rem !important;
+    font-size: var(--font-size-s) !important;
+    flex-shrink: 0;
+    margin: 0 !important;
+
+    &[href*="tel:"]:hover,
+    &[href*="mailto:"]:hover {
+        &::before {
+            opacity: 0;
+        }
+
+        i {
+            color: var(--orange);
+        }
+    }
+
+    // Maps inline link hover
+    &[href*="maps"]:hover {
+        &::before {
+            opacity: 0;
+        }
+
+        i {
+            color: var(--orange);
+        }
+    }
+}

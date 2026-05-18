@@ -119,13 +119,14 @@
 // Highlight Badge (used in Hero & Process sections)
 .highlight-badge {
     position: absolute;
-    top: -1.25rem;
-    left: -12%;
+    // top: -1.25rem;
+    // left: -12%;
     transform: translateX(-50%) scale(0);
     opacity: 0;
     transform-origin: bottom right;
     background: var(--orange);
     color: white;
+    text-align: left;
     /* border: 1px; */
     /* border-style: solid; */
     border-color: var(--orange);
@@ -137,10 +138,11 @@
     text-shadow: none;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 6px 8px var(--drop-shadow);
     z-index: 3;
     white-space: nowrap;
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+
 
     a {
         font-weight: 700;
@@ -152,6 +154,7 @@
 
     &::after {
         content: "";
+        z-index: 0;
         position: absolute;
         bottom: -5px;
         left: 91%;
@@ -159,10 +162,34 @@
         border-left: 8px solid transparent;
         // border-right: 8px solid transparent;
         border-top: 12px solid var(--orange);
+
+        // filter: drop-shadow(9px -4px 1.7px rgba(0, 0, 0, 0.167));
+        // .is-desktop & {
+        //     border-top: 12px solid #fff;
+        // }
     }
 
     &.show {
         transform: translateX(-50%) scale(1);
         opacity: 1;
     }
+
+    &__desktop-cta {
+        top: 20%;
+        left: -20%;
+    }
+
+    .is-desktop & {
+        color: #16181b;
+        background-color: #fff;
+
+        a {
+            text-decoration-color: #16181b;
+        }
+
+        &::after {
+            border-top: 12px solid #fff;
+        }
+    }
+
 }

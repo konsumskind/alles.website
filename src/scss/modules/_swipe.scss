@@ -4,7 +4,7 @@
 /* --- Swipe Button Styles --- */
 .swipe-wrapper {
     position: relative;
-    width: 100%;
+    // width: 100%;
 
     .hero & {
         margin: 3rem 0 -0.5rem;
@@ -13,6 +13,26 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        .swipe-wrapper {
+            .highlight-badge {
+                left: 110px;
+                top: -30px;
+                transform: translateX(0) scale(0);
+                transform-origin: bottom left;
+
+                &.show {
+                    transform: translateX(0) scale(1);
+                    opacity: 1;
+                }
+
+                &::after {
+                    bottom: -5px;
+                    left: -7px;
+                    transform: rotate(66deg);
+                }
+            }
+        }
     }
 }
 
